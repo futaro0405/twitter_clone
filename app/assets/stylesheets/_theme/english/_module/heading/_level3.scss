@@ -1,0 +1,14 @@
+@use '../../../../_common/variable' as var;
+@use '../../../../_common/mixin/' as mixin;
+@use '../../../../_common/extend/' as *;
+@use '../../../../_common/function/' as func;
+
+// .m-heading-level3
+// -----------------------------------------------------------------------------
+.m-heading-level3 {
+  &__text {
+    &::before {
+      background-image: url('/en/assets/images/img-heading3.svg');
+    }
+  }
+}

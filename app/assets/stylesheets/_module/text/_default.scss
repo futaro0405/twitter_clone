@@ -1,0 +1,36 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-text
+// -----------------------------------------------------------------------------
+.m-text {
+  $this: &;
+  @extend %module-margin;
+  &--small {
+    font-size: func.px-to-rem(12);
+  }
+
+  &--indent {
+    .m-text__item {
+      margin-left: 16px;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-text {
+    $this: &;
+    &--small {
+      font-size: func.px-to-rem(14);
+    }
+
+    &--indent {
+      .m-text__item {
+        margin-left: 48px;
+      }
+    }
+  }
+}

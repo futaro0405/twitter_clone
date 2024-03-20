@@ -1,0 +1,178 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+// メインコンテンツ
+// -----------------------------------------------------------------------------
+// .l-heading-level1
+// -----------------------------------------------
+.l-heading-level1 {
+  $this: &;
+  @extend %structure-outer;
+
+  background-image: linear-gradient(to right, #e7f1ff, #d4e6ff);
+  border-radius: 0 0 70px 0;
+  margin-bottom: 32px;
+  margin-top: 0;
+  padding: 0;
+  position: relative;
+  z-index: var.$Z_INDEX_DEFAULT;
+
+  &::before,
+  &::after {
+    border-radius: 70px 0 70px 0;
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    z-index: var.$Z_INDEX_LAYER;
+  }
+
+  &::before {
+    background-image: linear-gradient(to left, #e7f1ff, #d4e6ff);
+    left: 0;
+  }
+
+  &::after {
+    background-image: linear-gradient(to right, #e7f1ff, #d4e6ff);
+    right: 0;
+  }
+
+  &__inner {
+    @extend %structure-inner;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+    z-index: var.$Z_INDEX_LAYER + 1; // 背景装飾より上に重ねるために＋1
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    line-height: 1.4;
+    margin-bottom: 4px;
+
+    > #{$this}__subtitle {
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+
+  &__heading { // 事例でのみ使用
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  &__subtitle {
+    font-size: func.px-to-rem(16);
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 16px;
+
+    & + #{$this}__title {
+      margin-bottom: 16px;
+      margin-top: -12px;
+    }
+  }
+
+  &__segment { // ニュース・コラムで使用想定：ラベルとグレーテキスト横並びラッパー
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    #{$this}__text {
+      margin-bottom: 0;
+      + #{$this}__text {
+        margin-left: 8px;
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__text {
+    color: var.$COLOR_CHIP_16;
+    font-size: func.px-to-rem(14);
+    font-weight: normal;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    & + & {
+      margin-top: -16px;
+    }
+  }
+
+  .m-text-label {
+    font-weight: 400;
+    padding: 2px 16px;
+    &--news {
+      padding: 4px 16px;
+    }
+  }
+
+  & + .l-content__outer {
+    padding-top: 0;
+  }
+
+  & + .un-l-mvCarousel {
+    width: calc(100% - 10px);
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .l-heading-level1 {
+    $this: &;
+    border-radius: 0 0 200px 0;
+    margin-bottom: 48px;
+
+    &::before {
+      border-radius: 200px 0 200px 0;
+      width: 70%;
+    }
+
+    &::after {
+      border-radius: 200px 0 200px 0;
+      width: 30%;
+    }
+
+    &__inner {
+      min-height: 160px;
+      padding: 32px 0;
+    }
+
+    &__title {
+      margin-bottom: 8px;
+    }
+
+    &__subtitle {
+      font-size: func.px-to-rem(20);
+    }
+
+    &__segment { // ニュース・コラムで使用想定：ラベルとグレーテキスト横並びラッパー
+      #{$this}__text {
+        + #{$this}__text {
+          margin-left: 16px;
+        }
+      }
+    }
+
+    &__text {
+      font-size: func.px-to-rem(16);
+    }
+
+    & + .un-l-mvCarousel {
+      border-bottom-right-radius: 140px; // __itemのみだとラインが出る為ルートにも指定
+      border-top-right-radius: 140px;
+      width: calc(100% - 70px);
+      .un-l-mvCarousel__item {
+        border-bottom-right-radius: 140px; // iosでルートの指定が効いてない対策
+        border-top-right-radius: 140px; // iosでルートの指定が効いてない対策
+      }
+    }
+  }
+}

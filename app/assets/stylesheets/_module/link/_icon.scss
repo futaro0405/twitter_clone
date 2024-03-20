@@ -1,0 +1,42 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-link-icon
+// -----------------------------------------------------------------------------
+.m-link-icon {
+  $this: &;
+  fill: var.$PRIMARY_COLOR;
+  height: 14px;
+  margin: 0 6px;
+  width: 14px;
+
+  &--pdf {
+    border: 1px solid var.$PRIMARY_COLOR;
+    border-radius: 2px;
+    color: var.$PRIMARY_COLOR;
+    display: inline-block;
+    font-size: func.px-to-rem(10);
+    font-weight: bold;
+    height: auto;
+    line-height: 1;
+    padding: 2px 4px;
+    vertical-align: 2px;
+    width: auto;
+  }
+
+  &--window,
+  &--download {
+    stroke: var.$PRIMARY_COLOR;
+    stroke-width: 12px;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-link-icon {
+    $this: &;
+    margin: 0 8px;
+  }
+}

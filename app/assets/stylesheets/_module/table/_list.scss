@@ -1,0 +1,17 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// テーブルモジュール内にリストモジュールがある場合の調整スタイル
+// -----------------------------------------------------------------------------
+
+.m-table-small {
+  .m-list {
+    &__item {
+      &::before {
+        top: 10px;
+      }
+    }
+  }
+}

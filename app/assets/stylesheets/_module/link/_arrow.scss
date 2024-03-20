@@ -1,0 +1,125 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-link-arrow
+// -----------------------------------------------------------------------------
+.m-link-arrow {
+  $this: &;
+  margin-bottom: 24px;
+  min-height: 40px;
+  text-align: right;
+
+  &__text {
+    color: var.$COLOR_CHIP_16;
+    display: inline-block;
+    font-size: func.px-to-rem(15);
+    line-height: 1.6;
+    padding-right: 52px;
+    position: relative;
+    text-decoration: none;
+    vertical-align: middle;
+
+    &::before,
+    &::after {
+      bottom: 0;
+      content: '';
+      margin: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    // 水色丸
+    &::before {
+      background-color: var.$BACKGROUND_COLOR_2;
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+    }
+
+    // 矢印アイコン
+    &::after {
+      background-repeat: no-repeat;
+      height: 14px;
+      right: 12px;
+      width: 14px;
+      @include mixin.svg(
+        $data:
+          '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+        $fill: var.$PRIMARY_COLOR
+      );
+    }
+
+    &:any-link {
+      &::before,
+      &::after {
+        transition: background-color 0.2s ease-in, background-image 0.2s ease-in,
+          right 0.2s ease-in;
+      }
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+        // 水色丸
+        &::before {
+          background-color: var.$PRIMARY_COLOR;
+        }
+
+        // 矢印アイコン
+        &::after {
+          @include mixin.svg(
+            $data:
+              '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+            $fill: var.$COLOR_CHIP_WHITE
+          );
+          right: 8px;
+        }
+      }
+    }
+  }
+
+  &--center {
+    text-align: center;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-link-arrow {
+    $this: &;
+    margin-bottom: 32px;
+    min-height: 50px;
+
+    &--center-wide {
+      text-align: center;
+    }
+
+    &__text {
+      font-size: func.px-to-rem(16);
+      padding-right: 62px;
+
+      // 水色丸
+      &::before {
+        height: 50px;
+        width: 50px;
+      }
+
+      // 矢印アイコン
+      &::after {
+        right: 18px;
+      }
+
+      &:any-link {
+        &:hover,
+        &:focus {
+          // 矢印アイコン
+          &::after {
+            right: 14px;
+          }
+        }
+      }
+    }
+  }
+}

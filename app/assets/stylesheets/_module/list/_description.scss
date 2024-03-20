@@ -1,0 +1,91 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-list-description
+// -----------------------------------------------------------------------------
+.m-list-description {
+  $this: &;
+  @extend %module-margin;
+  display: flex;
+  flex-direction: column;
+  row-gap: 19px;
+  &--flex {
+    row-gap: 4px;
+    #{$this}__item {
+      column-gap: 1em;
+      display: flex;
+    }
+    #{$this}__dt {
+      flex-shrink: 0;
+    }
+  }
+  &__dt,
+  &__dd {
+    font-size: func.px-to-rem(16);
+    line-height: 1.6;
+  }
+  &__dt {
+    font-weight: bold;
+    position: relative;
+    &::after{
+      left: 100%;
+      position: absolute;
+      top: 0;
+    }
+  }
+  &__dd {
+    @extend %reset-margin;
+  }
+}
+
+// Narrow Viewport
+@include mixin.media-query($range: below) {
+  .m-list-description {
+    $this: &;
+    &--flex {
+      #{$this}__dt {
+        max-width: 6em;
+        &::after{
+          content: '：';
+        }
+      }
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-list-description {
+    $this: &;
+    display: grid;
+    gap: 8px 1.5em;
+    grid-template-columns: minmax(auto, max-content) auto;
+    &--flex {
+      display: flex;
+      flex-direction: column;
+      row-gap: 4px;
+      #{$this}__item {
+        column-gap: 1em;
+        display: flex;
+      }
+    }
+    &__item {
+      display: contents;
+    }
+    &__dt,
+    &__dd {
+      font-size: func.px-to-rem(18);
+    }
+    &__dt {
+      max-width: 11em;
+      &::after{
+        content: '：';
+        left: 100%;
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+}

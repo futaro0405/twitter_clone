@@ -1,0 +1,57 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-link-list
+// -----------------------------------------------------------------------------
+.m-link-list {
+  $this: &;
+  @extend %module-margin;
+  @include mixin.layout(
+    $item: '.m-link-list__item',
+    $layoutGutterHorizontalNarrow: 12,
+    $layoutGutterVerticalNarrow: 12,
+    $layoutGutterHorizontalWide: 32,
+    $layoutGutterVerticalWide: 12,
+    $layoutLoop: 2
+  );
+  &__item {
+    font-size: func.px-to-rem(15);
+    line-height: 1.6;
+  }
+  &__text {
+    display: inline-block;
+    padding-left: 22px;
+    position: relative;
+    text-decoration: none;
+    &::before {
+      // icon-arrowRight.svg
+      @include mixin.svg(
+        $data:
+          '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+        $fill: var.$PRIMARY_COLOR
+      );
+      content: '';
+      height: 15px;
+      left: 0;
+      position: absolute;
+      top: 4px;
+      width: 15px;
+    }
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-link-list {
+    $this: &;
+    &__item {
+      font-size: func.px-to-rem(16);
+    }
+  }
+}

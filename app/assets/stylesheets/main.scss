@@ -1,15 +1,22 @@
-.l-header {
-  padding: 8px 16px;
-  background-color: #bababa;
+// Base
+// -----------------------------------------------------------------------------
+@use '_base';
 
-  &-logo {
-    svg {
-      width: 40px;
-      height: 40px;
-      fill: #fff;
-    }
-  }
-  &-nav {
+// Layout
+// -----------------------------------------------------------------------------
+@use '_layout/breadcrumb';
+@use '_layout/wrap';
+@use '_layout/header';
+@use '_layout/headingLevel1';
+@use '_layout/localNav';
+@use '_layout/navigation.scss';
+@use '_layout/searchInput.scss';
+@use '_layout/content';
+@use '_layout/contact';
+@use '_layout/navigationTop';
+@use '_layout/footer';
+@use '_layout/search';
 
-  }
-}
+// Module
+// -----------------------------------------------------------------------------
+@use '_module';

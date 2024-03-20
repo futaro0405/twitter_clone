@@ -1,0 +1,118 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// Common style
+// -----------------------------------------------------------------------------
+.m-button,
+.m-button-cv {
+  $this: &;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  background-size: 200% auto;
+  border: 2px solid var.$PRIMARY_COLOR;
+  border-radius: 100px;
+  display: inline-block;
+  font-size: func.px-to-rem(18);
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0 auto;
+  max-width: 680px;
+  min-width: 300px;
+  padding: 14px 40px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    background-position: 0 0;
+  }
+
+  .m-link-icon--window,
+  .m-link-icon--download {
+    margin: 0;
+    stroke-width: 15px;
+  }
+
+  .m-link-icon--pdf {
+    vertical-align: 4px;
+  }
+
+  // icon
+  .m-link-icon--window,
+  .m-link-icon--download,
+  &::after {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 15px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+  }
+
+  &.m-button--small,
+  &.m-button-cv--small {
+    font-size: func.px-to-rem(14);
+    min-width: 200px;
+    padding: 10px 30px;
+    // icon
+    .m-link-icon--window,
+    .m-link-icon--download,
+    &::after {
+      height: 12px;
+      right: 8px;
+      top: 50%;
+      width: 12px;
+    }
+    .m-link-icon--pdf {
+      vertical-align: 2px;
+    }
+  }
+
+  &[disabled] {
+    background-color: var.$BACKGROUND_COLOR_11;
+    background-image: none;
+    border-color: var.$BORDER_COLOR_4;
+    color: var.$COLOR_CHIP_16;
+
+    &:hover,
+    &:focus {
+      border-color: var.$BORDER_COLOR_4;
+      transform: none;
+      transition: none;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-button,
+  .m-button-cv {
+    $this: &;
+    font-size: func.px-to-rem(20);
+    max-width: 860px;
+    min-width: 340px;
+    padding: 20px 40px;
+
+    &.m-button--small,
+    &.m-button-cv--small {
+      font-size: func.px-to-rem(14);
+      min-width: 200px;
+      padding: 10px 30px;
+
+      // icon
+      .m-link-icon--window,
+      .m-link-icon--download,
+      &::after {
+        height: 12px;
+        right: 8px;
+        top: 50%;
+        width: 12px;
+      }
+    }
+  }
+}

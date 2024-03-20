@@ -1,0 +1,36 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// width
+// -----------------------------------------------------------------------------
+.u-width {
+  $loopStart: 1;
+  $loopMax: 20;
+  $loopStep: 5;
+
+  @for $i from $loopStart through $loopMax {
+    &-#{$i * $loopStep} {
+      width: #{$i * $loopStep * 1%} !important;
+    }
+  }
+
+  // Narrow Viewport
+  @include mixin.media-query($range: below) {
+    @for $i from $loopStart through $loopMax {
+      &-#{$i * $loopStep}-narrow {
+        width: #{$i * $loopStep * 1%} !important;
+      }
+    }
+  }
+
+  // Wide Viewport
+  @include mixin.media-query {
+    @for $i from $loopStart through $loopMax {
+      &-#{$i * $loopStep}-wide {
+        width: #{$i * $loopStep * 1%} !important;
+      }
+    }
+  }
+}

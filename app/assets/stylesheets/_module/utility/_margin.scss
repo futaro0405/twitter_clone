@@ -1,0 +1,36 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// margin
+// -----------------------------------------------------------------------------
+.u-margin {
+  $loopStart: 0;
+  $loopMax: 5;
+  $loopStep: 20;
+  $unit: '';
+
+  $ary: top, right, bottom, left;
+
+  @each $val in $ary {
+    @for $i from $loopStart through $loopMax {
+      $unit: if(($i * $loopStep) > 0, 'px', '');
+
+      &-#{$val}-#{$i * $loopStep} {
+        margin-#{$val}: #{$i * $loopStep}#{$unit} !important;
+      }
+    }
+  }
+}
+
+
+.u-marginAuto {
+  $ary: top, right, bottom, left;
+
+  @each $val in $ary {
+    &-#{$val} {
+      margin-#{$val}: auto !important;
+    }
+  }
+}

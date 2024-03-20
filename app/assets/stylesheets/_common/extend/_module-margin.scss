@@ -1,0 +1,30 @@
+@use '../variable' as var;
+@use '../mixin/media-query' as mixin;
+
+// 汎用モジュールの共通マージン
+// -----------------------------------------------------------------------------
+%module-margin {
+  // Narrow Viewport
+  @include mixin.media-query($range: below) {
+    margin-bottom: var.$MOD_GUTTER_NARROW;
+  }
+
+  // Wide Viewport
+  @include mixin.media-query {
+    margin-bottom: var.$MOD_GUTTER_WIDE;
+  }
+}
+
+// 汎用モジュールの共通マージン Large
+// -----------------------------------------------------------------------------
+%module-margin-large {
+  // Narrow Viewport
+  @include mixin.media-query($range: below) {
+    margin-bottom: var.$MOD_GUTTER_NARROW_L;
+  }
+
+  // Wide Viewport
+  @include mixin.media-query {
+    margin-bottom: var.$MOD_GUTTER_WIDE_L;
+  }
+}

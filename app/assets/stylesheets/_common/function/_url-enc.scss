@@ -1,0 +1,29 @@
+@use 'str-replace' as *;
+
+// URL文字列をエンコード
+// [参考] http://shanabrian.com/web/sass/svg-url-encode-function.php
+// @param  {String}  $string - エンコード前の文字列
+// @return {String}          - エンコードされた文字列
+// -----------------------------------------------------------------------------
+@function url-enc($string) {
+  $replaceMap: (
+    ' ': '%20',
+    '"': '%22',
+    '#': '%23',
+    '-': '%2d',
+    '.': '%2e',
+    '/': '%2f',
+    ':': '%3a',
+    '<': '%3c',
+    '=': '%3d',
+    '>': '%3e',
+    '{': '%7b',
+    '}': '%7d',
+  );
+
+  @each $key, $val in $replaceMap {
+    $string: str-replace($key, $val, $string, true);
+  }
+
+  @return $string;
+}

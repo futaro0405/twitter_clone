@@ -1,0 +1,623 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+// グローバルナビゲーション
+// -----------------------------------------------------------------------------
+// .l-navigation
+// -----------------------------------------------
+.l-navigation {
+  $this: &;
+
+  display: none;
+
+  // languageSwitch
+  // &__languageSwitch {
+  // }
+
+  &__languageSwitchList {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__languageSwitchListItem {
+    display: flex;
+    position: relative;
+
+    // separator
+    &::before {
+      background-color: var.$COLOR;
+      display: block;
+      height: 14px;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+    }
+
+    & + & {
+      // separator
+      &::before {
+        content: '';
+      }
+    }
+
+    &[aria-current] {
+      position: relative;
+
+      #{$this}__languageSwitchLink {
+        color: var.$PRIMARY_COLOR;
+
+        // marker
+        &::before {
+          content: '';
+        }
+      }
+    }
+  }
+
+  &__languageSwitchLink {
+    align-items: center;
+    color: var.$COLOR;
+    display: flex;
+    font-size: func.px-to-rem(14);
+    height: 100%;
+    justify-content: center;
+    line-height: 1;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+
+    // marker
+    &::before {
+      background-color: var.$PRIMARY_COLOR;
+      border-radius: 50%;
+      bottom: 16px;
+      display: block;
+      height: 8px;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      width: 8px;
+    }
+  }
+
+  // global
+  &__globalListItem {
+    list-style: none;
+  }
+
+  // download
+  &__download {
+    flex: 0 0 152px;
+    height: 40px;
+    margin-left: 16px;
+  }
+
+  // utility
+  // &__utility {
+  // }
+
+  // &__utilityList {
+  // }
+
+  &__utilityListItem {
+    list-style: none;
+  }
+
+  &__utilityLink {
+    display: block;
+    font-size: func.px-to-rem(13);
+    padding: 16px;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Narrow Viewport
+@include mixin.media-query($range: below, $breakpoint: var.$MINOR_BREAKPOINT) {
+  .l-navigation {
+    $this: &;
+
+    background-color: var.$PRIMARY_COLOR;
+    overflow-y: auto;
+    transition: height .3s;
+    width: 100%;
+
+    @include mixin.off-js {
+      display: block;
+    }
+
+    // languageSwitch
+    &__languageSwitch {
+      background-color: var.$COLOR_CHIP_WHITE;
+    }
+
+    // &__languageSwitchList {
+    // }
+
+    &__languageSwitchListItem {
+      flex: 0 0 90px;
+      height: 66px;
+    }
+
+    &__languageSwitchLink {
+      // marker
+      &::before {
+        bottom: 16px;
+      }
+    }
+
+    // global
+    &__global {
+      display: block;
+    }
+
+    &__globalList {
+      background-color: var.$COLOR_CHIP_WHITE;
+    }
+
+    &__globalListItem {
+      border-top: 1px solid var.$BORDER_COLOR;
+    }
+
+    &__globalLink {
+      color: var.$COLOR;
+      display: block;
+      font-size: func.px-to-rem(14);
+      font-weight: bold;
+      padding: 22px 16px;
+      position: relative;
+      text-decoration: none;
+
+      &--disclosure {
+        &::before,
+        &::after {
+          content: '';
+          display: block;
+          height: 16px;
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          transition: transform var.$TRANSITION_DURATION
+            var.$TRANSITION_TIMING_FUNCTION;
+          width: 16px;
+        }
+
+        // 円
+        &::before {
+          @include mixin.svg(
+            $data:
+              '<path d="M17433,21521a8,8,0,1,1,8-8A8.009,8.009,0,0,1,17433,21521Zm-4-9a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z" transform="translate(-17425 -21504.998)"/>',
+            $width: 16,
+            $height: 16,
+            $fill: var.$PRIMARY_COLOR
+          );
+        }
+
+        // マイナス
+        &::after {
+          @include mixin.svg(
+            $data:
+              '<path d="M1,0A1,1,0,0,1,2,1V9A1,1,0,0,1,0,9V1A1,1,0,0,1,1,0Z"/>',
+            $width: 2,
+            $height: 10,
+            $fill: var.$COLOR_CHIP_WHITE
+          );
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 2px;
+          transform: translateY(-50%);
+        }
+
+        &[aria-expanded='true'] {
+          &::after {
+            transform: translateY(-50%) rotate(90deg);
+          }
+        }
+      }
+    }
+
+    // &__globalLinkText {
+    // }
+
+    &__globalChildren {
+      background-color: var.$BACKGROUND_COLOR_4;
+    }
+
+    &__globalChildrenList {
+      padding: 8px 0;
+    }
+
+    &__globalChildrenListItem {
+      &--top {
+        #{$this}__globalChildrenLink {
+          padding-left: 16px;
+        }
+      }
+    }
+
+    &__globalChildrenLink {
+      color: var.$COLOR;
+      display: block;
+      font-size: func.px-to-rem(13);
+      padding: 16px 16px 12px 32px;
+      text-decoration: none;
+    }
+
+    // utility
+    &__utility {
+      background-color: var.$PRIMARY_COLOR;
+      border-top: 1px solid var.$BORDER_COLOR;
+    }
+
+    &__utilityList {
+      padding: 16px 0;
+    }
+
+    // &__utilityListItem {
+    // }
+
+    &__utilityLink {
+      color: var.$COLOR_CHIP_WHITE;
+      font-size: func.px-to-rem(13);
+      padding: 16px;
+    }
+
+    // search wrapper
+    &__search {
+      background-color: var.$PRIMARY_COLOR;
+      border-top: 1px solid var.$BORDER_COLOR;
+      padding: 24px 16px;
+    }
+  }
+}
+
+@include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT) {
+  .l-navigation {
+    $this: &;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 24px;
+    justify-content: flex-end;
+
+    // languageSwitch
+    &__languageSwitch {
+      flex: 0 0 64px;
+      order: 2;
+    }
+
+    // &__languageSwitchList {
+    // }
+
+    &__languageSwitchListItem {
+      flex: 0 0 32px;
+      height: 32px;
+    }
+
+    &__languageSwitchLink {
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+
+      // marker
+      &::before {
+        bottom: -1px;
+      }
+    }
+
+    // global
+    &__global {
+      align-items: center;
+      display: flex;
+      flex: 1 1 100%;
+      justify-content: flex-end;
+      order: 4;
+    }
+
+    &__globalList {
+      display: flex;
+
+      @include mixin.off-js {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    &__globalListItem {
+      &--top {
+        display: none;
+      }
+
+      // グロナビ展開時
+      &.js-headerDisclosure--opened {
+        #{$this}__globalLink {
+          background-color: var.$PRIMARY_COLOR;
+          color: var.$COLOR_CHIP_WHITE;
+
+          &::before {
+            @include mixin.svg(
+              $data:
+                '<path d="M97.2,22.3C97.1,22.2,97,22.1,97,22c-3.7-3.6-9.6-3.4-13.2,0.3L50,57.1L16.2,22.3c-0.1-0.1-0.2-0.2-0.3-0.3c-3.7-3.6-9.6-3.4-13.2,0.3c-3.7,3.9-3.7,10,0,13.9l40.4,41.6c0.1,0.1,0.2,0.2,0.3,0.3c1.9,1.8,4.3,2.6,6.7,2.6c2.4,0,4.8-1,6.6-2.8l40.4-41.6C100.9,32.3,100.9,26.2,97.2,22.3z"/>',
+              $fill: var.$COLOR_CHIP_WHITE
+            );
+          }
+        }
+
+        #{$this}__globalChildren {
+          display: grid;
+        }
+      }
+    }
+
+    &__globalLink {
+      color: var.$COLOR;
+      display: block;
+      font-size: func.px-to-rem(15);
+      font-weight: bold;
+      padding: 20px
+        func.calc-size(
+          $tempSizeFrom: 8px,
+          $tempSizeTo: 16px,
+          $tempViewportFrom: var.$MINOR_BREAKPOINT_2,
+          $tempViewportTo: 1412px
+        )
+        34px;
+      position: relative;
+      text-decoration: none;
+      transition: background-color var.$TRANSITION_DURATION
+        var.$TRANSITION_TIMING_FUNCTION;
+      z-index: var.$Z_INDEX_HEADER + 1; // ドロップダウンのシャドウより上に重ねるために＋1
+
+      // カレント
+      &::after {
+        background-color: var.$PRIMARY_COLOR;
+        border-radius: 100vw;
+        bottom: 16px;
+        content: '';
+        display: none;
+        height: 7px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 7px;
+      }
+
+      &:focus,
+      &:hover {
+        color: var.$PRIMARY_COLOR;
+      }
+
+      // カレントの表示
+      &[aria-current='page'] {
+        &::after {
+          display: block;
+        }
+      }
+
+      &--disclosure {
+        // 元々の余白 + アイコン幅 + 内側余白
+        padding-right: func.calc-size(
+          $tempSizeFrom: 8px + 8px + 8px,
+          $tempSizeTo: 16px + 8px + 5px,
+          $tempViewportFrom: var.$MINOR_BREAKPOINT_2,
+          $tempViewportTo: 1412px
+        );
+
+        // arrow
+        &::before {
+          @include mixin.svg(
+            $data:
+              '<path d="M97.2,22.3C97.1,22.2,97,22.1,97,22c-3.7-3.6-9.6-3.4-13.2,0.3L50,57.1L16.2,22.3c-0.1-0.1-0.2-0.2-0.3-0.3c-3.7-3.6-9.6-3.4-13.2,0.3c-3.7,3.9-3.7,10,0,13.9l40.4,41.6c0.1,0.1,0.2,0.2,0.3,0.3c1.9,1.8,4.3,2.6,6.7,2.6c2.4,0,4.8-1,6.6-2.8l40.4-41.6C100.9,32.3,100.9,26.2,97.2,22.3z"/>',
+            $fill: #333
+          );
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          content: '';
+          display: block;
+          height: 8px;
+          position: absolute;
+          right: func.calc-size(
+            $tempSizeFrom: 8px,
+            $tempSizeTo: 16px,
+            $tempViewportFrom: var.$MINOR_BREAKPOINT_2,
+            $tempViewportTo: 1412px
+          );
+          top: 42%;
+          transform: translateY(-50%);
+          width: 8px;
+        }
+
+        &::after {
+          left: 47%; // arrow分カレント表示の位置ずらす
+        }
+      }
+    }
+
+    &__globalLinkText {
+      font-size: func.px-to-rem(15);
+    }
+
+    &__globalChildren {
+      background-color: var.$COLOR_CHIP;
+      box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3);
+      gap: 0
+        func.calc-size(
+          $tempSizeFrom: 16px,
+          $tempSizeTo: 40px,
+          $tempViewportFrom: 375px,
+          $tempViewportTo: var.$MINOR_BREAKPOINT - 1px
+        );
+      grid-column: 1 / 4;
+      grid-template-columns:
+        1fr minmax(var.$CONTENT_WIDTH_NARROW, 1296px)
+        1fr;
+      left: 0;
+      opacity: 0;
+      padding: 0;
+      position: absolute;
+      top: calc(100% - 1px);
+      width: 100%;
+      z-index: var.$Z_INDEX_HEADER;
+
+      @include mixin.off-js {
+        box-shadow: none;
+        opacity: 1;
+        position: static;
+      }
+    }
+
+    &__globalChildrenListItem {
+      &--top {
+        margin-bottom: 22px;
+        width: 100%;
+
+        #{$this}__globalChildrenLink {
+          &:any-link {
+            &:hover,
+            &:focus {
+              #{$this}__globalChildrenLinkText {
+                &::before {
+                  background-position: 6px;
+                  left: auto;
+                }
+              }
+            }
+          }
+        }
+
+        #{$this}__globalChildrenLinkText {
+          font-size: func.px-to-rem(20);
+          padding-left: 0;
+          padding-right: 35px;
+
+          &::before {
+            background-color: var.$BACKGROUND_COLOR_2;
+            background-position: 4px;
+            background-repeat: no-repeat;
+            background-size: 65%;
+            border-radius: 100vw;
+            height: 24px;
+            left: auto;
+            right: 0;
+            top: 0.1em;
+            transition: background-position var.$TRANSITION_DURATION
+              var.$TRANSITION_TIMING_FUNCTION;
+            width: 24px;
+            @include mixin.svg(
+              $data:
+                '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+              $fill: var.$PRIMARY_COLOR
+            );
+          }
+        }
+      }
+    }
+
+    &__globalChildrenList {
+      background-color: var.$COLOR_CHIP;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 40px;
+      grid-column: 2/3;
+      justify-content: flex-start;
+      margin: 0 auto;
+      padding: 36px 0;
+      width: 100%;
+    }
+
+    &__globalChildrenLinkText {
+      font-size: func.px-to-rem(16);
+      padding-left: 20px;
+      position: relative;
+
+      &::before {
+        content: '';
+        height: 14px;
+        left: -3px;
+        position: absolute;
+        top: 0.4em;
+        transition: left var.$TRANSITION_DURATION
+          var.$TRANSITION_TIMING_FUNCTION;
+        width: 14px;
+        @include mixin.svg(
+          $data:
+            '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+          $fill: var.$COLOR_CHIP_WHITE
+        );
+      }
+
+      &--sp {
+        display: none;
+      }
+    }
+
+    &__globalChildrenLink {
+      color: var.$COLOR_CHIP_WHITE;
+
+      &:any-link {
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+
+          #{$this}__globalChildrenLinkText {
+            &::before {
+              left: -1px;
+            }
+          }
+        }
+      }
+    }
+
+    // utility
+    &__utility {
+      align-items: center;
+      display: flex;
+      flex: 0 0 auto;
+      order: 1;
+    }
+
+    &__utilityList {
+      align-items: center;
+      display: flex;
+      gap: 0 24px;
+    }
+
+    &__utilityListItem {
+      &--contact {
+        display: none;
+      }
+    }
+
+    &__utilityLink {
+      color: var.$COLOR;
+      font-size: func.px-to-rem(14);
+      line-height: 1;
+      padding: 0;
+    }
+
+    // search wrapper
+    &__search {
+      flex: 0 0 307px;
+      order: 3;
+      .l-searchInput {
+        &__input {
+          height: 32px;
+        }
+      }
+    }
+  }
+}

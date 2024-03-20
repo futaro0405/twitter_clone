@@ -1,0 +1,23 @@
+@use '../../../_common/variable' as var;
+@use '../../../_common/mixin/' as mixin;
+@use '../../../_common/extend/' as *;
+@use '../../../_common/function/' as func;
+
+// .un-top-mindText
+// -----------------------------------------------------------------------------
+.un-top-mindText {
+  $this: &;
+  color: var.$COLOR_CHIP_16;
+  font-size: func.px-to-rem(14);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .un-top-mindText {
+    $this: &;
+    font-size: func.px-to-rem(16);
+    margin-bottom: 22px;
+  }
+}

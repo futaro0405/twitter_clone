@@ -1,0 +1,75 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// // .m-form-group
+// // -----------------------------------------------------------------------------
+.m-form-group {
+  $this: &;
+  @extend %module-margin-large;
+  border-top: 1px solid var.$BORDER_COLOR;
+  &__item {
+    border-bottom: 1px solid var.$BORDER_COLOR;
+    display: block;
+  }
+  &__title {
+    @extend %reset-margin;
+    background-color: var.$COLOR_CHIP_8;
+    display: block;
+    font-weight: bold;
+    padding: 14px 16px;
+    width: 100%;
+  }
+  &__label {
+    align-items: center;
+    column-gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    > .m-form-level {
+      margin-left: 0;
+    }
+  }
+  &__content {
+    @extend %reset-margin;
+    background-color: var.$COLOR_CHIP_7;
+    display: flex;
+    flex-direction: column; //inline-blockで余白が変わる対策
+    padding: 14px 16px;
+  }
+}
+
+// // Wide Viewport
+@include mixin.media-query {
+  .m-form-group {
+    $this: &;
+    &__item {
+      background: linear-gradient(to right, var.$COLOR_CHIP_8 ,var.$COLOR_CHIP_8), linear-gradient(to right, var.$COLOR_CHIP_7 ,var.$COLOR_CHIP_7); // 左右セルで高さに差が出た時に背景色が伸びないので、親要素でセルの幅に色を付けた
+      background-position: 0 0, 100% 0;
+      background-repeat: no-repeat;
+      background-size: 25% 100%, 75% 100%;
+      display: flow-root;
+    }
+    &__title {
+      float: left;
+      padding: 24px;
+      width: 25%;
+    }
+    &__content {
+      float: left;
+      padding: 24px;
+      width: 75%;
+    }
+    &--width30-70-wide {
+      #{$this}__item {
+        background-size: 30% 100%, 70% 100%;
+      }
+      #{$this}__title {
+        width: 30%;
+      }
+      #{$this}__content {
+        width: 70%;
+      }
+    }
+  }
+}

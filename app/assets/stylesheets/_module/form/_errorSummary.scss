@@ -1,0 +1,38 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-form-errorSummary
+// -----------------------------------------------------------------------------
+.m-form-errorSummary {
+  $this: &;
+  @extend %module-margin-large;
+  border: 1px solid var.$COLOR_CHIP_15;
+  padding: 24px 16px;
+  > :last-child {
+    margin-bottom: 0;
+  }
+  > .m-form-error {
+    font-size: func.px-to-rem(16);
+    font-weight: bold;
+    margin-bottom: 3px;
+    &::before {
+      top: 2px;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-form-errorSummary {
+    $this: &;
+    padding: 32px 48px;
+    > .m-form-error {
+      font-size: func.px-to-rem(18);
+      &::before {
+        top: 5px;
+      }
+    }
+  }
+}

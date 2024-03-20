@@ -1,0 +1,100 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-form-radio
+// -----------------------------------------------------------------------------
+.m-form-radio {
+  $this: &;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 16px;
+  &__label {
+    position: relative;
+    &:focus,
+    &:hover,
+    &:focus-within {
+      #{$this}__text {
+        &::before {
+          border-color: var.$PRIMARY_COLOR;
+          outline: 1px solid var.$PRIMARY_COLOR;
+        }
+      }
+      #{$this}__input--error + #{$this}__text {
+        &::before {
+          border-color: var.$COLOR_CHIP_15;
+          outline-color: var.$COLOR_CHIP_15;
+        }
+      }
+    }
+  }
+  &__input {
+    display: block;
+    height: 0;
+    left: 0.5em;
+    opacity: 0;
+    position: absolute;
+    top: 0.5em;
+    width: 0;
+    &:checked {
+      + #{$this}__text {
+          &::after {
+            content: '';
+          }
+      }
+    }
+    &--error {
+      + #{$this}__text {
+        &::before {
+          background-color: var.$COLOR_CHIP_11;
+          border-color: var.$COLOR_CHIP_15;
+        }
+      }
+    }
+  }
+  &__text {
+    color: var.$COLOR;
+    display: inline-block;
+    font-size: func.px-to-rem(14);
+    padding-left: 32px;
+    position: relative;
+
+    &::before {
+      background-color: var.$BACKGROUND_COLOR;
+      border: 1px solid var.$BORDER_COLOR;
+      border-radius: 50%;
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 24px;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      width: 24px;
+    }
+    &::after {
+      background-color: var.$PRIMARY_COLOR;
+      border-radius: 50%;
+      bottom: 0;
+      display: block;
+      height: 12px;
+      left: 6px;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      width: 12px;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-form-radio {
+    $this: &;
+    flex-direction: row;
+    gap: 16px 32px;
+  }
+}

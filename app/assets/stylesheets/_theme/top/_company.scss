@@ -1,0 +1,70 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .un-top-company
+// -----------------------------------------------------------------------------
+.un-top-company {
+  $this: &;
+
+  &__text {
+    color: var.$COLOR_CHIP_16;
+    font-size: func.px-to-rem(15);
+    margin-bottom: 32px;
+    text-shadow: 1px 1px 0 var.$BACKGROUND_COLOR_4,
+      -1px -1px 0 var.$BACKGROUND_COLOR_4, -1px 1px 0 var.$BACKGROUND_COLOR_4,
+      1px -1px 0 var.$BACKGROUND_COLOR_4, 0px 1px 0 var.$BACKGROUND_COLOR_4,
+      0 -1px 0 var.$BACKGROUND_COLOR_4, -1px 0 0 var.$BACKGROUND_COLOR_4,
+      1px 0 0 var.$BACKGROUND_COLOR_4;
+  }
+
+  &__list {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 26px;
+  }
+  &__listItem {
+    display: flex;
+    flex-direction: column;
+  }
+  &__listText {
+    background-color: var.$BACKGROUND_COLOR_4;
+    border: 2px solid var.$PRIMARY_COLOR;
+    border-radius: 20px / 50%;
+    color: var.$PRIMARY_COLOR;
+    display: inline-block;
+    font-size: func.px-to-rem(15);
+    margin-bottom: 8px;
+    padding: 6px 20px;
+    width: max-content;
+  }
+  &__listImg {
+    max-height: 80px;
+    object-fit: contain;
+    object-position: center;
+    vertical-align: middle;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .un-top-company {
+    $this: &;
+    max-width: max(51%, 724px);
+
+    &__list {
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    &__listItem {
+      text-align: center;
+    }
+    &__listText {
+      padding: 5px 45px;
+    }
+    &__listImg {
+      max-height: 114px;
+    }
+  }
+}

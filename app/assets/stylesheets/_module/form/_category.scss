@@ -1,0 +1,35 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-form-category
+// -----------------------------------------------------------------------------
+.m-form-category {
+  $this: &;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  &__button {
+    color: #333;
+    font-size: func.px-to-rem(13);
+    text-decoration: underline;
+    user-select: none;
+    &--disabled {
+      pointer-events: none;
+      text-decoration: none;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-form-category {
+    $this: &;
+
+    &__button {
+      font-size: func.px-to-rem(14);
+    }
+  }
+}

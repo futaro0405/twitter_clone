@@ -1,0 +1,73 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+$HOVER_COLOR: #ff5e19;
+$HOVER_COLOR_TYPE2: #5570c3;
+
+// .un-newRecruit-button
+// -----------------------------------------------------------------------------
+.un-newRecruit-button {
+  $this: &;
+  align-items: center;
+  background-image: linear-gradient(
+    to right,
+    $HOVER_COLOR 0%,
+    $HOVER_COLOR 50%,
+    #e64700 50%,
+    #e64700 100%
+  );
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  background-size: 200% auto;
+  color: var.$COLOR_CHIP_WHITE;
+  display: flex;
+  justify-content: center;
+  padding: 10px 40px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-position ease-out .3s;
+  &:hover,
+  &:focus {
+    background-position: 0 0;
+  }
+  &--colorType2 {
+    background-color: var.$PRIMARY_COLOR;
+  background-image: linear-gradient(
+    to right,
+    $HOVER_COLOR_TYPE2 0%,
+    $HOVER_COLOR_TYPE2 50%,
+    var.$PRIMARY_COLOR 50%,
+    var.$PRIMARY_COLOR 100%
+  );
+  }
+  &__text {
+    font-size: func.px-to-rem(18);
+    font-weight: bold;
+  }
+  &__subText {
+    display: block;
+    font-size: func.px-to-rem(14);
+    line-height: 1.5;
+  }
+
+  .m-link-icon--window {
+    bottom: 0;
+    height: 14px;
+    margin: auto 0;
+    position: absolute;
+    right: 16px;
+    stroke: var.$COLOR_CHIP_WHITE;
+    top: 0;
+    width: 14px;
+  }
+}
+
+// Wide Viewport
+// @include mixin.media-query {
+//   .un-newRecruit-button {
+//     $this: &;
+//   }
+// }

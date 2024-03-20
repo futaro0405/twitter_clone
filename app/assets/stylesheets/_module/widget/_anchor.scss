@@ -1,0 +1,113 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-widget-anchor
+// -----------------------------------------------------------------------------
+.m-widget-anchor {
+  $this: &;
+
+  @extend %module-margin-large; // H2,H3,H4と隣接した場合、本モジュールの余白が優勢
+  background-color: var.$BACKGROUND_COLOR_6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+  &__item {
+    @extend %reset-margin;
+    font-size: func.px-to-rem(14);
+    line-height: 1.6;
+    padding: 6px 0;
+    position: relative;
+    &:not(:last-of-type) {
+      padding-right: 16px;
+      // 縦線
+      &::after {
+        border-right: 1px solid var.$COLOR_CHIP_13;
+        bottom: 0;
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+  &__link {
+    align-items: center;
+    column-gap: 8px;
+    display: inline-flex;
+    text-decoration: none;
+    &:any-link {
+      color: var.$COLOR;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+    // アロー
+    &::after {
+      content: '';
+      flex-shrink: 0;
+      height: 13px;
+      width: 13px;
+      @include mixin.svg(
+        $data:
+          '<path d="M97.2,22.3C97.1,22.2,97,22.1,97,22c-3.7-3.6-9.6-3.4-13.2,0.3L50,57.1L16.2,22.3c-0.1-0.1-0.2-0.2-0.3-0.3c-3.7-3.6-9.6-3.4-13.2,0.3c-3.7,3.9-3.7,10,0,13.9l40.4,41.6c0.1,0.1,0.2,0.2,0.3,0.3c1.9,1.8,4.3,2.6,6.7,2.6c2.4,0,4.8-1,6.6-2.8l40.4-41.6C100.9,32.3,100.9,26.2,97.2,22.3z"/>',
+        $fill: var.$PRIMARY_COLOR
+      );
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+    gap: 8px 0;
+    #{$this}__item {
+      padding: 0;
+      &:not(:last-of-type) {
+        padding-right: 0;
+        // 縦線
+        &::after {
+          content: none;
+        }
+      }
+      > #{$this}--vertical {
+        margin-left: 22px;
+        margin-top: 8px;
+        padding: 0;
+      }
+    }
+  }
+}
+
+// ヘッダーはマイナーブレイクポイントで変更
+
+@include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT) {
+  .m-widget-anchor {
+    top: 0;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-widget-anchor {
+    $this: &;
+    gap: 8px 32px;
+    padding: 16px 32px;
+    &__item {
+      font-size: func.px-to-rem(16);
+      &:not(:last-of-type) {
+        padding-right: 32px;
+      }
+    }
+
+    &--vertical {
+      #{$this}__item {
+        > #{$this}--vertical {
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+}

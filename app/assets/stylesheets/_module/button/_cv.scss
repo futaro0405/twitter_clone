@@ -1,0 +1,65 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+$HOVER_COLOR: #5570c3;
+
+// .m-button-cv
+// -----------------------------------------------------------------------------
+.m-button-cv {
+  $this: &;
+  background-image: linear-gradient(
+    to right,
+    $HOVER_COLOR 0%,
+    $HOVER_COLOR 50%,
+    var.$PRIMARY_COLOR 50%,
+    var.$PRIMARY_COLOR 100%
+  );
+  color: var.$COLOR_CHIP_WHITE;
+  transition: background-position ease-out 0.3s, border-color 0.3s;
+
+  &:hover,
+  &:focus {
+    border-color: $HOVER_COLOR;
+  }
+
+  .m-link-icon--window,
+  .m-link-icon--download {
+    stroke: var.$COLOR_CHIP_WHITE;
+  }
+
+  .m-link-icon--pdf {
+    border-color: var.$COLOR_CHIP_WHITE;
+    color: var.$COLOR_CHIP_WHITE;
+  }
+
+  &--next {
+    // icon-arrowRight.svg
+    &::after {
+      content: '';
+      @include mixin.svg(
+        $data: '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+        $fill: var.$COLOR_CHIP_WHITE
+      );
+    }
+  }
+
+  &--anchor {
+    // icon-angleDown.svg
+    &::after {
+      content: '';
+      @include mixin.svg(
+        $data: '<path d="M97.2,22.3C97.1,22.2,97,22.1,97,22c-3.7-3.6-9.6-3.4-13.2,0.3L50,57.1L16.2,22.3c-0.1-0.1-0.2-0.2-0.3-0.3c-3.7-3.6-9.6-3.4-13.2,0.3c-3.7,3.9-3.7,10,0,13.9l40.4,41.6c0.1,0.1,0.2,0.2,0.3,0.3c1.9,1.8,4.3,2.6,6.7,2.6c2.4,0,4.8-1,6.6-2.8l40.4-41.6C100.9,32.3,100.9,26.2,97.2,22.3z"/>',
+        $fill: var.$COLOR_CHIP_WHITE
+      );
+    }
+  }
+}
+
+// Wide Viewport
+// @include mixin.media-query {
+//   .m-button-cv {
+//     $this: &;
+//   }
+// }

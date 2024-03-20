@@ -1,0 +1,10 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// word-break
+// -----------------------------------------------------------------------------
+.u-wordBreak {
+  word-break: break-all !important;
+}

@@ -1,0 +1,103 @@
+@use '../variable' as *;
+@use '../mixin/media-query' as *;
+@use '../function/calc-percentage' as *;
+
+// コンテンツをカラム状に分割
+// @param {Number} $breakpoint                   - ブレークポイント（単位つき）
+// @param {String} $container                    - Flex コンテナーのセレクタ（一つだけ。「>」は不要）
+// @param {String} $item                         - Flex アイテムのセレクタ（一つだけ。「>」は不要）
+// @param {Number} $contentWidthNarrow           - 最小ビューポート幅（単位なし）
+// @param {Number} $contentWidthWide             - 最大ビューポート幅（単位なし）
+// @param {Number} $layoutGutterHorizontalNarrow - ブレークポイント未満時のグリッド同士の横方向の間隔（単位なし）
+// @param {Number} $layoutGutterVerticalNarrow   - ブレークポイント未満時のグリッド同士の縦方向の間隔（単位なし）
+// @param {Number} $layoutGutterHorizontalWide   - ブレークポイント以上時のグリッド同士の横方向の間隔（単位なし）
+// @param {Number} $layoutGutterVerticalWide     - ブレークポイント以上時のグリッド同士の縦方向の間隔（単位なし）
+// @param {Number} $layoutLoop                   - ループ回数
+// -----------------------------------------------------------------------------
+@mixin layout(
+  $breakpoint: $MAJOR_BREAKPOINT,
+  $item: '',
+  $contentWidthNarrow: 375,
+  $contentWidthWide: 1440,
+  $layoutGutterHorizontalNarrow: 24,
+  $layoutGutterVerticalNarrow: 32,
+  $layoutGutterHorizontalWide: 32,
+  $layoutGutterVerticalWide: 32,
+  $layoutLoop: 5
+) {
+  // Narrow Viewport
+  @include media-query($range: below, $breakpoint: $breakpoint) {
+    $gutterHorizontal: calc-percentage(
+      $layoutGutterHorizontalNarrow,
+      $contentWidthNarrow
+    );
+    $gutterVertical: #{$layoutGutterVerticalNarrow}px;
+
+    &[data-col-narrow] {
+      gap: $gutterVertical clamp(#{$layoutGutterHorizontalNarrow}px, #{$gutterHorizontal}, #{$layoutGutterHorizontalWide}px);
+      &[data-col-narrow='auto'] {
+        display: flex;
+        flex-wrap: wrap;
+
+        #{$item} {
+          flex: 0 0 auto;
+          height: 100%;
+          max-width: 100%;
+        }
+      }
+
+      &:not([data-col-narrow='auto']) {
+        display: grid;
+
+        #{$item} {
+          height: 100%;
+          margin: 0;
+        }
+
+        @for $i from 1 through $layoutLoop {
+          &[data-col-narrow='#{$i}'] {
+            grid-template-columns: repeat($i, 1fr);
+          }
+        }
+      }
+    }
+  }
+
+  // Wide Viewport
+  @include media-query($range: above, $breakpoint: $breakpoint) {
+    $gutterHorizontal: calc-percentage(
+      $layoutGutterHorizontalWide,
+      $contentWidthWide
+    );
+    $gutterVertical: #{$layoutGutterVerticalWide}px;
+
+    &[data-col-wide] {
+      gap: $gutterVertical clamp(#{$layoutGutterHorizontalNarrow}px, #{$gutterHorizontal}, #{$layoutGutterHorizontalWide}px);
+      &[data-col-wide='auto'] {
+        display: flex;
+        flex-wrap: wrap;
+
+        #{$item} {
+          flex: 0 0 auto;
+          height: 100%;
+          max-width: 100%;
+        }
+      }
+
+      &:not([data-col-wide='auto']) {
+        display: grid;
+
+        #{$item} {
+          height: 100%;
+          margin: 0;
+        }
+
+        @for $i from 1 through $layoutLoop {
+          &[data-col-wide='#{$i}'] {
+            grid-template-columns: repeat($i, 1fr);
+          }
+        }
+      }
+    }
+  }
+}

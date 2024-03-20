@@ -1,0 +1,14 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// Wide Viewport
+// 複数カラムの時にboxの高さを自動調整
+@include mixin.media-query {
+  .m-layout {
+    .m-box {
+      height: 100%;
+    }
+  }
+}

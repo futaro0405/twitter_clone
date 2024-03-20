@@ -1,0 +1,75 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// -----------------------------------------------------------------------------
+// Variable
+// -----------------------------------------------
+// 最大ビューポート幅
+$_CONTENT_WIDTH_WIDE_MAIN: 1428px;
+
+// .un-list-newsImportant
+// -----------------------------------------------------------------------------
+.un-list-newsImportant {
+  $this: &;
+  max-width: $_CONTENT_WIDTH_WIDE_MAIN;
+  padding: 24px 0 24px 32px;
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+
+    & + & {
+      margin-top: 16px;
+    }
+  }
+  &__text {
+    color: var.$COLOR;
+    flex-basis: 100%;
+    font-size: func.px-to-rem(15);
+    margin-top: 8px;
+  }
+  &__time {
+    align-self: center;
+    color: var.$COLOR;
+    font-size: func.px-to-rem(14);
+    line-height: 2;
+  }
+  &__label {
+    background-color: var.$COLOR_CHIP_15;
+    border-color: var.$COLOR_CHIP_15;
+    border-radius: 15px / 50%;
+    color: var.$COLOR_CHIP_WHITE;
+    font-size: func.px-to-rem(14);
+    margin-left: 22px;
+    padding: 2px 16px;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .un-list-newsImportant {
+    $this: &;
+    padding: 24px func.calc-size(var.$CONTENT_INNER_GUTTER_X_NARROW, 64px);
+    &__item {
+      align-items: flex-start;
+      flex-wrap: nowrap;
+    }
+    &__text {
+      flex-basis: auto;
+      font-size: func.px-to-rem(16);
+      margin-left: 32px;
+      margin-top: 0;
+    }
+    &__time {
+      align-self: baseline;
+      flex-basis: 8em;
+      flex-shrink: 0;
+    }
+    &__label {
+      flex-shrink: 0;
+      margin-left: 32px;
+    }
+  }
+}

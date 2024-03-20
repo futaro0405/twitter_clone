@@ -1,0 +1,22 @@
+@use '../../../_common/variable' as var;
+@use '../../../_common/mixin/' as mixin;
+@use '../../../_common/extend/' as *;
+@use '../../../_common/function/' as func;
+
+// .un-top-mindLead
+// -----------------------------------------------------------------------------
+.un-top-mindLead {
+  $this: &;
+  display: block;
+  margin: 0 auto 10px;
+  max-width: 260px;
+  width: max-content;
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .un-top-mindLead {
+    $this: &;
+    max-width: 463px;
+  }
+}

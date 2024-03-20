@@ -1,0 +1,297 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-panel-type4
+// -----------------------------------------------------------------------------
+.m-panel-type4 {
+  $this: &;
+
+  @extend %module-margin-large;
+  @include mixin.layout(
+    $item: '.m-panel-type4__item',
+    $layoutGutterHorizontalNarrow: 16,
+    $layoutGutterVerticalNarrow: 16,
+    $layoutGutterHorizontalWide: 32,
+    $layoutGutterVerticalWide: 32,
+    $layoutLoop: 4
+  );
+
+  &__item {
+    background-color: var.$BACKGROUND_COLOR_4;
+  }
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    &:any-link {
+      color: var.$COLOR;
+      position: relative;
+      text-decoration: none;
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        transition: background-color .2s ease-in, background-image .2s ease-in,
+          right .2s ease-in;
+      }
+      // 水色丸
+      &::before {
+        background-color: var.$BACKGROUND_COLOR_2;
+        border-radius: 50%;
+      }
+      // 矢印アイコン
+      &::after {
+        background-repeat: no-repeat;
+        @include mixin.svg(
+          $data:
+            '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+          $fill: var.$PRIMARY_COLOR
+        );
+      }
+      &:hover,
+      &:focus {
+        // 水色丸
+        &::before {
+          background-color: var.$PRIMARY_COLOR;
+        }
+        // 矢印アイコン
+        &::after {
+          @include mixin.svg(
+            $data:
+              '<path d="M91.8,74.4H8.2c-4.6,0-8.2-3.7-8.2-8.2c0-4.5,3.7-8.2,8.2-8.2H77L64.8,38.2c-2.4-3.9-1.2-8.9,2.7-11.3c3.9-2.4,9-1.2,11.3,2.7l19.9,32.3c1.6,2.5,1.6,5.7,0.2,8.3C97.5,72.8,94.7,74.4,91.8,74.4z"/>',
+            $fill: var.$COLOR_CHIP_WHITE
+          );
+        }
+        #{$this}__title {
+          text-decoration: underline;
+        }
+        #{$this}__image {
+          opacity: .7;
+        }
+      }
+    }
+  }
+  &__inner {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 1 100%;
+    flex-direction: column;
+    > :last-child {
+      margin-bottom: 0;
+    }
+    > .m-text-labelPill {
+      margin-bottom: 8px;
+    }
+    > .m-text-labelList {
+      margin-top: auto;
+    }
+    > .m-list-description--flex {
+      margin-bottom: 8px;
+      row-gap: 0;
+      .m-list-description__item {
+        column-gap: 1rem;
+      }
+      .m-list-description__dt,
+      .m-list-description__dd {
+        color: var.$COLOR_CHIP_16;
+        font-size: func.px-to-rem(14);
+      }
+    }
+  }
+  &__title {
+    display: block;
+    font-size: func.px-to-rem(18);
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 7px;
+    &:only-child {
+      font-size: func.px-to-rem(24);
+    }
+  }
+  &__text {
+    color: var.$COLOR_CHIP_16;
+    font-size: func.px-to-rem(14);
+    margin-bottom: 8px;
+    + .m-list-description--flex {
+      margin-top: -8px;
+    }
+  }
+  &__media {
+    background-color: var.$BACKGROUND_COLOR;
+    border: 2px solid var.$COLOR_CHIP_7;
+    border-bottom: none;
+    flex: 1 0 auto;
+    order: -1;
+    overflow: hidden;
+    text-align: center;
+  }
+  &__image {
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    transition: opacity .3s ease-out;
+    vertical-align: middle;
+  }
+}
+
+// Narrow Viewport
+@include mixin.media-query($range: below) {
+  .m-panel-type4 {
+    $this: &;
+    &[data-col-narrow='1'] {
+      #{$this}__item {
+        border-radius: 0 60px 0 60px;
+      }
+      #{$this}__wrap {
+        &:any-link {
+          // 水色丸
+          &::before {
+            bottom: 16px;
+            height: 42px;
+            right: 16px;
+            width: 42px;
+          }
+          // 矢印アイコン
+          &::after {
+            bottom: 32px;
+            height: 14px;
+            right: 30px;
+            width: 14px;
+          }
+          #{$this}__inner {
+            min-height: 103px;
+            padding-bottom: 64px;
+          }
+          &:hover,
+          &:focus {
+            // 矢印アイコン
+            &::after {
+              right: 28px;
+            }
+          }
+        }
+      }
+      #{$this}__inner {
+        padding: 16px 16px 24px;
+      }
+      #{$this}__media {
+        border-top-right-radius: 60px;
+      }
+      #{$this}__title {
+        &:only-child {
+          font-size: func.px-to-rem(20);
+        }
+      }
+    }
+
+    &[data-col-narrow='2'] {
+      #{$this}__item {
+        border-radius: 0 30px 0 30px;
+      }
+      #{$this}__wrap {
+        &:any-link {
+          // 水色丸
+          &::before {
+            bottom: 12px;
+            height: 29px;
+            right: 12px;
+            width: 29px;
+          }
+          // 矢印アイコン
+          &::after {
+            bottom: 22px;
+            height: 12px;
+            right: 20px;
+            width: 12px;
+          }
+          #{$this}__inner {
+            min-height: 85px;
+            padding-right: 47px;
+          }
+          &:hover,
+          &:focus {
+            // 矢印アイコン
+            &::after {
+              right: 18px;
+            }
+          }
+        }
+      }
+      #{$this}__inner {
+        padding: 12px;
+      }
+      #{$this}__media {
+        border-top-right-radius: 30px;
+      }
+      #{$this}__title {
+        &:only-child {
+          font-size: func.px-to-rem(16);
+        }
+      }
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-panel-type4 {
+    $this: &;
+
+    &[data-col-wide='2'],
+    &[data-col-wide='3'],
+    &[data-col-wide='4'] {
+      #{$this}__item {
+        border-radius: 0 60px 0 60px;
+      }
+      #{$this}__wrap {
+        &:any-link {
+          // 水色丸
+          &::before {
+            bottom: 16px;
+            height: 42px;
+            right: 16px;
+            width: 42px;
+          }
+          // 矢印アイコン
+          &::after {
+            bottom: 32px;
+            height: 14px;
+            right: 30px;
+            width: 14px;
+          }
+          #{$this}__inner {
+            min-height: 133px;
+            padding-bottom: 63px;
+          }
+          &:hover,
+          &:focus {
+            // 矢印アイコン
+            &::after {
+              right: 28px;
+            }
+          }
+        }
+      }
+      #{$this}__inner {
+        padding: 24px 24px 32px;
+      }
+      #{$this}__media {
+        border-top-right-radius: 60px;
+      }
+      #{$this}__image {
+        aspect-ratio: 3/2;
+        height: 100%;
+        object-fit: scale-down;
+        object-position: center;
+        width: 100%;
+      }
+    }
+
+    &[data-col-wide='2'] {
+      #{$this}__title {
+        font-size: func.px-to-rem(20);
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-media-youtube
+// -----------------------------------------------------------------------------
+.m-media-youtube {
+  $this: &;
+
+  &__wrap {
+    aspect-ratio: 16 / 9;
+  }
+}

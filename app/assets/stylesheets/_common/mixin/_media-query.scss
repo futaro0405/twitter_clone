@@ -1,0 +1,30 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../variable' as *;
+
+// メディアクエリを設定
+// @param {String} $range          - メディアクエリのサポート範囲（below | above | between）
+// @param {Number} $breakpoint     - ブレークポイント（単位つき）
+// @param {Number} $breakpoint-min - $range: betweenの際のブレークポイントの下限（単位つき）
+// @param {Number} $breakpoint-max - $range: betweenの際のブレークポイントの上限（単位つき）
+// -----------------------------------------------------------------------------
+@mixin media-query(
+  $range: above,
+  $breakpoint: $MAJOR_BREAKPOINT,
+  $breakpoint-min: null,
+  $breakpoint-max: null
+) {
+  $rangeMap: (
+    'below': '(max-width: #{$breakpoint - 1px})',
+    'above': '(min-width: #{$breakpoint})',
+    'between': '(min-width: #{$breakpoint-min}) and (max-width: #{$breakpoint-max})',
+  ) !default;
+
+  @if map.has-key($rangeMap, $range) {
+    @media #{map.get($rangeMap, $range)} {
+      @content;
+    }
+  } @else {
+    @error '指定した引数は未定義です。指定できる値は次のとおりです。 ⇒ [#{map-keys($rangeMap)}]';
+  }
+}

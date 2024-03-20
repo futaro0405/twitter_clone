@@ -1,0 +1,34 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .un-top-backgroundHead
+// -----------------------------------------------------------------------------
+.un-top-backgroundHead {
+  $this: &;
+  position: relative;
+  &::before {
+    background-image: url('/assets/images/bg-top-column.png');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: -84px;
+    width: 100%;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .un-top-backgroundHead {
+    $this: &;
+    &::before {
+      background-image: url('/assets/images/bg-top-column-wide.png');
+    }
+  }
+}

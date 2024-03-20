@@ -1,0 +1,62 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-heading-level2
+// -----------------------------------------------------------------------------
+.m-heading-level2 {
+  $this: &;
+
+  margin: 64px 0 16px;
+  position: relative;
+
+  &__text {
+    line-height: 1.4;
+    padding-bottom: 8px;
+  }
+
+  &::before,
+  &::after {
+    border-radius: 4px 0 4px 0;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 2px;
+    position: absolute;
+  }
+
+  &::before {
+    background-color: var.$PRIMARY_COLOR;
+    width: 100%;
+  }
+
+  &::after {
+    background-color: var.$SECONDARY_COLOR;
+    width: 150px;
+  }
+
+  .m-heading-level1 + & {
+    margin-top: 0;
+  }
+
+  .m-widget-anchor + & {
+    margin-top: 32px;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-heading-level2 {
+    $this: &;
+    margin: 80px 0 32px;
+
+    &__text {
+      padding-bottom: 10px;
+    }
+
+    .m-widget-anchor + & {
+      margin-top: 40px;
+    }
+  }
+}

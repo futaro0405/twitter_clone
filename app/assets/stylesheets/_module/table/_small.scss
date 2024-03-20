@@ -1,0 +1,98 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-table-small
+// -----------------------------------------------------------------------------
+.m-table-small {
+  $this: &;
+  border-bottom: 1px solid var.$BORDER_COLOR;
+  border-top: 1px solid var.$BORDER_COLOR;
+  &__thead {
+    #{$this}__th {
+      vertical-align: middle;
+    }
+  }
+  &__th,
+  &__td {
+    border: 1px solid var.$COLOR_CHIP_WHITE;
+    font-size: func.px-to-rem(14);
+    line-height: 1.5;
+    padding: 12px 16px;
+  }
+  &__tr {
+    #{$this}__th,
+    #{$this}__td {
+      border-top: none;
+    }
+  }
+  &--bcGreen {
+    border-bottom: 1px solid var.$BORDER_COLOR_3;
+    border-top: 1px solid var.$BORDER_COLOR_3;
+  }
+  &--zebra {
+    thead {
+      #{$this}__th {
+        &:first-child {
+          border-left: 1px solid var.$COLOR_CHIP_7;
+        }
+        &:last-child {
+          border-right: 1px solid var.$COLOR_CHIP_7;
+        }
+      }
+    }
+    tbody {
+      #{$this}__tr {
+        &:nth-child(even) {
+          .m-table-small__td {
+            background-color: var.$COLOR_CHIP_WHITE;
+            border-right: 1px solid var.$COLOR_CHIP_7;
+            &:first-child {
+              border-left: 1px solid var.$COLOR_CHIP_7;
+            }
+        }
+        }
+      }
+      #{$this}__td {
+          &:first-child {
+            border-left: 1px solid var.$COLOR_CHIP_7;
+          }
+          &:last-child {
+            border-right: 1px solid var.$COLOR_CHIP_7;
+          }
+      }
+    }
+  }
+}
+
+// Narrow Viewport
+// @include mixin.media-query($range: below) {
+//   .m-table-small {
+//     $this: &;
+//     &__inner {
+//       // display: block;
+//       // overflow-x: scroll;
+//       // white-space: nowrap;
+//       // width: 100%;
+//     }
+//     // &__colgroup {
+//     //   display: table-column-group;
+//     // }
+//     &__th,
+//     &__td {
+//       // display: table-cell;
+//     }
+//   }
+// }
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-table-small {
+    $this: &;
+    &__th,
+    &__td {
+      font-size: func.px-to-rem(16);
+    }
+  }
+}

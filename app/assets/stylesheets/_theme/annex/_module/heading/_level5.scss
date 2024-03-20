@@ -1,0 +1,13 @@
+@use '../../../../_common/variable' as var;
+@use '../../../../_common/mixin/' as mixin;
+@use '../../../../_common/extend/' as *;
+@use '../../../../_common/function/' as func;
+
+// .m-heading-level5
+// -----------------------------------------------------------------------------
+.m-heading-level5 {
+  $this: &;
+  &::before {
+    background-color: #4DC5AC;
+  }
+}

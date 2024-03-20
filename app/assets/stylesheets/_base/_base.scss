@@ -1,0 +1,293 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+// Base
+// -----------------------------------------------------------------------------
+* {
+  &,
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+}
+
+// Margin, Padding Reset
+// -----------------------------------------------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+dl,
+dt,
+dd,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+// Border Reset
+// -----------------------------------------------
+img,
+button {
+  border: 0;
+}
+
+// The document element
+// -----------------------------------------------
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+// Sections
+// -----------------------------------------------
+body {
+  @extend %reset-margin;
+  background-color: var.$BACKGROUND_COLOR;
+  color: var.$COLOR;
+  font-family: var.$FONT_FAMILY;
+  font-size: func.px-to-rem(var.$FONT_SIZE_NARROW);
+  height: 100%;
+  line-height: var.$LINE_HEIGHT;
+  overflow-x: hidden;
+  position: relative;
+
+  @include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT) {
+    // border
+    &::before {
+      background-color: var.$PRIMARY_COLOR;
+      content: '';
+      display: block;
+      height: 100vh;
+      left: 0;
+      position: fixed;
+      top: 0;
+      width: 13px;
+      z-index: var.$Z_INDEX_HEADER + 1;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+h1 {
+  font-size: func.px-to-rem(22);
+}
+
+h2 {
+  font-size: func.px-to-rem(21);
+}
+
+h3 {
+  font-size: func.px-to-rem(20);
+}
+
+h4 {
+  font-size: func.px-to-rem(18);
+}
+
+h5 {
+  font-size: func.px-to-rem(17);
+}
+
+h6 {
+  font-size: func.px-to-rem(16);
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  body {
+    font-size: func.px-to-rem(var.$FONT_SIZE_WIDE);
+  }
+
+  h1 {
+    font-size: func.px-to-rem(32);
+  }
+
+  h2 {
+    font-size: func.px-to-rem(28);
+  }
+
+  h3 {
+    font-size: func.px-to-rem(24);
+  }
+
+  h4 {
+    font-size: func.px-to-rem(22);
+  }
+
+  h5 {
+    font-size: func.px-to-rem(20);
+  }
+
+  h6 {
+    font-size: func.px-to-rem(18);
+  }
+}
+
+// Grouping content
+// -----------------------------------------------
+// ul,
+// ol,
+// dl {
+// }
+
+li,
+dt,
+dd {
+  list-style: none;
+}
+
+// Text-level semantics
+// -----------------------------------------------
+em,
+strong,
+b {
+  font-style: normal;
+  font-weight: 600;
+}
+
+em {
+  color: var.$PRIMARY_COLOR;
+}
+
+strong {
+  color: var.$COLOR_CHIP_15;
+}
+
+sub,
+sup {
+  bottom: -0.2em;
+  font-size: 50%;
+}
+
+hr {
+  border: 1px solid var.$BORDER_COLOR_2;
+  border-width: 1px 0 0 0;
+  margin: 0;
+}
+
+// Links
+// -----------------------------------------------
+// a {
+// }
+
+// Embedded content
+// -----------------------------------------------
+img,
+svg {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+
+a {
+  color: var.$COLOR_CHIP_16;
+  text-decoration: underline;
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+
+  img {
+    pointer-events: none;
+  }
+}
+
+// Tabular data
+// -----------------------------------------------
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th {
+  font-weight: 600;
+  text-align: left;
+}
+
+// Forms
+// -----------------------------------------------
+label {
+  cursor: pointer;
+}
+
+input,
+button,
+select,
+textarea,
+[role='button'] {
+  border-radius: 0;
+  color: inherit;
+  font-size: func.px-to-rem(16);
+  line-height: inherit;
+  max-width: 100%;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+input {
+  font-size: func.px-to-rem(16);
+  &[type='hidden'] {
+    display: none;
+  }
+
+  &::-ms-clear {
+    visibility: hidden;
+  }
+}
+
+select {
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+textarea {
+  font-size: func.px-to-rem(16);
+  overflow-x: hidden; // IE
+  overflow-y: auto; // IE
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+// Interactive elements
+// -----------------------------------------------
+// details {
+//     &[open] {
+//     }
+// }
+
+summary {
+  list-style: none;
+}
+
+// Scripting
+// -----------------------------------------------
+noscript {
+  display: none;
+}

@@ -1,0 +1,116 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-list-profile
+// -----------------------------------------------------------------------------
+.m-list-profile {
+  $this: &;
+
+  @extend %module-margin-large;
+  @include mixin.inlineLinkIcon($link: '.m-list-profile__link');
+  @include mixin.layout(
+    $item: '.m-list-profile__item',
+    $layoutGutterHorizontalNarrow: 8,
+    $layoutGutterVerticalNarrow: 8,
+    $layoutGutterHorizontalWide: 32,
+    $layoutGutterVerticalWide: 16,
+    $layoutLoop: 3
+  );
+
+  &__item {
+    background-color: var.$BACKGROUND_COLOR_4;
+    border-radius: 0 40px 0 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  &__content {
+    padding: 16px;
+    &:only-child {
+      padding-left: 32px;
+    }
+  }
+  &__note,
+  &__subTitle,
+  &__title,
+  &__link {
+    line-height: 1.5;
+  }
+  &__title,
+  &__link {
+    color: var.$COLOR;
+  }
+  &__note,
+  &__subTitle,
+  &__link {
+    font-size: func.px-to-rem(14);
+  }
+  &__title,
+  &__subTitle {
+    display: block;
+  }
+  &__note {
+    display: inline-block;
+  }
+  &__title {
+    font-size: func.px-to-rem(20);
+    margin-bottom: 2px;
+  }
+  &__subTitle {
+    color: var.$COLOR_CHIP_16;
+    margin-bottom: 8px;
+  }
+  &__link {
+    display: inline-block;
+    padding-right: 36px;
+    position: relative;
+    text-decoration: none;
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__iconLink {
+    height: 28px;
+    margin-left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 28px;
+  }
+  &__media {
+    border-bottom-left-radius: 40px;
+    flex: 0 0 auto;
+    overflow: hidden;
+  }
+  &__image {
+    aspect-ratio: 1/1;
+    height: 100%;
+    max-width: 140px;
+    object-fit: cover;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-list-profile {
+    $this: &;
+    &__note {
+      font-size: func.px-to-rem(14);
+    }
+    &__title {
+      font-size: func.px-to-rem(24);
+    }
+    &__content {
+      padding: 16px 32px;
+    }
+    &__link {
+      font-size: func.px-to-rem(16);
+    }
+    &__image {
+      max-width: 160px;
+    }
+  }
+}

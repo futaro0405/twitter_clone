@@ -1,0 +1,27 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-form-level
+// -----------------------------------------------------------------------------
+.m-form-level {
+  $this: &;
+  background-color: #bbb;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: func.px-to-rem(12);
+  margin-left: 8px;
+  padding: 0 10px;
+
+  &--required {
+    background-color: var.$SECONDARY_COLOR;
+  }
+}
+
+// Wide Viewport
+// @include mixin.media-query {
+//   .m-form-level {
+//     $this: &;
+//   }
+// }

@@ -1,0 +1,20 @@
+@use '../variable' as var;
+@use '../mixin/' as mixin;
+@use '../extend/reset-margin' as *;
+@use '../function/' as func;
+
+// 全幅のコンテナー
+// -----------------------------------------------------------------------------
+%structure-outer {
+  background-color: var.$COLOR_CHIP_WHITE;
+  display: grid;
+  gap: 0
+    func.calc-size(
+      var.$CONTENT_INNER_GUTTER_X_NARROW,
+      var.$CONTENT_INNER_GUTTER_X_WIDE
+    );
+  grid-column: 1 / 4;
+  grid-template-columns:
+    1fr minmax(var.$CONTENT_WIDTH_NARROW, var.$CONTENT_WIDTH_WIDE)
+    1fr;
+}

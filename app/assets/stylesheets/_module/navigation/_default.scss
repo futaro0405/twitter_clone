@@ -1,0 +1,19 @@
+// @use '../../_common/variable' as var;
+// @use '../../_common/mixin/' as mixin;
+// @use '../../_common/extend/' as *;
+// @use '../../_common/function/' as func;
+
+// // .m-nav
+// // -----------------------------------------------------------------------------
+// .m-nav {
+//     $this: &;
+//
+//     @extend %module-margin;
+// }
+
+// // Wide Viewport
+// @include mixin.media-query {
+//     .m-nav {
+//         $this: &;
+//     }
+// }

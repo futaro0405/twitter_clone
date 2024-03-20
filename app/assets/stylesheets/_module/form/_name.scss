@@ -1,0 +1,41 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// // .m-form-name
+// // -----------------------------------------------------------------------------
+.m-form-name {
+  $this: &;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  &__item {
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// // Wide Viewport
+@include mixin.media-query {
+  .m-form-name {
+    $this: &;
+    column-gap: 32px;
+    flex-direction: row;
+    &__item {
+      display: flex;
+      flex: 1 1 50%;
+      flex-direction: column;
+      justify-content: end;
+      padding-left: calc(1em + 4px);
+      position: relative;
+      .m-form-label__text {
+        bottom: 0;
+        left: 0;
+        margin-bottom: 12px;
+        position: absolute;
+      }
+    }
+  }
+}

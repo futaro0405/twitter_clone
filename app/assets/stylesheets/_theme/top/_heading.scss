@@ -1,0 +1,76 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .un-top-heading
+// -----------------------------------------------------------------------------
+.un-top-heading {
+  $this: &;
+  color: var.$PRIMARY_COLOR;
+  font-family: var.$FONT_FAMILY_SANS_ENG;
+  font-size: func.px-to-rem(32);
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 26px;
+  text-align: center;
+  &__supplement {
+    color: var.$COLOR_CHIP_16;
+    display: block;
+    font-size: func.px-to-rem(16);
+    margin-top: 6px;
+  }
+  &__bracketsText {
+    border-image: url('/assets/images/bg-top-column-parentheses.svg'); // かっこの丸い端
+    border-image-repeat: round;
+    border-image-slice: 50%;
+    border-style: solid;
+    border-width: 12px;
+    color: var.$PRIMARY_COLOR;
+    font-size: func.px-to-rem(15);
+    line-height: 2;
+    margin: 0 18px 40px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    // かっこの縦ライン
+    &::before,
+    &::after {
+      background-color: var.$PRIMARY_COLOR;
+      content: '';
+      height: calc(100% + 4px);
+      inset: 0 auto;
+      margin: auto;
+      position: absolute;
+      width: 2px;
+    }
+    &::before {
+      left: -12px;
+    }
+    &::after {
+      right: -12px;
+    }
+  }
+  &--column {
+    background-image: url('/assets/images/bg-top-column.svg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-top: -84px;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .un-top-heading {
+    $this: &;
+    &__supplement {
+      margin-top: 8px;
+    }
+    &__bracketsText {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 373px;
+    }
+  }
+}

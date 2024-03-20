@@ -1,0 +1,253 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+$HOVER_COLOR: #5570c3;
+
+// メインコンテンツ
+// -----------------------------------------------------------------------------
+// .l-content
+// -----------------------------------------------
+.l-content {
+  $this: &;
+
+  @extend %structure;
+  grid-area: content;
+
+  &__outer {
+    @extend %structure-outer;
+    @extend %reset-margin;
+    padding: 64px 0;
+
+    &--backgroundColor,
+    &--backgroundColor-type2 {
+      .m-panel-type4 {
+        &__item {
+          background-color: var.$BACKGROUND_COLOR;
+        }
+        &__media {
+          border: none;
+        }
+      }
+    }
+
+    &--backgroundColor {
+      background-color: var.$BACKGROUND_COLOR_4;
+
+      .m-panel {
+        &__item {
+          border-bottom: none;
+          padding: 0;
+        }
+        &__wrap {
+          padding: 16px;
+          &:any-link {
+            &::before {
+              bottom: 16px;
+              right: 16px;
+            }
+            &::after {
+              bottom: 25px;
+              right: 25px;
+            }
+            &:hover,
+            &:focus {
+              &::after {
+                right: 23px;
+              }
+            }
+          }
+        }
+      }
+
+      .m-panel-type3 {
+        &__item {
+          border: transparent;
+        }
+      }
+
+      .m-list-news {
+        &__item {
+          border-bottom: none;
+          margin-top: 1px;
+        }
+        &__wrap {
+          background-color: var.$BACKGROUND_COLOR;
+          &:any-link {
+            padding-right: 53px;
+            // 丸
+            &::before {
+              right: 16px;
+            }
+            // 矢印アイコン
+            &::after {
+              right: 24px;
+            }
+            &:hover,
+            &:focus {
+              &::after {
+                right: 22px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &--backgroundColor-type2 {
+      background-color: var.$BACKGROUND_COLOR_6;
+    }
+
+    &:not(.l-content__outer--backgroundColor) {
+      .m-heading-level2 + .m-list-news,
+      .m-heading-level3 + .m-list-news {
+        margin-top: -16px;
+      }
+    }
+  }
+
+  &__inner {
+    @extend %structure-inner;
+    @extend %reset-margin;
+
+    &--fullBleed {
+      grid-column: 1/4;
+    }
+  }
+
+  // search wrapper
+  &__innerSearch {
+    background-color: var.$BACKGROUND_COLOR_4;
+    padding: 16px;
+
+    .l-searchInput {
+      column-gap: 8px;
+      &__input {
+        border-radius: 3px;
+        max-width: 600px;
+        padding-right: 15px;
+        width: auto;
+      }
+      &__searchButton {
+        background-image: linear-gradient(
+          to right,
+          $HOVER_COLOR 0%,
+          $HOVER_COLOR 50%,
+          var.$PRIMARY_COLOR 50%,
+          var.$PRIMARY_COLOR 100%
+        );
+        background-position: 100% 0;
+        background-repeat: no-repeat;
+        background-size: 200% auto;
+        color: var.$COLOR_CHIP_WHITE;
+        flex-basis: auto;
+        font-size: func.px-to-rem(14);
+        margin-left: 0;
+        padding: 0 24px;
+        transition: background-position var.$TRANSITION_TIMING_FUNCTION var.$TRANSITION_DURATION, border-color var.$TRANSITION_TIMING_FUNCTION var.$TRANSITION_DURATION;
+        &:hover,
+        &:focus {
+          background-position: 0 0;
+          border-color: $HOVER_COLOR;
+        }
+        &::before {
+          content: none;
+        }
+      }
+    }
+  }
+}
+
+// Narrow Viewport
+// @include mixin.media-query($range: below) {
+//   .l-content {
+//     $this: &;
+
+//     &__outer {
+//     }
+//   }
+// }
+
+// Wide Viewport
+@include mixin.media-query {
+  .l-content {
+    $this: &;
+
+    &__outer {
+      padding: 80px 0;
+
+      &--backgroundColor {
+        .m-list-news {
+          border-collapse: separate;
+          border-spacing: 0 1px;
+          &__data,
+          &__content {
+            border-bottom: none;
+            border-top: none;
+          }
+          &__wrap {
+            &:any-link {
+              .m-list-news__content {
+                padding-right: 65px;
+                // 丸
+                &::before {
+                  right: 14px;
+                }
+                // 矢印アイコン
+                &::after {
+                  right: 26px;
+                }
+              }
+              &:hover,
+              &:focus {
+                .m-list-news__content {
+                  &::after {
+                    right: 22px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .m-panel {
+          &__wrap {
+            padding: 24px;
+            &:any-link {
+              &::before,
+              &::after {
+                bottom: 50%;
+              }
+              &::before {
+                right: 14px;
+              }
+              &::after {
+                right: 26px;
+              }
+              &:hover,
+              &:focus {
+                &::after {
+                  right: 22px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &:not(.l-content__outer--backgroundColor) {
+        .m-heading-level2 + .m-list-news {
+          margin-top: -32px;
+        }
+        .m-heading-level3 + .m-list-news {
+          margin-top: -24px;
+        }
+      }
+    }
+    // search wrapper
+    &__innerSearch {
+      padding: 24px;
+    }
+  }
+}

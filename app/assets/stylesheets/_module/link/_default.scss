@@ -1,0 +1,22 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-link
+// -----------------------------------------------------------------------------
+.m-link {
+  $this: &;
+  &--disabled {
+    color: var.$COLOR;
+    pointer-events: none;
+    text-decoration: none;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-link {
+    $this: &;
+  }
+}

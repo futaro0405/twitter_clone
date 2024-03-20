@@ -1,0 +1,28 @@
+@use 'sass:string';
+
+// 文字列の置換
+// [参考] http://shanabrian.com/web/sass/str-replace.php
+// @param  {String}  $substr    - 置換前の文字列
+// @param  {String}  $newSubstr - 置換後の文字列
+// @param  {String}  $str       - 元となる文字列
+// @param  {Boolean} $all       - すべて置換するかどうか。falseの場合は最初に見つかった1つのみを置換する。
+// @return {String}             - 置換された文字列
+// -----------------------------------------------------------------------------
+@function str-replace($substr, $newSubstr, $str, $all: false) {
+  $pos: string.index($str, $substr);
+
+  @while $pos != null {
+    $strLength: string.length($substr);
+    $start: string.slice($str, 0, $pos - 1);
+    $end: string.slice($str, $pos + $strLength);
+    $str: $start + $newSubstr + $end;
+
+    @if $all == true {
+      $pos: string.index($str, $substr);
+    } @else {
+      $pos: null;
+    }
+  }
+
+  @return $str;
+}

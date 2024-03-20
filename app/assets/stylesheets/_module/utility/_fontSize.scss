@@ -1,0 +1,72 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// font-size
+// -----------------------------------------------------------------------------
+// Narrow Viewport
+@include mixin.media-query($range: below) {
+  .u-fontSize {
+    &-xxs {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW - 6) !important;
+    }
+
+    &-xs {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW - 4) !important;
+    }
+
+    &-sm {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW - 2) !important;
+    }
+
+    &-md {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW) !important;
+    }
+
+    &-lg {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW + 2) !important;
+    }
+
+    &-xl {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW + 4) !important;
+    }
+
+    &-xxl {
+      font-size: func.px-to-rem(var.$FONT_SIZE_NARROW + 6) !important;
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .u-fontSize {
+    &-xxs {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE - 6) !important;
+    }
+
+    &-xs {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE - 4) !important;
+    }
+
+    &-sm {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE - 2) !important;
+    }
+
+    &-md {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE) !important;
+    }
+
+    &-lg {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE + 2) !important;
+    }
+
+    &-xl {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE + 4) !important;
+    }
+
+    &-xxl {
+      font-size: func.px-to-rem(var.$FONT_SIZE_WIDE + 6) !important;
+    }
+  }
+}

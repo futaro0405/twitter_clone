@@ -1,0 +1,12 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .js-connectionEvent
+// -----------------------------------------------------------------------------
+.js-connectionEvent {
+  @include mixin.off-js {
+    display: none;
+  }
+}

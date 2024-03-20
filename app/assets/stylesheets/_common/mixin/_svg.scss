@@ -1,0 +1,20 @@
+@use '../function/url-enc' as *;
+
+// 背景画像にSVG画像を使用（カラー指定可）
+// @param {String} $data   - SVG画像のsvg要素以外の要素
+// @param {Number} $width  - viewBox属性の値（単位なし、初期値 100）
+// @param {Number} $height - viewBox属性の値（単位なし、初期値 100）
+// @param {Color}  $fill   - fillプロパティの値（初期値 null）
+// -----------------------------------------------------------------------------
+@mixin svg($data: '', $width: 100, $height: 100, $fill: null) {
+  $dataBind: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + $width +
+    ' ' + $height + '"';
+
+  @if $fill {
+    $dataBind: $dataBind + ' fill="' + $fill + '"';
+  }
+
+  $dataBind: $dataBind + '>' + $data + '</svg>';
+
+  background-image: url('data:image/svg+xml; charset=utf8, #{url-enc($dataBind)}');
+}

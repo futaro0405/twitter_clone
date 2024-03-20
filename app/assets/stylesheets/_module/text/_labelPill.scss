@@ -1,0 +1,29 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-text-labelPill
+// -----------------------------------------------------------------------------
+.m-text-labelPill {
+  $this: &;
+  background-color: var.$BACKGROUND_COLOR_4;
+  border: 1px solid var.$BORDER_COLOR;
+  border-radius: 15px / 50%;
+  color: var.$COLOR_CHIP_16;
+  font-size: func.px-to-rem(12);
+  line-height: 1.5;
+  padding: 4px 16px;
+
+  &--colorType2 {
+    background-color: var.$COLOR_CHIP_WHITE;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-text-labelPill {
+    $this: &;
+    font-size: func.px-to-rem(14);
+  }
+}

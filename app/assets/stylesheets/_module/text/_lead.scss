@@ -1,0 +1,24 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+// .m-text-lead
+// -----------------------------------------------------------------------------
+.m-text-lead {
+  $this: &;
+  color: var.$PRIMARY_COLOR;
+  display: block;
+  font-size: func.px-to-rem(18);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .m-text-lead {
+    $this: &;
+    font-size: func.px-to-rem(20);
+    margin-bottom: 24px;
+  }
+}
