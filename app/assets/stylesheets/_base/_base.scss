@@ -58,21 +58,6 @@ body {
   line-height: var.$LINE_HEIGHT;
   overflow-x: hidden;
   position: relative;
-
-  @include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT) {
-    // border
-    &::before {
-      background-color: var.$PRIMARY_COLOR;
-      content: '';
-      display: block;
-      height: 100vh;
-      left: 0;
-      position: fixed;
-      top: 0;
-      width: 13px;
-      z-index: var.$Z_INDEX_HEADER + 1;
-    }
-  }
 }
 
 h1,

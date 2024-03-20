@@ -8,7 +8,10 @@ html
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-  body
+  body.l-wrap
     = render "shared/header"
-    = yield
+    main.l-content
+      .l-content__outer
+        .l-content__inner
+          = yield
     = render "shared/footer"

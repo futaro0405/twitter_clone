@@ -1,16 +1,41 @@
-@forward 'box';
-@forward 'button';
-@forward 'form';
-@forward 'heading';
-@forward 'media';
-@forward 'link';
-@forward 'list';
-@forward 'layout';
-@forward 'navigation';
-@forward 'notice';
-@forward 'panel';
-@forward 'table';
-@forward 'text';
-@forward 'widget';
-@forward 'utility';
-@forward 'other/';
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+.login-box {
+  $this: &;
+  display: flex;
+  justify-content: center;
+
+  &__inner {
+    background-color: var.$BACKGROUND_COLOR;
+    display: flex;
+    flex-direction: row;
+    padding: 40px 0;
+    border-radius: 8px;
+  }
+
+  &__container {
+    @extend %reset-margin;
+    background-color: var.$BACKGROUND_COLOR;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 64px;
+
+    & + & {
+      border-left: 1px solid #333;
+    }
+  }
+  
+  &__title {
+    text-align: center;
+    font-size: func.px-to-rem(22);
+  }
+}
+
+
+// Wide Viewport
+@include mixin.media-query {
+
+}

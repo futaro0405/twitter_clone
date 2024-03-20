@@ -1,13 +1,14 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  .container.px-4.px-lg-5
-    = link_to root_path, class: 'navbar-brand' do
-      i.bi.bi-twitter
-
-  button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
-    span.navbar-toggler-icon
-  #navbarSupportedContent.collapse.navbar-collapse
-    ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
-      li.nav-item
-        = link_to 'login', new_user_session_path, class: "btn btn-primary"
-      li.nav-item
-        = link_to 'new', new_user_registration_path, class: "btn btn-outline-primary"
+.l-header
+  nav.navbar.navbar-expand-lg.bg-body-tertiary
+    .container.px-4.px-lg-5
+      = link_to root_path, class: 'navbar-brand l-header__logo' do
+        svg.bi.bi-chat-square-fill[xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16"]
+          path[d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"]
+      button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse.justify-content-end#navbarText
+        ul.navbar-nav.mb-2.mb-lg-0.l-header__nav
+          li.nav-item.l-header__nav-item
+            = link_to 'login', new_user_session_path, class: "nav-link"
+          li.nav-item.l-header__nav-item
+            = link_to 'new', new_user_registration_path, class: "nav-link"
