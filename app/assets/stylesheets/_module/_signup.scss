@@ -12,9 +12,12 @@
     background-color: var.$BACKGROUND_COLOR;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     padding: 40px 0;
     border-radius: 8px;
     box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.35);
+    width: 100%;
+    max-width: 600px;
   }
 
   &__container {
@@ -174,6 +177,21 @@
       opacity: .8;
     }
   }
+}
+
+#error_explanation {
+  color: var.$COLOR_CHIP_15;
+  margin-bottom: 32px;
+
+  h3 {
+    font-size: func.px-to-rem(18);
+    margin-bottom: 16px;
+  }
+
+  ul {
+    font-size: func.px-to-rem(14);
+  }
+
 }
 
 

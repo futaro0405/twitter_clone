@@ -11,9 +11,11 @@ module Users
     # end
 
     # POST /resource
-    # def create
-    #   super
-    # end
+    def create
+      super
+
+      WelcomeMailer.send_when_signup(params[:user][:email], params[:user][:name]).deliver
+    end
 
     # GET /resource/edit
     # def edit
