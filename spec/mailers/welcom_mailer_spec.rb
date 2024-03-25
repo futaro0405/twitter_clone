@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe WelcomMailer, type: :mailer do
+RSpec.describe WelcomeMailer, type: :mailer do
   describe "send_when_signup" do
-    let(:mail) { WelcomMailer.send_when_signup }
+    let(:mail) { WelcomeMailer.send_when_signup }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Send when signup")
