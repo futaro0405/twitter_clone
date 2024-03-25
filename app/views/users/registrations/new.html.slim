@@ -24,6 +24,10 @@
           .signup-box__input
             = f.password_field :password_confirmation, autocomplete: "new-password"
 
+          = f.label :name, class: "signup-box__label"
+          .signup-box__input
+            = f.text_field :name, autofocus: true, autocomplete: "email"
+
           = f.label :telephone, class: "signup-box__label"
           .signup-box__input
             = f.telephone_field :telephone, autofocus: true, autocomplete: "telephone"
