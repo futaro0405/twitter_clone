@@ -16,3 +16,7 @@
           - else
             li.nav-item.l-header__nav-item
               = link_to 'logout', destroy_user_session_path, method: :delete, class: "nav-link"
+
+- flash.each do |message_type, message|
+  = content_tag :div, message, class: message_type
+- end
