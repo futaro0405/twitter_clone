@@ -1,0 +1,28 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+.home-nav {
+  $this: &;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+}
+
+
+// Wide Viewport
+@include mixin.media-query {
+  .home-nav {
+    $this: &;
+
+  }
+}
