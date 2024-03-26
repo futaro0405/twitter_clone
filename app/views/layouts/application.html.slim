@@ -11,6 +11,9 @@ html
   body.l-wrap
     = render "shared/header"
     main.l-content
+      - flash.each do |message_type, message|
+        = content_tag :div, message, class: message_type
+
       .l-content__outer
         .l-content__inner
           = yield
