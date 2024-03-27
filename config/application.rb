@@ -12,6 +12,7 @@ module Myapp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -27,6 +28,7 @@ module Myapp
                        helper_specs: false,
                        routing_specs: false
       g.factory_bot false
+      g.template_engine = :slim
     end
     config.action_view.default_form_builder = 'ApplicationFormBuilder'
   end

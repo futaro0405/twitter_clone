@@ -1,0 +1,20 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+// ラッパー
+// -----------------------------------------------------------------------------
+// .l-wrap
+// -----------------------------------------------
+.l-wrap {
+  display: grid;
+  grid-template-areas: 'header' 'content' 'footer';
+  grid-template-rows: auto 1fr auto;
+}
+
+// // Wide Viewport
+// @include mixin.media-query {
+//     .l-wrap {
+//     }
+// }

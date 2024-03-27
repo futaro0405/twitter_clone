@@ -1,0 +1,40 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+$HOVER_COLOR: #5570c3;
+
+// メインコンテンツ
+// -----------------------------------------------------------------------------
+// .l-content
+// -----------------------------------------------
+.l-content {
+  $this: &;
+
+  @extend %structure;
+  grid-area: content;
+
+  &__outer {
+    @extend %structure-outer;
+    @extend %reset-margin;
+    padding: 64px 0;
+    background-color: var.$SECONDARY_COLOR_2;
+  }
+
+  &__inner {
+    @extend %structure-inner;
+    @extend %reset-margin;
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query {
+  .l-content {
+    $this: &;
+
+    &__outer {
+      padding: 80px 0;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../variable' as *;
+
+// JSがon/off時の設定
+// -----------------------------------------------------------------------------
+@mixin on-js() {
+  html[data-script-enabled='true'] & {
+    @content;
+  }
+}
+
+@mixin off-js() {
+  html:not([data-script-enabled='true']) & {
+    @content;
+  }
+}

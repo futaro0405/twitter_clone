@@ -1,0 +1,34 @@
+@use 'sass:math';
+@use '../variable' as var;
+@use '../mixin/' as mixin;
+@use 'strip-unit' as *;
+@use 'px-to-rem' as *;
+
+// 特定のビューポート幅帯でサイズ可変させる
+// @param  {Number}  $tempSizeFrom     - 最小サイズ
+// @param  {Number}  $tempSizeTo       - 最大サイズ
+// @param  {Number}  $tempViewportFrom - 最小ビューポート
+// @param  {Number}  $tempViewportTo   - 最大ビューポート
+// @return {Function}                  - clamp()
+// -----------------------------------------------------------------------------
+@function calc-size(
+  $tempSizeFrom,
+  $tempSizeTo,
+  $tempViewportFrom: var.$MAJOR_BREAKPOINT,
+  $tempViewportTo: var.$MINOR_BREAKPOINT
+) {
+  $sizeFrom: strip-unit($tempSizeFrom);
+  $sizeTo: strip-unit($tempSizeTo);
+  $viewportFrom: strip-unit($tempViewportFrom);
+  $viewportTo: strip-unit($tempViewportTo);
+
+  $formula1: #{math.div($viewportFrom, 100) * 0.0625}rem; // .0625rem = 1px
+  $formula2: math.div(
+    100 * ($sizeTo - $sizeFrom),
+    ($viewportTo - $viewportFrom)
+  );
+  $formula3: $sizeFrom * 0.0625rem; // .0625rem = 1px
+  $formula4: calc(#{$formula3} + ((1vw - #{$formula1}) * (#{$formula2})));
+
+  @return clamp(px-to-rem($sizeFrom), $formula4, px-to-rem($sizeTo));
+}

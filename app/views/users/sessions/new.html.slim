@@ -1,0 +1,27 @@
+.login-box
+  .login-box__inner
+    .login-box__container
+      h2.login-box__title
+        | Log in
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .login-box__form
+          .login-box__field
+            = f.label :email, class: "login-box__label"
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "login-box__input"
+
+          .login-box__field
+            = f.label :password, class: "login-box__label"
+            = f.password_field :password, autocomplete: "current-password", class: "login-box__input"
+          - if devise_mapping.rememberable?
+            .login-box__checkbox
+              = f.check_box :remember_me
+              = f.label :remember_me, class: "login-box__label"
+          .login-box__actions
+            = f.submit "Log in"
+      = render "users/shared/links"
+
+    .login-box__container
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .login-box__form
+          .login-box__actions
+            = f.submit "gitHub"

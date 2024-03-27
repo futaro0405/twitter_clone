@@ -1,0 +1,17 @@
+p
+  | Welcome 
+  = @resource.name
+  | !
+
+- if @resource.try(:unconfirmed_email?)
+  p
+    | You can confirm your account email through the link below:
+  p
+    = link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+  p
+    | This URL is valid for 24 hours.
+- else
+  p
+    | Membership registration has been completed.
+p
+  = link_to 'Open a web page', root_path

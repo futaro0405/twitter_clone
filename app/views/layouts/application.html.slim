@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title
+      | Myapp
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+  body.l-wrap
+    = render "shared/header"
+    main.l-content
+      - flash.each do |message_type, message|
+        = content_tag :div, message, class: message_type
+
+      .l-content__outer
+        .l-content__inner
+          = yield
+    = render "shared/footer"

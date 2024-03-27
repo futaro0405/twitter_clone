@@ -1,0 +1,41 @@
+.signup-box
+  .signup-box__inner
+    .signup-box__container
+      h2.signup-box__title
+        | Sign up
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = render "users/shared/error_messages", resource: resource
+        .signup-box__form
+          = f.label :email, class: "signup-box__label"
+          .signup-box__input
+            = f.email_field :email, autofocus: true, autocomplete: "email"
+
+          .signup-box__label
+            = f.label :password
+            - if @minimum_password_length
+              em
+                | (
+                = @minimum_password_length
+                |  characters minimum)
+          .signup-box__input
+            = f.password_field :password, autocomplete: "new-password"
+
+          = f.label :password_confirmation, class: "signup-box__label"
+          .signup-box__input
+            = f.password_field :password_confirmation, autocomplete: "new-password"
+
+          = f.label :name, class: "signup-box__label"
+          .signup-box__input
+            = f.text_field :name, autofocus: true, autocomplete: "name"
+
+          = f.label :telephone, class: "signup-box__label"
+          .signup-box__input
+            = f.telephone_field :telephone, autofocus: true, autocomplete: "telephone"
+
+          = f.label :birth_date, "birthday", class: "signup-box__label"
+          .signup-box__input.signup-box__select
+            = f.date_select :birth_date, {use_month_numbers: true, start_year: 1950, end_year: (Time.now.year), use_two_digit_numbers: true, default: Date.new(2000, 1, 1)}, {class: "input-tab birthday-select"}
+
+        .signup-box__actions
+          = f.submit "Sign up"
+      = render "users/shared/links"
