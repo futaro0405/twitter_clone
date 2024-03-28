@@ -43,15 +43,13 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
-
-  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  # config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # config.action_mailer.smtp_settings = {
   #   address: 'smtp.gmail.com',
   #   domain: 'gmail.com',
   #   port: 587,
-  #   user_name: ENV['GMAIL_ADDRESS'],
-  #   password: ENV['GMAIL_PASSWORD'],
+  #   user_name: Rails.application.credentials.gmail[:address],
+  #   password: Rails.application.credentials.gmail[:password],
   #   authentication: :login
   # }
 
@@ -82,5 +80,4 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.web_console.permissions = '0.0.0.0/0'
-  config.hosts << "xclone-web.onrender.com"
 end
