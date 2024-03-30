@@ -3,4 +3,12 @@
     .home__nav
       = render "shared/nav"
     .home__content
-      = render "shared/nav"
+      - if user_signed_in?
+        .post
+          .post__head
+            .post__name
+              = current_user.name
+            .post__submit
+              .button__layout
+                button.button
+                  | post
