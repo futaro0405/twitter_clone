@@ -13,6 +13,8 @@ module Users
     # POST /resource
     def create
       super
+        resource.update(confirmed_at: Time.now.utc)
+      end
     end
 
     # GET /resource/edit
