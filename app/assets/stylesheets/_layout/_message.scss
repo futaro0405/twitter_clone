@@ -9,22 +9,21 @@ $HOVER_COLOR: #5570c3;
 // -----------------------------------------------------------------------------
 // .l-content
 // -----------------------------------------------
-.l-content {
+.l-message {
   $this: &;
 
   @extend %structure;
-  grid-area: content;
+  grid-area: message;
 
   &__outer {
     @extend %structure-outer;
     @extend %reset-margin;
-    background-color: var.$SECONDARY_COLOR_2;
+    background-color: var.$BACKGROUND_COLOR;
   }
 
   &__inner {
     @extend %structure-inner;
     @extend %reset-margin;
-    background-color: var.$BACKGROUND_COLOR;
   }
 }
 

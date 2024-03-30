@@ -6,12 +6,11 @@
 .home {
   $this: &;
 
-  background-color: var.$BACKGROUND_COLOR;
   border-radius: 4px;
 
   &__inner {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
   }
 
   &__nav {

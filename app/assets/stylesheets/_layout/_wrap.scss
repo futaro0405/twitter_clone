@@ -9,8 +9,8 @@
 // -----------------------------------------------
 .l-wrap {
   display: grid;
-  grid-template-areas: 'header' 'content' 'footer';
-  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 'header' 'message' 'content' 'footer';
+  grid-template-rows: auto auto 1fr auto;
 }
 
 // // Wide Viewport
