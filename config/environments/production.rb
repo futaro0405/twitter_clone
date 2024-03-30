@@ -66,7 +66,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "myapp_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'xclone-web.onrender.com', :protocol => 'https'}
+  config.action_mailer.default_url_options = { host: 'xclone-web.onrender.com', protocol: 'https' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
@@ -103,5 +103,5 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.hosts << "xclone-web.onrender.com"
+  config.hosts << 'xclone-web.onrender.com'
 end
