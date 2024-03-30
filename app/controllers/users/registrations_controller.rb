@@ -3,7 +3,7 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
-    before_action :configure_account_update_params, only: [:update]
+    # before_action :configure_account_update_params, only: [:update]
 
     # GET /resource/sign_up
     # def new
@@ -11,12 +11,12 @@ module Users
     # end
 
     # POST /resource
-  def create
-    super do
-      resource.update(confirmed_at: Time .now.utc)
-    end
+    def create
+      super do
+        resource.update(confirmed_at: Time.now.utc)
+      end
       # WelcomeMailer.send_when_signup(params[:user][:email], params[:user][:name]).deliver
-  end
+    end
 
     # GET /resource/edit
     # def edit
