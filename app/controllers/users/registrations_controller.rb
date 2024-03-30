@@ -12,10 +12,7 @@ module Users
 
     # POST /resource
     def create
-      super do
-        resource.update(confirmed_at: Time.now.utc)
-      end
-      # WelcomeMailer.send_when_signup(params[:user][:email], params[:user][:name]).deliver
+      super
     end
 
     # GET /resource/edit
