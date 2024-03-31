@@ -93,3 +93,4 @@ end
 
 gem 'devise'
 gem 'slim-rails'
+gem 'devise-i18n'
