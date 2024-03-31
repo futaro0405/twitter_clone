@@ -74,7 +74,7 @@ Rails.application.configure do
     port: 587,
     user_name: Rails.application.credentials.gmail[:address],
     password: Rails.application.credentials.gmail[:password],
-    authentication: 'login',
+    authentication: :plain,
     enable_starttls_auto: true
   }
   config.action_mailer.perform_deliveries = true
