@@ -1,9 +1,9 @@
 .home
   .home__inner
+  - if user_signed_in?
     .home__nav
       = render "shared/nav"
     .home__content
-      - if user_signed_in?
         .post
           .post__head
             .post__name
@@ -12,3 +12,9 @@
               .button__layout
                 button.button
                   | post
+  - else
+    .home__nav
+    .home__content
+      .post
+        p
+          | サインインしてください
