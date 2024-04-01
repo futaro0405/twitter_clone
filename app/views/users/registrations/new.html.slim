@@ -8,7 +8,7 @@
         .signup-box__form
           = f.label :email, class: "signup-box__label"
           .signup-box__input
-            = f.email_field :email, autofocus: true, autocomplete: "email"
+            = f.email_field :email, maxlength: '100', autofocus: true, autocomplete: "email"
 
           .signup-box__label
             = f.label :password

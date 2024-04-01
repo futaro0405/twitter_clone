@@ -11,12 +11,9 @@ module Users
     # end
 
     # POST /resource
-  def create
-    super do
-      resource.update(confirmed_at: Time .now.utc)
-    end
-      # WelcomeMailer.send_when_signup(params[:user][:email], params[:user][:name]).deliver
-  end
+    # def create
+    #   super
+    # end
 
     # GET /resource/edit
     # def edit
@@ -56,12 +53,12 @@ module Users
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+      devise_parameter_sanitizer.permit(:sign_up, keys: %i[telephone birth_date])
     end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+      devise_parameter_sanitizer.permit(:account_update, keys: %i[telephone birth_date])
     end
 
     # The path used after sign up.
