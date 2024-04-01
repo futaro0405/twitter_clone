@@ -94,3 +94,6 @@ end
 gem 'devise'
 gem 'devise-i18n'
 gem 'slim-rails'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
