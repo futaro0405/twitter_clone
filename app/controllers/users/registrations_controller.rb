@@ -12,9 +12,7 @@ module Users
 
     # POST /resource
     def create
-      super do
-        resource.update(confirmed_at: Time.now.utc)
-      end
+      super
     end
 
     # GET /resource/edit
