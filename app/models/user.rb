@@ -3,8 +3,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :confirmable, :recoverable, :registerable,
-         :rememberable, :trackable, :timeoutable, :validatable, :Lockable, :omniauthable, omniauth_providers: %i[github]
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :confirmable, :lockable, :timeoutable, :trackable,
+         :omniauthable, omniauth_providers: %i[github]
 
   with_options presence: true do
     validates :name
@@ -23,8 +25,8 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
-      user.telephone_number = '00000000000'
-      user.date_of_birth = '1997-01-01'
+      user.telephone = '00000000000'
+      user.birth_date = '1990-01-01'
 
       if user.persisted? || auth.provider == 'github'
         user.skip_confirmation! if auth.provider == 'github'

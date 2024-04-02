@@ -1,27 +1,36 @@
 .home
-  .home-menu
-    .home-menu__link
-      .home-menu__icon
-      .home-menu__text
-    .home-menu__link
-      .home-menu__icon
-      .home-menu__text
-
-  .home-content
-    ul.nav.nav-tabs#myTab[role="tablist"]
-      li.nav-item[role="presentation"]
-        button.nav-link.active#home-tab[data-bs-toggle="tab", data-bs-target="#home-tab-pane", type="button", role="tab", aria-controls="home-tab-pane" aria-selected="true"]
-          | posts
-
-      li.nav-item[role="presentation"]
-        button.nav-link#profile-tab[data-bs-toggle="tab", data-bs-target="#profile-tab-pane", type="button", role="tab", aria-controls="profile-tab-pane", aria-selected="false"]
-          | follewers
-
-    .tab-content#myTabContent
-      .tab-pane.fade.show.active#home-tab-pane[role="tabpanel", aria-labelledby="home-tab", tabindex="0"]
-        ul
-          - @post.each do |post|
-            li
-              = post.content
-        = pagenate @posts
-      .tab-pane.fade#profile-tab-pane[role="tabpanel", aria-labelledby="profile-tab", tabindex="0"]
+  .home__inner
+  - if user_signed_in?
+    .home__nav
+      = render "shared/nav"
+    .home__content
+      .post
+        .post__head
+          .post__name
+            = current_user.name
+          .post__submit
+            .button__layout
+              button.button
+                | post
+        .post__body
+          ul.nav.nav-tabs#myTab[role="tablist"]
+            li.nav-item[role="presentation"]
+              button.nav-link.active#home-tab[data-bs-toggle="tab", data-bs-target="#home-tab-pane", type="button", role="tab", aria-controls="home-tab-pane" aria-selected="true"]
+                | posts
+            li.nav-item[role="presentation"]
+              button.nav-link#profile-tab[data-bs-toggle="tab", data-bs-target="#profile-tab-pane", type="button", role="tab", aria-controls="profile-tab-pane", aria-selected="false"]
+                | follewers
+          .tab-content#myTabContent
+            .tab-pane.fade.show.active#home-tab-pane[role="tabpanel", aria-labelledby="home-tab", tabindex="0"]
+              ul
+                - @post.each do |post|
+                  li
+                    = post.content
+              = pagenate @posts
+            .tab-pane.fade#profile-tab-pane[role="tabpanel", aria-labelledby="profile-tab", tabindex="0"]
+  - else
+    .home__nav
+    .home__content
+      .post
+        p
+          | サインインしてください
