@@ -15,6 +15,7 @@ class User < ApplicationRecord
   end
 
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
+  has_one_attached :image_avatar, image_cover
 
   def self.create_unique_string
     SecureRandom.uuid
