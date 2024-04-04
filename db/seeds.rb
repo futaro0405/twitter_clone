@@ -20,6 +20,11 @@ end
     user.password = "password"
     user.telephone = "0801234567#{n}"
     user.birth_date = Date.new(1990, 1, 1)
+    user.profile = "profile profile profile"
+    user.profile = "location"
+    user.profile = "website"
+    user.image_avatar = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg')
+    user.image_cover = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg')
   end
 end
 

@@ -2,6 +2,7 @@
 
 class HomeController < ApplicationController
   def index
-    @post = Post.all.page(params[:page]).per(10)
+    @posts = Post.all.page(params[:page]).per(10)
+    @post_follow = Post.all.page(params[:page]).per(10)
   end
 end
