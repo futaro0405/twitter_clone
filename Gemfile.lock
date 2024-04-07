@@ -418,6 +418,7 @@ DEPENDENCIES
   jsbundling-rails
   kaminari
   letter_opener_web (~> 2.0)
+  mini_magick (~> 4.8)
   omniauth
   omniauth-github
   omniauth-rails_csrf_protection

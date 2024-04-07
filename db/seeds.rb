@@ -7,13 +7,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-nicknames = ['ごとう', 'いじち', 'やまだ', 'きた', ]
-
-nicknames.each_with_index do |nickname, index|
-  account = "2seeds#{index + 1}"
-  find_or_create_user(account, nickname)
-end
-
 3.times do |n|
   User.find_or_create_by!(name: "USER-0#{n}") do |user|
     user.email = "username0#{n}@example.com"
@@ -27,4 +20,3 @@ end
     user.image_cover = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg')
   end
 end
-

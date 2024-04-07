@@ -21,9 +21,12 @@ module Users
     # end
 
     # PUT /resource
-    # def update
-    #   super
-    # end
+    def update
+      super
+      if account_update_params[:image_avatar].present?
+        resource.image_avatar.attach(account_update_params[:image_avatar])
+      end
+    end
 
     # DELETE /resource
     # def destroy

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  before_create :set_image_avatar
+  before_create :set_image_cover
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,6 +19,7 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
   has_one_attached :image_avatar
   has_one_attached :image_cover
+  has_many :posts, dependent: :destroy
 
   def self.create_unique_string
     SecureRandom.uuid
@@ -34,6 +37,22 @@ class User < ApplicationRecord
         user.skip_confirmation! if auth.provider == 'github'
         user.save
       end
+    end
+  end
+
+  private
+
+  def set_image_avatar
+    if !self.image_avatar.attached?
+      file_path = Rails.root.join('app/assets/images/dummy.jpg')
+      self.image_avatar.attach(io: File.open(file_path), filename: 'dummy.jpg')
+    end
+  end
+
+  def set_image_cover
+    if !self.image_cover.attached?
+      file_path = Rails.root.join('app/assets/images/dummy.jpg')
+      self.image_cover.attach(io: File.open(file_path), filename: 'dummy.jpg')
     end
   end
 end

@@ -1,52 +1,52 @@
-.home
+  .home
   .home__inner
-  - if user_signed_in?
-    .home__nav
-      = render "shared/nav"
-    .home__content
-      ul.nav.nav-tabs#myTab[role="tablist"]
-        li.nav-item[role="presentation"]
-          button.nav-link.active#home-tab[data-bs-toggle="tab" data-bs-target="#post-tab-pane" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
-            | posts
-        li.nav-item[role="presentation"]
-          button.nav-link#profile-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
-            | followers
-      .post
-        .post__account
-          .post__image
-            = current_user.image_avatar
-          .post__name
-            = current_user.name
-          = form_with model: post, local: true do |f|
-            .post__form
-              f.text_area :content, class: 'post__text-area'
-              f.submit 'post', class: 'btn btn-primary'
-        .tab-content#myTabContent
-          .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="home-tab" tabindex="0"]
-            ul.post__list
-              - @posts.each do |post|
-                li.post__list-item
-                  .post__account
-                    .post__image
-                      = post.image_avatar
-                    .post__name
-                      = post.name
-                    .post__contnet
-                      = post.contnet
-          .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="profile-tab" tabindex="0"]
-            ul.post__list
-              - @posts.each do |post|
-                li.post__list-item
-                  .post__account
-                    .post__image
-                      = post.image_avatar
-                    .post__name
-                      = post.name
-                    .post__contnet
-                      = post.contnet
-  - else
-    .home__nav
-    .home__content
-      .post
-        p
-          | サインインしてください
+    - if user_signed_in?
+      .home__nav
+        = render "shared/nav"
+      .home__content
+        ul.nav.nav-tabs#myTab[role="tablist"]
+          li.nav-item[role="presentation"]
+            button.nav-link.active#home-tab[data-bs-toggle="tab" data-bs-target="#post-tab-pane" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
+              | posts
+          li.nav-item[role="presentation"]
+            button.nav-link#profile-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
+              | followers
+        .post
+          .post__account
+            .post__image
+              = image_tag current_user.image_avatar
+            .post__name
+              = current_user.name
+            = form_with model: @post, url: posts_path, local: true do |f|
+              .post__form
+                f.text_area :content, class: "post__text-area"
+                f.submit "post", class: "btn btn-primary"
+          .tab-content#myTabContent
+            .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="home-tab" tabindex="0"]
+              ul.post__list
+                - @posts.each do |post|
+                  li.post__list-item
+                    .post__account
+                      .post__image
+                        / = image_tag current_user.image_avatar
+                      .post__name
+                        = post.name
+                      .post__contnet
+                        = post.contnet
+            .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="profile-tab" tabindex="0"]
+              ul.post__list
+                - @posts.each do |post|
+                  li.post__list-item
+                    .post__account
+                      .post__image
+                        = post.image_avatar
+                      .post__name
+                        = post.name
+                      .post__contnet
+                        = post.contnet
+    - else
+      .home__nav
+      .home__content
+        .post
+          p
+            | サインインしてください
