@@ -13,6 +13,8 @@ module Myapp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
+    config.active_storage.variant_processor = :mini_magick
+
 
     # Configuration for the application, engines, and railties goes here.
     #

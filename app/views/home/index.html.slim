@@ -14,7 +14,7 @@
         .post
           .post__account
             .post__image
-              = image_tag current_user.image_avatar
+              = image_tag current_user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
             .post__name
               = current_user.name
             = form_with model: @post, url: posts_path, local: true do |f|
