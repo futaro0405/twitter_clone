@@ -12,38 +12,35 @@
             button.nav-link#profile-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
               | followers
         .post
-          .post__account
-            .post__image
-              = image_tag current_user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
-            .post__name
-              = current_user.name
-            = form_with model: @post, url: posts_path, local: true do |f|
-              .post__form
-                f.text_area :content, class: "post__text-area"
-                f.submit "post", class: "btn btn-primary"
+          .post__image
+            = image_tag current_user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
+          .post__name
+            = current_user.name
+          = form_with model: @post, url: posts_path, local: true do |f|
+            .post__form
+              = f.text_area :content, class: "post__text-area"
+              = f.submit "post", class: "btn btn-primary"
           .tab-content#myTabContent
             .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="home-tab" tabindex="0"]
               ul.post__list
                 - @posts.each do |post|
                   li.post__list-item
-                    .post__account
                       .post__image
-                        / = image_tag current_user.image_avatar
+                        = image_tag post.user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
                       .post__name
-                        = post.name
+                        = post.user.name
                       .post__contnet
-                        = post.contnet
+                        = post.user.contnet
             .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="profile-tab" tabindex="0"]
               ul.post__list
                 - @posts.each do |post|
                   li.post__list-item
-                    .post__account
                       .post__image
-                        = post.image_avatar
+                        = image_tag post.user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
                       .post__name
-                        = post.name
+                        = post.user.name
                       .post__contnet
-                        = post.contnet
+                        = post.user.contnet
     - else
       .home__nav
       .home__content

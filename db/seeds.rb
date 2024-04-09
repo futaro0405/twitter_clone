@@ -18,6 +18,7 @@
     user.location = "location"
     user.website = "https://rubyonrails.org/"
     user.uid = "123456789#{n}"
+    user.confirmed_at = Time.now
     user.image_avatar = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg')
     user.image_cover = ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg')
   end

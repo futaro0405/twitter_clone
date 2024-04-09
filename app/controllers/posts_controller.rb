@@ -1,6 +1,13 @@
 class PostsController < ApplicationController
   def create
-    @posts = current_user.post.new(post_params)
+    @posts = current_user.posts.new(post_params)
+
+    if @posts.save
+      redirect_to root_path, notice: 'Postしました。', status: :see_other
+    else
+      flash.now[:notice] = '失敗'
+      render root_path, status: :unprocessable_entity
+    end
   end
 
   def update
