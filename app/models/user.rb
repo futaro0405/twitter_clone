@@ -17,10 +17,7 @@ class User < ApplicationRecord
   end
 
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
-  has_one_attached :image_avatar do |attachable|
-    attachable.variant :icon, resize_to_limit: [150, 150]
-    attachable.variant :profile, resize_to_limit: [300, 300]
-  end
+  has_one_attached :image_avatar
   has_one_attached :image_cover
   has_many :posts, dependent: :destroy
 

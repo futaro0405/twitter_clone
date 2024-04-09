@@ -76,15 +76,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_134710) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.string "telephone", null: false
-    t.datetime "birth_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "uid"
+    t.string "name", null: false
+    t.string "telephone", null: false
+    t.datetime "birth_date", null: false
+    t.text "profile", default: ""
+    t.string "location", default: ""
+    t.text "website", default: ""
+    t.string "uid", default: ""
     t.string "provider", default: "", null: false
-    t.text "profile"
-    t.string "location"
-    t.text "website"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
