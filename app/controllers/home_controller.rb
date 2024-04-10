@@ -2,8 +2,8 @@
 
 class HomeController < ApplicationController
   def index
-    @posts = Post.all.page(params[:page]).per(10)
-    @post_follow = Post.all.page(params[:page]).per(10)
+    @posts = Post.includes(:user).page(params[:page]).per(10).order("created_at DESC")
+    @post_follow = Post.includes(:user).page(params[:page]).per(10).order("created_at DESC")
     @post = Post.new
   end
 end

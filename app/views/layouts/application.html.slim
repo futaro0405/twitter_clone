@@ -21,3 +21,4 @@ html
         .l-content__inner
           = yield
     = render "shared/footer"
+    = raw Rails.application.assets_manifest.find_sources('icons.svg').first`

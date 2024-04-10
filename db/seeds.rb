@@ -24,8 +24,8 @@
   end
 end
 
-3.times do |t|
-  Post.find_or_create_by!(user_id: t) do |post|
+3.times do |m|
+  Post.find_or_create_by!(user_id: m) do |post|
     post.content = "user_id: #{t} test_content test_content test_content test_content test_content"
   end
 end

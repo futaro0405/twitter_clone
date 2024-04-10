@@ -7,10 +7,10 @@
         ul.nav.nav-tabs#myTab[role="tablist"]
           li.nav-item[role="presentation"]
             button.nav-link.active#home-tab[data-bs-toggle="tab" data-bs-target="#post-tab-pane" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
-              | posts
+              | おすすめ
           li.nav-item[role="presentation"]
             button.nav-link#profile-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
-              | followers
+              | フォロー中
         .post
           .post__image
             = image_tag current_user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
@@ -19,6 +19,9 @@
           = form_with model: @post, url: posts_path, local: true do |f|
             .post__form
               = f.text_area :content, class: "post__text-area"
+              = f.file_field :image, accept: "image/*", class: "form-control" do
+                svg
+                  use(xlink:href="#icons-mic")
               = f.submit "post", class: "btn btn-primary"
           .tab-content#myTabContent
             .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="home-tab" tabindex="0"]
@@ -30,17 +33,9 @@
                       .post__name
                         = post.user.name
                       .post__contnet
-                        = post.user.contnet
+                        = post.content
             .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="profile-tab" tabindex="0"]
               ul.post__list
-                - @posts.each do |post|
-                  li.post__list-item
-                      .post__image
-                        = image_tag post.user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center)
-                      .post__name
-                        = post.user.name
-                      .post__contnet
-                        = post.user.contnet
     - else
       .home__nav
       .home__content
