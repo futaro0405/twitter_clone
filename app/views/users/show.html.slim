@@ -1,0 +1,31 @@
+h1 profile
+
+- if current_user.eql?(@user)
+  = link_to 'edit', edit_user_path(@user)
+- else
+  - if current_user.following?(user)
+    = link_to "フォロー外す", user_relationships_path(user.id), method: :delete
+  - else
+    = link_to "フォローする", user_relationships_path(user.id), method: :post
+
+
+h2 username
+= @user.name
+
+h2 mail
+= @user.email
+
+h2 birth_date
+= @user.birth_date
+
+h2 profile
+= @user.profile
+
+h2 location
+= @user.location
+
+h2 website
+= @user.website
+
+h2 website
+= @user.website

@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   before_create :set_image_avatar
   before_create :set_image_cover
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -15,11 +16,13 @@ class User < ApplicationRecord
     validates :telephone
     validates :birth_date
   end
-
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
+
   has_one_attached :image_avatar
   has_one_attached :image_cover
   has_many :posts, dependent: :destroy
+  has_many :relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
   def self.create_unique_string
     SecureRandom.uuid
@@ -38,6 +41,21 @@ class User < ApplicationRecord
         user.save
       end
     end
+  end
+
+  # フォロー処理
+  def follow(user_id)
+    relationships.create(followed_id: user_id)
+  end
+
+  # フォローを外す処理
+  def unfollow(user_id)
+    relationships.find_by(followed_id: user_id).destroy
+  end
+
+  # フォロー判定
+  def following?(user)
+    following.include?(user)
   end
 
   private
