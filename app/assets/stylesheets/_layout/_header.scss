@@ -10,10 +10,33 @@
 // -----------------------------------------------
 .l-header {
   $this: &;
-
-  background-color: var.$PRIMARY_COLOR;
+  @extend %structure;
   grid-area: header;
   z-index: var.$Z_INDEX_HEADER;
+
+  &__outer {
+    @extend %reset-margin;
+    display: grid;
+    gap: 0
+      func.calc-size(
+        $tempSizeFrom: 16px,
+        $tempSizeTo: 40px,
+        $tempViewportFrom: 375px,
+        $tempViewportTo: var.$MINOR_BREAKPOINT - 1px
+      );
+    grid-column: 1 / 4;
+    grid-template-columns:
+      1fr minmax(var.$CONTENT_WIDTH_NARROW, 1296px)
+      1fr;
+    border-bottom: solid 4px var.$PRIMARY_COLOR;
+    background-color: var.$SECONDARY_COLOR_3;
+    box-shadow: 0px 3px 8px -3px #777777;
+  }
+
+  &__inner {
+    @extend %structure-inner;
+    color: var.$COLOR_CHIP_WHITE;
+  }
 
   &__logo {
     width: 40px;
@@ -26,11 +49,13 @@
   }
 
   &__nav {
+    display: flex;
     gap: 16px;
+    list-style: none;
 
     &-item {
       a {
-        background-color: var.$SECONDARY_COLOR;
+        background-color: var.$PRIMARY_COLOR;
         border-radius: 8px;
         padding: 8px 24px!important;
         font-weight: bold;
@@ -42,6 +67,10 @@
         }
       }
     }
+  }
+  &__navLink {
+    display: block;
+    text-decoration: none;
   }
 }
 

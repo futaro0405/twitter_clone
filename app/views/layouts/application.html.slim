@@ -10,11 +10,7 @@ html
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body.l-wrap
     = render "shared/header"
-    .l-message
-      .l-message__outer
-        .l-message__inner
-          - flash.each do |message_type, message|
-            = content_tag :div, message, class: message_type
+    = render partial: "shared/message", flash: flash
     main.l-content
 
       .l-content__outer

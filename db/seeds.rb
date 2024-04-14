@@ -26,6 +26,6 @@ end
 
 3.times do |m|
   Post.find_or_create_by!(user_id: m) do |post|
-    post.content = "user_id: #{t} test_content test_content test_content test_content test_content"
+    post.content = "user_id: #{m} test_content test_content test_content test_content test_content"
   end
 end

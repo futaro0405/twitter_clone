@@ -17,14 +17,14 @@ $HOVER_COLOR: #5570c3;
 
   &__outer {
     @extend %structure-outer;
-    @extend %reset-margin;
-    background-color: var.$SECONDARY_COLOR_2;
   }
 
   &__inner {
     @extend %structure-inner;
     @extend %reset-margin;
     background-color: var.$BACKGROUND_COLOR;
+    border-left: solid 1px var.$PRIMARY_COLOR;
+    border-right: solid 1px var.$PRIMARY_COLOR;
   }
 }
 
