@@ -1,2 +1,5 @@
 h1 Relationships#followings
 p Find me in app/views/relationships/followings.html.slim
+- @users.each do |user|
+  div
+    = user.name

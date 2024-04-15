@@ -41,6 +41,7 @@
                     .post__imageContnet
                       - post.images.each do |image|
                         = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
+              = paginate @post, :param_name => 'page_all'
             .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="profile-tab" tabindex="0"]
               - @post_follow.each do |post|
                 .post
@@ -55,4 +56,4 @@
                     .post__imageContnet
                       - post.images.each do |image|
                         = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
-          = paginate @posts
+              = paginate @post_follow, :param_name => 'page_follow'
