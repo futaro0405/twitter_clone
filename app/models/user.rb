@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :relationships, source: :followed
+  has_many :followers, through: :reverse_of_relationships, source: :follower
 
   def self.create_unique_string
     SecureRandom.uuid
@@ -55,7 +57,7 @@ class User < ApplicationRecord
 
   # フォロー判定
   def following?(user)
-    following.include?(user)
+    followings.include?(user)
   end
 
   private

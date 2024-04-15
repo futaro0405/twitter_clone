@@ -1,31 +1,23 @@
-h1 profile
-
-- if current_user.eql?(@user)
-  = link_to 'edit', edit_user_path(@user)
-- else
-  - if current_user.following?(user)
-    = link_to "フォロー外す", user_relationships_path(user.id), method: :delete
-  - else
-    = link_to "フォローする", user_relationships_path(user.id), method: :post
-
-
-h2 username
-= @user.name
-
-h2 mail
-= @user.email
-
-h2 birth_date
-= @user.birth_date
-
-h2 profile
-= @user.profile
-
-h2 location
-= @user.location
-
-h2 website
-= @user.website
-
-h2 website
-= @user.website
+.profile
+  .profile__image
+    = image_tag @user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center), class: "profile__icon"
+    = image_tag @user.image_cover.variant(resize_to_fill: [1000, 300], gravity: :Center), class: "profile__cover"
+  .profile__content
+    .profile__button
+      - if current_user.eql?(@user)
+        = link_to '編集', edit_user_registration_path(@user)
+      - else
+        - if current_user.following?(@user)
+          = link_to "フォロー外す", user_relationship_path(@user.id), data: { turbo_method: :delete }
+        - else
+          = link_to "フォローする", user_relationship_path(@user.id), data: { turbo_method: :post }
+    .profile__name
+      = @user.name
+    .profile__birthdate
+      = @user.birth_date
+    .profile__text
+      = @user.profile
+    .profile__location
+      = @user.location
+    .profile__website
+      = @user.website

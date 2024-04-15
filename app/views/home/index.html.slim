@@ -13,7 +13,8 @@
                 | フォロー中
           .post
             .post__image
-              = image_tag current_user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+              = link_to user_path(current_user) do
+                = image_tag current_user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
             .post__content
               = form_with model: @post, url: posts_path, local: true do |f|
                 .post__form[data-controller="previews"]
@@ -30,7 +31,8 @@
               - @posts.each do |post|
                 .post
                   .post__image
-                    = image_tag current_user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+                    = link_to user_path(post.user) do
+                      = image_tag post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
                   .post__content
                     .post__contentName
                       = post.user.name
@@ -43,7 +45,8 @@
               - @post_follow.each do |post|
                 .post
                   .post__image
-                    = image_tag current_user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+                    = link_to user_path(post.user) do
+                      = image_tag post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
                   .post__content
                     .post__contentName
                       = post.user.name
