@@ -15,6 +15,5 @@ html
 
       .l-content__outer
         .l-content__inner
-          - if user_signed_in?
-            = yield
+          = yield
     = render "shared/footer"
