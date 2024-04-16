@@ -21,3 +21,7 @@
       = @user.location
     .profile__website
       = @user.website
+    .profile__button
+      = link_to "followers", user_followings_path(@user)
+    .profile__button
+      = link_to "followings", user_followers_path(@user)

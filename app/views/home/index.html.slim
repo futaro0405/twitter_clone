@@ -6,10 +6,10 @@
         .home__content
           ul.nav.nav-tabs#myTab[role="tablist"]
             li.nav-item[role="presentation"]
-              button.nav-link.active#home-tab[data-bs-toggle="tab" data-bs-target="#post-tab-pane" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
+              button.nav-link.active#post-tab[data-bs-toggle="tab" data-bs-target="#post-tab-pane" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
                 | おすすめ
             li.nav-item[role="presentation"]
-              button.nav-link#profile-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
+              button.nav-link#followers-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
                 | フォロー中
           .post
             .post__image
@@ -27,8 +27,8 @@
                       = f.file_field :images, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }, multiple: true
                     = f.submit "post", class: "post__button"
           .tab-content#myTabContent
-            .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="home-tab" tabindex="0"]
-              - @posts.each do |post|
+            .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
+              - @posts_all.each do |post|
                 .post
                   .post__image
                     = link_to user_path(post.user) do
@@ -41,9 +41,9 @@
                     .post__imageContnet
                       - post.images.each do |image|
                         = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
-              = paginate @post, :param_name => 'page_all'
-            .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="profile-tab" tabindex="0"]
-              - @post_follow.each do |post|
+              = paginate @posts_all, :param_name => 'page_all'
+            .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="followers-tab" tabindex="0"]
+              - @posts_followers.each do |post|
                 .post
                   .post__image
                     = link_to user_path(post.user) do
@@ -56,4 +56,4 @@
                     .post__imageContnet
                       - post.images.each do |image|
                         = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
-              = paginate @post_follow, :param_name => 'page_follow'
+              = paginate @posts_followers, :param_name => 'page_follow'

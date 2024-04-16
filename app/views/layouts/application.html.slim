@@ -9,11 +9,12 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body.l-wrap
-    = render "shared/header"
+    = render partial: "shared/header"
     = render partial: "shared/message", flash: flash
     main.l-content
 
       .l-content__outer
         .l-content__inner
-          = yield
+          - if user_signed_in?
+            = yield
     = render "shared/footer"

@@ -27,8 +27,8 @@ class User < ApplicationRecord
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
   # 一覧画面で使う
-  has_many :followings, through: :relationships, source: :followed
-  has_many :followers, through: :reverse_of_relationships, source: :follow
+  has_many :followings, through: :relationships, source: :follow
+  has_many :followers, through: :reverse_of_relationships, source: :followed
 
   def self.create_unique_string
     SecureRandom.uuid

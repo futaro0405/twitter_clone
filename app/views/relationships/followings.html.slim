@@ -1,5 +1,1 @@
-h1 Relationships#followings
-p Find me in app/views/relationships/followings.html.slim
-- @users.each do |user|
-  div
-    = user.name
+= render partial: "shared/follow_list", users: current_user.followings
