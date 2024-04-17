@@ -6,10 +6,10 @@
         .home__content[data-controller="tab"]
           ul.nav.nav-tabs#myTab[role="tablist" data-tab-target="tabs"]
             li.nav-item[role="presentation"]
-              button.nav-link.active#post-tab[data-bs-toggle="tab" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
+              button.nav-link#post-tab[data-bs-toggle="tab" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true" data-action="click->tab#changetab"]
                 | おすすめ
             li.nav-item[role="presentation"]
-              button.nav-link#followers-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
+              button.nav-link#followers-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false" data-action="click->tab#changetab"]
                 | フォロー中
           .post
             .post__image
@@ -27,7 +27,7 @@
                       = f.file_field :images, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }, multiple: true
                     = f.submit "post", class: "post__button"
           .tab-content#myTabContent[data-tab-target="contents"]
-            .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
+            .tab-pane.fade#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
               = render partial: "shared/post_list", collection: @posts_all, as: :post
               = paginate @posts_all, :param_name => 'page_all', remote: true
             .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="followers-tab" tabindex="0"]

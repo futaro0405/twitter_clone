@@ -4,50 +4,59 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["tabs", "contents"];
 
-  initialize() {
-    let tabs = this.tabsTarget;
-    let contents = this.contentsTarget;
-
-    function indexOfParent(node) {
-      let children = node.parentNode.childNodes;
-      let num = 0;
-
-      for (var i=0; i<children.length; i++) {
-          if (children[i]==node) return num;
-          if (children[i].nodeType==1) num++;
-      }
+  indexOfParent(node) {
+    if (!node) {
       return -1;
     }
 
-    document.addEventListener("DOMContentLoaded", function(event) {
-      let tabList = tabs.querySelectorAll(".nav-item");
-      let contnetList = contents.querySelectorAll(".tab-pane");
-      let activeNum = indexOfParent(tabs.querySelector('.active'));
+    let children = node.parentNode.childNodes;
+    let num = 0;
 
-      tabList[activeNum].classList.remove('active');
-      contnetList[activeNum].classList.remove("show", "active");
+    for (var i=0; i<children.length; i++) {
+        if (children[i]==node) return num;
+        if (children[i].nodeType==1) num++;
+    }
+    return -1;
+  }
 
+  initialize() {
+    let tabs = this.tabsTarget;
+    let contents = this.contentsTarget;
+    let tabList = tabs.querySelectorAll(".nav-item");
+    let contentList = contents.querySelectorAll(".tab-pane");
+
+    function resetActive(tabsList, contentsList) {
+      tabsList.forEach(tab => {
+        tab.firstElementChild.classList.remove("active");
+      });
+      contentsList.forEach(content => {
+        content.classList.remove("show", "active");
+      });
+    }
+
+    function setActive() {
       let sessionNum = sessionStorage.getItem('num');
       if (sessionNum !== null) {
-        tabList[sessionNum].classList.add('active');
-        contnetList[sessionNum].classList.add("show", "active");
+        tabList[sessionNum].firstElementChild.classList.add("active");
+        contentList[sessionNum].classList.add("show", "active");
       } else {
-        tabList[0].classList.add('active');
-        contnetList[0].classList.add("show", "active");
+        tabList[0].firstElementChild.classList.add("active");
+        contentList[0].classList.add("show", "active");
       }
+    }
 
-
-      // if(sessionTab !== null || sessionContent !== null) {
-      //   tabList[0].addClass('active');
-      //   contentList[0].addClass('show active');
-      // }else{
-
-      // };
-
-      // sessionStorage.setItem('tab', activeTabs);
-      // sessionStorage.setItem('content', activeContents);
+    document.addEventListener("DOMContentLoaded", function(event) {
+      resetActive(tabList, contentList);
+      setActive();
     },false);
+  }
 
+  changetab() {
+    let activeNum = indexOfParent(tabs.querySelector('.active'));
+    sessionStorage.setItem('num', activeNum);
+
+    resetActive(tabList, contentList);
+    setActive();
   }
 
 }
