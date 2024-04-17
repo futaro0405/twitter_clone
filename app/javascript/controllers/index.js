@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import PreviewsController from "./previews_controller"
 application.register("previews", PreviewsController)
+
+import TabController from "./tab_controller"
+application.register("tab", TabController)

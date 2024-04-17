@@ -1,0 +1,12 @@
+.post
+  .post__image
+    = link_to user_path(post.user) do
+      = image_tag post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+  .post__content
+    .post__contentName
+      = post.user.name
+    .post__contentText
+      = post.content
+    .post__imageContnet
+      - post.images.each do |image|
+        = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)

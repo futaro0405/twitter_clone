@@ -3,10 +3,10 @@
       - if user_signed_in?
         .home__nav
           = render "shared/nav"
-        .home__content
-          ul.nav.nav-tabs#myTab[role="tablist"]
+        .home__content[data-controller="tab"]
+          ul.nav.nav-tabs#myTab[role="tablist" data-tab-target="tabs"]
             li.nav-item[role="presentation"]
-              button.nav-link.active#post-tab[data-bs-toggle="tab" data-bs-target="#post-tab-pane" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
+              button.nav-link.active#post-tab[data-bs-toggle="tab" type="button" role="tab" aria-controls="post-tab-pane" aria-selected="true"]
                 | おすすめ
             li.nav-item[role="presentation"]
               button.nav-link#followers-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
@@ -26,34 +26,10 @@
                         path[d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"]
                       = f.file_field :images, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }, multiple: true
                     = f.submit "post", class: "post__button"
-          .tab-content#myTabContent
+          .tab-content#myTabContent[data-tab-target="contents"]
             .tab-pane.fade.show.active#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
-              - @posts_all.each do |post|
-                .post
-                  .post__image
-                    = link_to user_path(post.user) do
-                      = image_tag post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
-                  .post__content
-                    .post__contentName
-                      = post.user.name
-                    .post__contentText
-                      = post.content
-                    .post__imageContnet
-                      - post.images.each do |image|
-                        = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
-              = paginate @posts_all, :param_name => 'page_all'
+              = render partial: "shared/post_list", collection: @posts_all, as: :post
+              = paginate @posts_all, :param_name => 'page_all', remote: true
             .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="followers-tab" tabindex="0"]
-              - @posts_followers.each do |post|
-                .post
-                  .post__image
-                    = link_to user_path(post.user) do
-                      = image_tag post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
-                  .post__content
-                    .post__contentName
-                      = post.user.name
-                    .post__contentText
-                      = post.content
-                    .post__imageContnet
-                      - post.images.each do |image|
-                        = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
-              = paginate @posts_followers, :param_name => 'page_follow'
+              = render partial: "shared/post_list", collection: @posts_followers, as: :post
+              = paginate @posts_followers, :param_name => 'page_follow', remote: true
