@@ -1,0 +1,10 @@
+.l-message
+  .l-message__outer
+    .l-message__inner
+      - if user_signed_in?
+        - flash.each do |message_type, message|
+          div class="alert alert-#{message_type}"
+            = message
+      - else
+        div.alert
+          | サインインしてください

@@ -1,0 +1,27 @@
+.profile
+  .profile__image
+    = image_tag @user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center), class: "profile__icon"
+    = image_tag @user.image_cover.variant(resize_to_fill: [1000, 300], gravity: :Center), class: "profile__cover"
+  .profile__content
+    .profile__button
+      - if current_user.eql?(@user)
+        = link_to '編集', edit_user_registration_path(@user)
+      - else
+        - if current_user.following?(@user)
+          = link_to "フォロー外す", user_relationship_path(@user.id), data: { turbo_method: :delete }
+        - else
+          = link_to "フォローする", user_relationship_path(@user.id), data: { turbo_method: :post }
+    .profile__name
+      = @user.name
+    .profile__birthdate
+      = @user.birth_date
+    .profile__text
+      = @user.profile
+    .profile__location
+      = @user.location
+    .profile__website
+      = @user.website
+    .profile__button
+      = link_to "followers", user_followings_path(@user)
+    .profile__button
+      = link_to "followings", user_followers_path(@user)

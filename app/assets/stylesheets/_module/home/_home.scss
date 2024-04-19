@@ -18,6 +18,11 @@
     flex-direction: column;
     gap: 4px;
   }
+
+  &__content {
+    border-left: solid 1px var.$PRIMARY_COLOR;
+    padding: 8px 0;
+  }
 }
 
 
