@@ -15,7 +15,6 @@ module Myapp
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
     config.active_storage.variant_processor = :mini_magick
 
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

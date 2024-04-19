@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RelationshipsController < ApplicationController
   # フォロー処理
   def create

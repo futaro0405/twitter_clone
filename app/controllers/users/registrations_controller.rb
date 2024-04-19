@@ -23,9 +23,9 @@ module Users
     # PUT /resource
     def update
       super
-      if account_update_params[:image_avatar].present?
-        resource.image_avatar.attach(account_update_params[:image_avatar])
-      end
+      return if account_update_params[:image_avatar].blank?
+
+      resource.image_avatar.attach(account_update_params[:image_avatar])
     end
 
     # DELETE /resource
@@ -51,6 +51,7 @@ module Users
 
     def update_resource(resource, params)
       return super if params['password'].present?
+
       resource.update_without_password(params.except('current_password'))
     end
 

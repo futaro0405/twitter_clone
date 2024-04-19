@@ -8,11 +8,11 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     confirmations: 'users/confirmations',
-    omniauth_callbacks: 'users/omniauth_callbacks',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   resources :users do
-    resource :relationship, only: [:create, :destroy]
+    resource :relationship, only: %i[create destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end

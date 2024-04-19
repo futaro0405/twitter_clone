@@ -23,8 +23,10 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   # フォローをした、されたの関係
-  has_many :relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy,
+                           inverse_of: 'follow_id'
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy,
+                                      inverse_of: 'followed_id'
 
   # 一覧画面で使う
   has_many :followings, through: :relationships, source: :follow
@@ -67,16 +69,16 @@ class User < ApplicationRecord
   private
 
   def set_image_avatar
-    if !self.image_avatar.attached?
-      file_path = Rails.root.join('app/assets/images/dummy.jpg')
-      self.image_avatar.attach(io: File.open(file_path), filename: 'dummy.jpg')
-    end
+    return if image_avatar.attached?
+
+    file_path = Rails.root.join('app/assets/images/dummy.jpg')
+    image_avatar.attach(io: File.open(file_path), filename: 'dummy.jpg')
   end
 
   def set_image_cover
-    if !self.image_cover.attached?
-      file_path = Rails.root.join('app/assets/images/dummy.jpg')
-      self.image_cover.attach(io: File.open(file_path), filename: 'dummy.jpg')
-    end
+    return if image_cover.attached?
+
+    file_path = Rails.root.join('app/assets/images/dummy.jpg')
+    image_cover.attach(io: File.open(file_path), filename: 'dummy.jpg')
   end
 end

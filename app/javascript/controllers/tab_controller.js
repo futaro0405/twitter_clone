@@ -4,22 +4,11 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["tabs", "contents"];
 
-  indexOfParent(node) {
-    if (!node) {
-      return -1;
-    }
-
-    let children = node.parentNode.childNodes;
-    let num = 0;
-
-    for (var i=0; i<children.length; i++) {
-        if (children[i]==node) return num;
-        if (children[i].nodeType==1) num++;
-    }
-    return -1;
+  connect() {
+    this.load();
   }
-
-  initialize() {
+  
+  load() {
     let tabs = this.tabsTarget;
     let contents = this.contentsTarget;
     let tabList = tabs.querySelectorAll(".nav-item");
@@ -44,19 +33,34 @@ export default class extends Controller {
         contentList[0].classList.add("show", "active");
       }
     }
+    
+    resetActive(tabList, contentList);
+    setActive();
 
-    document.addEventListener("DOMContentLoaded", function(event) {
-      resetActive(tabList, contentList);
-      setActive();
-    },false);
+    // document.addEventListener("DOMContentLoaded", function(event) {
+    //   resetActive(tabList, contentList);
+    //   setActive();
+    // },false);
   }
 
   changetab() {
-    let activeNum = indexOfParent(tabs.querySelector('.active'));
-    sessionStorage.setItem('num', activeNum);
+    function indexOfParent(node) {
+      if (!node) {
+        return -1;
+      }
+  
+      let children = node.parentNode.childNodes;
+      let num = 0;
+  
+      for (var i=0; i<children.length; i++) {
+          if (children[i]==node) return num;
+          if (children[i].nodeType==1) num++;
+      }
+      return -1;
+    }
 
-    resetActive(tabList, contentList);
-    setActive();
+    let activeNum = indexOfParent(this.tabsTarget.querySelector('.active'));
+    sessionStorage.setItem('num', activeNum);
   }
 
 }

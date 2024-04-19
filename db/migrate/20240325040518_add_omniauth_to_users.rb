@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class AddOmniauthToUsers < ActiveRecord::Migration[7.0]
   def up
-    add_column :users, :name,       :string,    null: false
-    add_column :users, :telephone,  :string,    null: false
-    add_column :users, :birth_date, :datetime,  null: false
-    add_column :users, :profile,    :text,                    default: ""
-    add_column :users, :location,   :string,                  default: ""
-    add_column :users, :website,    :text,                    default: ""
-    add_column :users, :uid,        :string,                  default: ""
-    add_column :users, :provider,   :string,    null: false,  default: ""
+    add_column :users, :telephone,  :string
+    add_column :users, :birth_date, :datetime
+    add_column :users, :name,       :string,    null: false,  default: 'no name'
+    add_column :users, :provider,   :string,    null: false,  default: ''
+    add_column :users, :profile,    :text,                    default: ''
+    add_column :users, :location,   :string,                  default: ''
+    add_column :users, :website,    :text,                    default: ''
+    add_column :users, :uid,        :string,                  default: ''
 
-    add_index :users, [:uid, :provider], unique: true
+    add_index :users, %i[uid provider], unique: true
   end
 
   def down

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
@@ -16,13 +18,11 @@ class PostsController < ApplicationController
 
   def update
     post = Post.find(params[:id])
-    if params[:post][:image_ids]
-      params[:post][:image_ids].each do |image_id|
-        image = post.images.find(image_id)
-        image.purge
-      end
+    params[:post][:image_ids]&.each do |image_id|
+      image = post.images.find(image_id)
+      image.purge
     end
-    if post.update_attributes(post_params)
+    if post.update(post_params)
       redirect_to root_path, success: '編集しました', status: :see_other
     else
       flash.now[:danger] = '失敗'
