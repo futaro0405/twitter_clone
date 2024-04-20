@@ -29,8 +29,8 @@ class User < ApplicationRecord
                                       inverse_of: 'followed_id'
 
   # 一覧画面で使う
-  has_many :followings, through: :relationships, source: :followed
-  has_many :followers, through: :reverse_of_relationships, source: :follow
+  has_many :followings, through: :relationships, source: :follow
+  has_many :followers, through: :reverse_of_relationships, source: :followed
 
   def self.create_unique_string
     SecureRandom.uuid
