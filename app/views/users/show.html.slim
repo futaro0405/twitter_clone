@@ -8,9 +8,9 @@
         = link_to '編集', edit_user_registration_path(@user)
       - else
         - if current_user.following?(@user)
-          = link_to "フォロー外す", user_relationship_path(@user.id), data: { turbo_method: :delete }
+          = link_to "フォロー解除", user_relationshis_path(@user), data: { turbo_method: :delete }
         - else
-          = link_to "フォローする", user_relationship_path(@user.id), data: { turbo_method: :post }
+          = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }
     .profile__name
       = @user.name
     .profile__birthdate
@@ -22,6 +22,6 @@
     .profile__website
       = @user.website
     .profile__button
-      = link_to "followers", user_followings_path(@user)
+      = link_to @user.followings.count, followings_user_path(@user)
     .profile__button
-      = link_to "followings", user_followers_path(@user)
+      = link_to @user.followers.count, followers_user_path(@user)

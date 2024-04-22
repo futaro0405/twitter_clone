@@ -32,7 +32,7 @@ end
 6.times do |m|
   Post.find_or_create_by!(user_id: m) do |post|
     post.content = "user_id: #{m} test_content test_content test_content test_content test_content"
-    
+
     post.images = ActiveStorage::Blob.create_and_upload!(
       io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
     )

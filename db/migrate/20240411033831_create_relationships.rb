@@ -3,8 +3,8 @@
 class CreateRelationships < ActiveRecord::Migration[7.0]
   def change
     create_table :relationships do |t|
-      t.integer :follow_id
-      t.integer :followed_id
+      t.references :follow, foreign_key: { to_table: :users }
+      t.references :followed, foreign_key: { to_table: :users }
 
       t.timestamps
     end
