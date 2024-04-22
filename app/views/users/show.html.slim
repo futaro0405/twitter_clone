@@ -1,6 +1,6 @@
 .profile
   .profile__image
-    = image_tag @user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center), class: "profile__icon"
+    = image_tag @user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center), class: "profile__icon"
     = image_tag @user.image_cover.variant(resize_to_fill: [1000, 300], gravity: :Center), class: "profile__cover"
   .profile__content
     .profile__button
@@ -8,13 +8,13 @@
         = link_to '編集', edit_user_registration_path(@user)
       - else
         - if current_user.following?(@user)
-          = link_to "フォロー解除", user_relationshis_path(@user), data: { turbo_method: :delete }
+          = link_to "フォロー解除", user_relationships_path(@user), data: { turbo_method: :delete }
         - else
           = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }
     .profile__name
       = @user.name
     .profile__birthdate
-      = @user.birth_date
+      = l @user.birth_date, format: :short
     .profile__text
       = @user.profile
     .profile__location
@@ -22,6 +22,10 @@
     .profile__website
       = @user.website
     .profile__button
-      = link_to @user.followings.count, followings_user_path(@user)
+      = link_to followings_user_path(@user) do
+        | フォロー：
+        = @user.followings.count
     .profile__button
-      = link_to @user.followers.count, followers_user_path(@user)
+      = link_to followers_user_path(@user) do
+        | フォロワー：
+        = @user.followers.count

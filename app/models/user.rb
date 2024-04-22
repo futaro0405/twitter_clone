@@ -22,11 +22,11 @@ class User < ApplicationRecord
   has_one_attached :image_cover
   has_many :posts, dependent: :destroy
 
-  has_many :relationships, class_name: "Relationship", foreign_key: :follow_id, dependent: :destroy
-  has_many :followings, through: :relationships, source: :follow
+  has_many :relationships,            class_name: 'Relationship', foreign_key: :follow_id,    dependent: :destroy
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :followed_id,  dependent: :destroy
 
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
-  has_many :followers, through: :reverse_of_relationships, source: :followed
+  has_many :followings, through: :relationships,            source: :followed
+  has_many :followers,  through: :reverse_of_relationships, source: :follow
 
   def self.create_unique_string
     SecureRandom.uuid
@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
   # フォローしているか判定
   def following?(user)
-    reverse_of_relationships.include?(user)
+    followings.include?(user)
   end
 
   private

@@ -73,6 +73,7 @@ group :development do
 
   gem 'html2slim'
   gem 'letter_opener_web', '~> 2.0'
+  gem 'rails-i18n'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

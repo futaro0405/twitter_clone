@@ -42,7 +42,3 @@ end
 Relationship.find_or_create_by(follow_id: 1) do |user|
   user.followed_id = 2
 end
-
-Relationship.find_or_create_by(follow_id: 1) do |user|
-  user.followed_id = 3
-end

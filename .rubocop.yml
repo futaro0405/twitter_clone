@@ -33,3 +33,6 @@ Hc/RailsSpecificActionName:
 Rails/BulkChangeTable:
   Exclude:
     - db/**/*
+Rails/InverseOf:
+  Exclude:
+    - app/models/*
