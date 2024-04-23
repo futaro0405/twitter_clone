@@ -21,7 +21,8 @@
       = render "users/shared/links"
 
     .login-box__container
-      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        .login-box__form
-          .login-box__actions
-            = f.submit "gitHub"
+      .login-box__form
+        .login-box__actions
+          - if devise_mapping.omniauthable?
+            - resource_class.omniauth_providers.each do |provider|
+              = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }
