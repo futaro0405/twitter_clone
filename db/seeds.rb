@@ -29,16 +29,16 @@
   end
 end
 
-6.times do |m|
-  Post.find_or_create_by!(user_id: m) do |post|
-    post.content = "user_id: #{m} test_content test_content test_content test_content test_content"
+# 6.times do |m|
+#   Post.find_or_create_by!(user_id: m) do |post|
+#     post.content = "user_id: #{m} test_content test_content test_content test_content test_content"
 
-    post.images = ActiveStorage::Blob.create_and_upload!(
-      io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
-    )
-  end
-end
+#     post.images = ActiveStorage::Blob.create_and_upload!(
+#       io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
+#     )
+#   end
+# end
 
-Relationship.find_or_create_by(follow_id: 1) do |user|
-  user.followed_id = 2
-end
+# Relationship.find_or_create_by(follow_id: 1) do |user|
+#   user.followed_id = 2
+# end
