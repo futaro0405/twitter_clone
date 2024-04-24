@@ -28,47 +28,14 @@
   end
 end
 
-# ActiveRecord::Base.connection.tables.each do |t|
-#   ActiveRecord::Base.connection.reset_pk_sequence!(t)
-# end
-
 User.all.each do |user|
   3.times do |m|
     Post.create!(
       user_id: user.id,
-      content: "No. #{m} test content"
+      content: "No. #{m} test content",
       images: ActiveStorage::Blob.create_and_upload!(
-      io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
-    )
-    )
-  end
-end
-
-6.times do |m|
-  Post.find_or_create_by!(user_id: m) do |post|
-    post.content = "test_content test_content test_content test_content test_content"
-    post.images = ActiveStorage::Blob.create_and_upload!(
-      io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
+        io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
+      )
     )
   end
-end
-
-Relationship.find_or_create_by(follow_id: 1) do |user|
-  user.followed_id = 2
-end
-
-Relationship.find_or_create_by(follow_id: 2) do |user|
-  user.followed_id = 3
-end
-
-Relationship.find_or_create_by(follow_id: 3) do |user|
-  user.followed_id = 4
-end
-
-Relationship.find_or_create_by(follow_id: 4) do |user|
-  user.followed_id = 5
-end
-
-Relationship.find_or_create_by(follow_id: 5) do |user|
-  user.followed_id = 6
 end
