@@ -5,18 +5,10 @@
         tr
           th
             | name
-          th
-          th
       tbody
         tr
           td
             = user.name
-          td
-            | フォロー数:
-            = user.followings.count
-          td
-            | フォロワー数:
-            = user.followers.count
 - else
   p
     | ユーザーはいません

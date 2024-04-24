@@ -128,7 +128,8 @@
       }
     }
   }
-  &__actions input {
+  &__actions input,
+  &__actions button {
     background-color: var.$SECONDARY_COLOR;
     outline: none;
     border: none;

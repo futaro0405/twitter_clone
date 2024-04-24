@@ -18,10 +18,6 @@
               = f.label :remember_me, class: "login-box__label"
           .login-box__actions
             = f.submit "Log in"
-      = render "users/shared/links"
-
     .login-box__container
-      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        .login-box__form
-          .login-box__actions
-            = f.submit "gitHub"
+      .login-box__form
+        = render "users/shared/links"
