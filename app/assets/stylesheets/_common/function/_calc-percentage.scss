@@ -1,0 +1,10 @@
+@use 'sass:math';
+
+// パーセント化
+// @param  {Number}  $molecule    - 分子となる数値（分母と同じ単位である必要がある）
+// @param  {Number}  $denominator - 分母となる数値（分子と同じ単位である必要がある）
+// @return {Function}             - math.percentage()
+// -----------------------------------------------------------------------------
+@function calc-percentage($molecule, $denominator) {
+  @return math.percentage(math.div($molecule, $denominator));
+}

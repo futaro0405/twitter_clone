@@ -1,0 +1,18 @@
+@use '../variable' as var;
+@use '../mixin/' as mixin;
+@use '../function/' as func;
+
+// レイアウトコンテナー
+// -----------------------------------------------------------------------------
+%structure {
+  display: grid;
+  gap: 0 var.$CONTENT_INNER_GUTTER_X_NARROW;
+  grid-template-columns:
+    1fr minmax(var.$CONTENT_WIDTH_NARROW, var.$CONTENT_WIDTH_WIDE)
+    1fr;
+
+  // Wide Viewport
+  @include mixin.media-query {
+    gap: 0 var.$CONTENT_INNER_GUTTER_X_WIDE;
+  }
+}

@@ -1,0 +1,58 @@
+@use 'sass:math';
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+// フッター
+// -----------------------------------------------------------------------------
+// .l-footer
+// -----------------------------------------------
+.l-footer {
+  $this: &;
+
+  @extend %structure;
+  grid-area: footer;
+
+  &__outer {
+    @extend %reset-margin;
+
+    background-color: var.$SECONDARY_COLOR;
+    display: grid;
+    gap: 0
+      func.calc-size(
+        $tempSizeFrom: 16px,
+        $tempSizeTo: 40px,
+        $tempViewportFrom: 375px,
+        $tempViewportTo: var.$MINOR_BREAKPOINT - 1px
+      );
+    grid-column: 1 / 4;
+    grid-template-columns:
+      1fr minmax(var.$CONTENT_WIDTH_NARROW, 1296px)
+      1fr;
+  }
+
+  &__inner {
+    @extend %structure-inner;
+
+    padding: 42px 0 48px;
+    color: var.$COLOR_CHIP_WHITE;
+  }
+}
+
+// // Wide Viewport
+@include mixin.media-query {
+  .l-footer {
+    $this: &;
+
+    &__inner {
+      padding: 46px 0;
+    }
+  }
+}
+
+@include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT_2) {
+  .l-footer {
+    $this: &;
+  }
+}

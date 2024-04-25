@@ -1,0 +1,154 @@
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+.login-box {
+  $this: &;
+  display: flex;
+  justify-content: center;
+
+  &__inner {
+    background-color: var.$BACKGROUND_COLOR;
+    display: flex;
+    flex-direction: row;
+    padding: 40px 0;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.35);
+  }
+
+  &__container {
+    @extend %reset-margin;
+    background-color: var.$BACKGROUND_COLOR;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 64px;
+    justify-content: center;
+    align-items: center;
+
+    & + & {
+      border-left: 1px solid #333;
+    }
+  }
+
+  &__title {
+    @extend %module-margin;
+
+    text-align: center;
+    font-size: func.px-to-rem(22);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__label {
+    font-weight: bold;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__input {
+    text-align: center;
+    background-color: #ecf0f1;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 6px 0;
+    width: 100%;
+    transition: border .5s;
+
+    &:focus {
+      border: 2px solid var.$SECONDARY_COLOR;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  &__checkbox {
+    display: inline-block;
+    position: relative;
+
+    input {
+      display: block;
+      height: 0;
+      left: 0.5em;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0.5em;
+      width: 0;
+      z-index: -1;
+      &:checked {
+        + #{$this}__label {
+          &::after {
+            content: '';
+          }
+        }
+      }
+    }
+
+    #{$this}__label {
+      padding-left: 28px;
+
+      &::before {
+        background-color: var.$BACKGROUND_COLOR;
+        border: 1px solid var.$BORDER_COLOR;
+        border-radius: 4px;
+        content: '';
+        display: block;
+        height: 20px;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        width: 20px;
+        z-index: var.$Z_INDEX_DEFAULT;
+        transform: translateY(-50%);
+      }
+
+      &::after {
+        display: block;
+        height: 16px;
+        width: 12px;
+        left: 0.25rem;
+        pointer-events: none;
+        position: absolute;
+        top: 0.75rem;
+        transform: translateY(-50%) rotate(45deg);
+        z-index: var.$Z_INDEX_LAYER;
+        border-bottom: 3px solid var.$PRIMARY_COLOR;
+        border-right: 3px solid var.$PRIMARY_COLOR;
+      }
+    }
+  }
+  &__actions input,
+  &__actions button {
+    background-color: var.$SECONDARY_COLOR;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 17px;
+    width: 100%;
+    font-weight: bold;
+    color: var.$COLOR_CHIP_WHITE;
+    min-width: 200px;
+
+    &:focus-visible,
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
+
+
+// Wide Viewport
+@include mixin.media-query {
+
+}

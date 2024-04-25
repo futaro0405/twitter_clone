@@ -1,0 +1,30 @@
+@use 'sass:string';
+@use '../variable' as *;
+
+// transitionプロパティを一括設定
+// @param {String | List} $properties     - transition-propertyプロパティの値（複数の場合は配列で）
+// @param {Number}        $duration       - transition-durationプロパティの値（単位つき）
+// @param {String}        $timingFunction - transition-timing-functionプロパティの値
+// @param {Number}        $delay          - transition-delayプロパティの値（単位つき）
+// -----------------------------------------------------------------------------
+@mixin transition(
+  $properties: '',
+  $duration: $TRANSITION_DURATION,
+  $timingFunction: $TRANSITION_TIMING_FUNCTION,
+  $delay: null
+) {
+  $transitionBind: ();
+
+  @if $properties == unset {
+    $transitionBind: unset;
+  } @else {
+    @each $property in $properties {
+      $transition: string.unquote(
+        '#{$property} #{$duration} #{$timingFunction} #{$delay}'
+      );
+      $transitionBind: string.append($transitionBind, $transition, comma);
+    }
+  }
+
+  transition: $transitionBind;
+}
