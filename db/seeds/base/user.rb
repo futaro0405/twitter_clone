@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 7.times do |n|
   User.find_or_create_by!(name: "username0#{n}") do |user|
     user.email = "username0#{n}@example.com"

@@ -39,3 +39,8 @@ User.all.each do |user|
     )
   end
 end
+
+target_user = User.find_by(name: 'username01')
+(3..5).each do |num|
+  target_user.follow(num)
+end

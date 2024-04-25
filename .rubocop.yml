@@ -22,17 +22,13 @@ Layout/LineLength:
     - db/migrate/*.rb
 Hc/RailsSpecificActionName:
   Exclude:
-    - app/controllers/users/omniauth_callbacks_controller.rb
+    - app/controllers/**/*.rb
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - app/controllers/users/*.rb
-Hc/RailsSpecificActionName:
-  Exclude:
-    - app/controllers/*.rb
-    - app/controllers/*/*.rb
 Rails/BulkChangeTable:
   Exclude:
     - db/**/*
-Rails/InverseOf:
+Rails/UniqueValidationWithoutIndex:
   Exclude:
-    - app/models/*
+    - app/models/**/*

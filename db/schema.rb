@@ -51,10 +51,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_033831) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "follow_id"
-    t.integer "followed_id"
+    t.bigint "follower_id"
+    t.bigint "followee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["followee_id"], name: "index_relationships_on_followee_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,14 +79,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_033831) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", null: false
-    t.string "telephone", null: false
-    t.datetime "birth_date", null: false
+    t.string "telephone"
+    t.datetime "birth_date"
+    t.string "name", default: "no name", null: false
+    t.string "provider", default: "", null: false
     t.text "profile", default: ""
     t.string "location", default: ""
     t.text "website", default: ""
     t.string "uid", default: ""
-    t.string "provider", default: "", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -95,4 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_033831) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "users"
+  add_foreign_key "relationships", "users", column: "followee_id"
+  add_foreign_key "relationships", "users", column: "follower_id"
 end
