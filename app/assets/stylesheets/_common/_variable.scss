@@ -1,0 +1,180 @@
+// Variable
+// -----------------------------------------------------------------------------
+// ウィンドウ幅がコンテンツ幅以下時の左右の余白（margin）
+// -----------------------------------------------
+
+// ブレークポイント未満
+$CONTENT_INNER_GUTTER_X_NARROW: 16px;
+
+// ブレークポイント以上
+$CONTENT_INNER_GUTTER_X_WIDE: 56px;
+
+// 全汎用モジュール共通の余白（margin-bottom）
+// -----------------------------------------------
+
+// ブレークポイント未満
+$MOD_GUTTER_NARROW: 24px;
+
+// ブレークポイント以上
+$MOD_GUTTER_WIDE: 32px;
+
+// 全汎用モジュール共通の余白 Large （margin-bottom）
+// -----------------------------------------------
+
+// ブレークポイント未満
+$MOD_GUTTER_NARROW_L: 32px;
+
+// ブレークポイント以上
+$MOD_GUTTER_WIDE_L: 40px;
+
+// メディアクエリ関係
+// -----------------------------------------------
+
+$MAJOR_BREAKPOINT: 768px; // メジャーブレークポイント
+$MINOR_BREAKPOINT: 1000px; // マイナーブレークポイント
+$MINOR_BREAKPOINT_2: 1268px; // マイナーブレークポイント
+
+$CONTENT_WIDTH_NARROW: 375px - ($CONTENT_INNER_GUTTER_X_NARROW * 2); // 最小ビューポート時のコンテンツ幅 327px
+$CONTENT_WIDTH_WIDE: $MINOR_BREAKPOINT; // 最大ビューポート時のコンテンツ幅 1000px
+
+// カラーチップ
+// -----------------------------------------------
+
+$COLOR_CHIP_WHITE: #fff; // 汎用的な白、通常背景色や濃い背景色の上の文字色として使用
+$COLOR_CHIP_BLACK: #000; // 汎用的な黒、通常テキストカラーで使用
+
+$COLOR_CHIP: #e7ba4d; // プライマリカラーとして使用
+$COLOR_CHIP_2: #5b506d; // セカンダリカラー水色として使用
+$COLOR_CHIP_3: #f0e9d9; // セカンダリカラーオレンジとして使用
+$COLOR_CHIP_4: #ff8774; // セカンダリカラーピンクとして使用
+$COLOR_CHIP_5: #7fe2ec; // テキストラベル背景、リンクアロー背景などで使用
+$COLOR_CHIP_6: #cef8fc; // ヘッダーお問い合わせボタン背景などで使用
+$COLOR_CHIP_7: #f1f2f6; // 淡いブルーグレー背景、下層ページの関連情報背景などで使用
+$COLOR_CHIP_8: #dfe1ec; // 濃いブルーグレー背景、フッター背景などで使用
+$COLOR_CHIP_9: #fff9e3; // ベージュ背景、絞り込みボックス背景などで使用
+$COLOR_CHIP_10: #fbfbfc; // テーブルth背景などで使用
+$COLOR_CHIP_11: #ffe1dc; // 重要お知らせ背景などで使用
+$COLOR_CHIP_12: #b5bbd1; // 汎用的な罫線カラーとして使用
+$COLOR_CHIP_13: #cbcbcb; // グレー罫線カラーとして使用
+$COLOR_CHIP_15: #d91d00; // 重要・警告カラーとして使用
+$COLOR_CHIP_16: #656570; // サブテキストカラー（グレー）として使用
+$COLOR_CHIP_17: #bde9df; // テーブルth背景などで使用
+$COLOR_CHIP_18: #e4f6f2; // テーブルtd背景などで使用
+$COLOR_CHIP_19: #b6d1cb; // テーブルtd背景などで使用
+$COLOR_CHIP_20: #bbbbbb; // テーブルtd背景などで使用
+
+// プライマリカラー
+// ---------------------------------------------
+
+$PRIMARY_COLOR: $COLOR_CHIP;
+
+// セカンダリカラー
+// ---------------------------------------------
+
+$SECONDARY_COLOR: $COLOR_CHIP_2;
+$SECONDARY_COLOR_2: $COLOR_CHIP_3;
+$SECONDARY_COLOR_3: $COLOR_CHIP_4;
+
+// background-colorプロパティ
+// -----------------------------------------------
+
+$BACKGROUND_COLOR: $COLOR_CHIP_WHITE;
+$BACKGROUND_COLOR_2: $COLOR_CHIP_5; // テキストラベル背景、リンクアロー背景などで使用
+$BACKGROUND_COLOR_3: $COLOR_CHIP_6; // ヘッダーお問い合わせボタン背景などで使用
+$BACKGROUND_COLOR_4: $COLOR_CHIP_7; // 淡いブルーグレー背景、下層ページの関連情報背景などで使用
+$BACKGROUND_COLOR_5: $COLOR_CHIP_8; // 濃いブルーグレー背景、フッター背景などで使用
+$BACKGROUND_COLOR_6: $COLOR_CHIP_9; // ベージュ背景、絞り込みボックス背景などで使用
+$BACKGROUND_COLOR_7: $COLOR_CHIP_10; // テーブルth背景などで使用
+$BACKGROUND_COLOR_8: $COLOR_CHIP_11; // 重要お知らせ背景などで使用
+$BACKGROUND_COLOR_9: $COLOR_CHIP_17; // テーブルth背景などで使用
+$BACKGROUND_COLOR_10: $COLOR_CHIP_18; // テーブルtd背景などで使用
+$BACKGROUND_COLOR_11: $COLOR_CHIP_20; // 非活性ボタンで使用
+
+// border-colorプロパティ
+// -----------------------------------------------
+
+$BORDER_COLOR: $COLOR_CHIP_12; // 汎用的な罫線カラーとして使用
+$BORDER_COLOR_2: $COLOR_CHIP_13; // グレー罫線カラーとして使用
+$BORDER_COLOR_3: $COLOR_CHIP_19; // グリーン罫線カラーとして使用
+$BORDER_COLOR_4: $COLOR_CHIP_20; // 非活性として使用
+
+// BORDER_RADIUSプロパティ
+// -----------------------------------------------
+
+// $BORDER_RADIUS: 4px;
+
+// font-familyプロパティ
+// -----------------------------------------------
+
+// ゴシック系（和文）
+$FONT_FAMILY_SANS_JPN: 'Noto Sans JP', '游ゴシック体', 'Yu Gothic', YuGothic,
+  'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, sans-serif;
+
+// ゴシック系（欧文）
+$FONT_FAMILY_SANS_ENG: 'Montserrat', '游ゴシック体', 'Yu Gothic', YuGothic,
+  'ヒラギノ角ゴ Pro', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, sans-serif;
+
+$FONT_FAMILY: $FONT_FAMILY_SANS_JPN;
+
+// font-sizeプロパティ
+// -----------------------------------------------
+
+// ブレークポイント未満
+$FONT_SIZE_NARROW: 16;
+
+// ブレークポイント以上
+$FONT_SIZE_WIDE: 18;
+
+// font-sizeプロパティ（注釈モジュール）
+// -----------------------------------------------
+
+// ブレークポイント未満
+$FONT_SIZE_NOTICE_NARROW: 14;
+
+// ブレークポイント以上
+$FONT_SIZE_NOTICE_WIDE: 16;
+
+// line-heightプロパティ
+// -----------------------------------------------
+
+// ブレークポイント未満・以上共通
+$LINE_HEIGHT: 1.8;
+
+
+// colorプロパティ
+// -----------------------------------------------
+
+$COLOR: #333;
+
+// opacityプロパティ
+// -----------------------------------------------
+
+$OPACITY: 0.5;
+
+// box-shadowプロパティ
+// -----------------------------------------------
+
+$BOX_SHADOW: 0 5px 6px rgba(125, 125, 125, 0.2);
+
+// background-image プロパティ（linear-gradient）
+// -----------------------------------------------
+
+// $LINER_GRADIENT: linear-gradient($SECONDARY_COLOR_2, $PRIMARY_COLOR);
+// $LINER_GRADIENT_2: linear-gradient(to right, $SECONDARY_COLOR_2, $PRIMARY_COLOR);
+
+// transitionプロパティ
+// -----------------------------------------------
+
+$TRANSITION_DURATION: 0.5s; // 汎用的に使用
+$TRANSITION_TIMING_FUNCTION: cubic-bezier(0.25, 0.8, 0.25, 1); // 汎用的に使用
+
+// z-indexプロパティ
+// -----------------------------------------------
+
+$Z_INDEX_OVERLAY: 7000; // ガワより前面表示（モーダル・オーバーレイ）
+$Z_INDEX_HEADER: 5000; // ガワ
+$Z_INDEX_FIXEDLINK: 3000; // 固定リンク
+$Z_INDEX_PAGETOP: 2000; // TOPへ戻る
+$Z_INDEX_LAYER: 5; // 上に被せるだけの要素
+$Z_INDEX_DEFAULT: 0; // 重ね合わせコンテキスト作成したいとき用
+$Z_INDEX_BEHIND: -1; // 背面に回り込ませるもの

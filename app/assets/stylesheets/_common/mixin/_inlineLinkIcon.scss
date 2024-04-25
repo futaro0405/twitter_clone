@@ -1,0 +1,44 @@
+@use 'sass:string';
+@use '../variable' as *;
+
+// 同ドメインリンクのinlineアイコン
+// @param {String}        $link           - リンクのセレクタ（1つだけ。「>」は不要）
+// @param {Number}        $size           - アイコンの幅、高さ（1つだけ。単位あり）
+// @param {Number}        $margin         - アイコンのmarginショートハンド（値4つ。単位あり）
+// @param {Number}        $translateX     - リンクホバー時の矢印の移動距離（単位あり）
+// -----------------------------------------------------------------------------
+@mixin inlineLinkIcon(
+  $link: "",
+  $size: 24px,
+  $margin: -2px 0 0 4px,
+  $translateX: 4px
+){
+  $this: &;
+  &__iconLink{
+    background-color: $BACKGROUND_COLOR;
+    border-radius: 50%;
+    fill: $PRIMARY_COLOR;
+    height: #{$size};
+    margin: #{$margin};
+    transition: background-color .2s ease-in;
+    vertical-align: middle;
+    width: #{$size};
+  }
+  &__iconLinkArrow{
+    transition: transform .2s ease-in, fill .2s ease-in;
+  }
+  @at-root #{$link} {
+    &:any-link {
+      &:hover,
+      &:focus {
+        #{$this}__iconLink {
+          background-color: $PRIMARY_COLOR;
+        }
+        #{$this}__iconLinkArrow {
+          fill: $COLOR_CHIP_WHITE;
+          transform: translateX(#{$translateX});
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@use 'sass:math';
+@use '../_common/variable' as var;
+@use '../_common/mixin/' as mixin;
+@use '../_common/extend/' as *;
+@use '../_common/function/' as func;
+
+// ヘッダー
+// -----------------------------------------------------------------------------
+// .l-header
+// -----------------------------------------------
+.l-header {
+  $this: &;
+
+  background-color: var.$PRIMARY_COLOR;
+  grid-area: header;
+  z-index: var.$Z_INDEX_HEADER;
+
+  &__logo {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    
+    svg {
+      width: 100%;
+    }
+  }
+
+  &__nav {
+    gap: 16px;
+
+    &-item {
+      a {
+        background-color: var.$SECONDARY_COLOR;
+        border-radius: 8px;
+        padding: 8px 24px!important;
+        font-weight: bold;
+        color: var.$COLOR_CHIP_WHITE;
+        &:hover,
+        &:focus-visible {
+          color: var.$COLOR_CHIP_WHITE;
+          opacity: .8;
+        }
+      }
+    }
+  }
+}
+
+// Wide Viewport
+@include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT) {
+  .l-header {
+    $this: &;
+    position: static;
+  }
+}
+
+@include mixin.media-query($breakpoint: var.$MINOR_BREAKPOINT_2) {
+  .l-header {
+    $this: &;
+  }
+}

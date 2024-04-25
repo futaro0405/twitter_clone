@@ -1,0 +1,24 @@
+p
+  | Welcome 
+  = @resource.name
+  | !
+
+- if @resource.try(:unconfirmed_email?)
+  p
+    | You can confirm your account email through the link below:
+  p
+    = link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+  p
+    | This URL is valid for 24 hours.
+- else
+  - if @resource.confirmed_at != nil
+    p
+      | Membership registration has been completed
+      | Please log in using the link below.
+      | https://xclone-web.onrender.com
+  - else
+    p
+      | 以下のリンクからユーザの認証を行ってユーザ登録を完了してください。
+    = link_to 'Perform user authentication', confirmation_url(@resource,confirmation_token: @token)
+    p
+      | This URL is valid for 24 hours.

@@ -1,0 +1,52 @@
+@use '../../_common/variable' as var;
+@use '../../_common/mixin/' as mixin;
+@use '../../_common/extend/' as *;
+@use '../../_common/function/' as func;
+
+.home-nav {
+  $this: &;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+
+  &__item {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: func.px-to-rem(18);
+    border-radius: 100px;
+
+    &:hover,
+    &:focus-visible {
+      color: var.$COLOR_CHIP_16;
+      background-color: var.$COLOR_CHIP_13;
+    }
+  }
+
+  &__icon {
+    svg {
+      width: 24px;
+      height: auto;
+    }
+  }
+
+  &__text {
+    display: none;
+  }
+}
+
+
+// Wide Viewport
+@include mixin.media-query {
+  .home-nav {
+    $this: &;
+
+    &__text {
+      display: block;
+    }
+  }
+}
