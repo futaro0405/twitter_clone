@@ -15,7 +15,7 @@
     position: absolute;
     bottom: 0;
     left: 25px;
-    border-radius: 50px;
+    border-radius: 100px;
     border: solid 4px var.$COLOR_CHIP_WHITE;
   }
   &__cover {
@@ -26,7 +26,6 @@
   }
   &__button {
     text-align: right;
-
     a {
       text-decoration: none;
       font-weight: bold;
@@ -36,6 +35,10 @@
       border-radius: 100px;
       padding: 8px 16px;
     }
+  }
+  &__name {
+    font-weight: bold;
+    font-size: func.px-to-rem(20);
   }
 }
 
