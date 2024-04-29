@@ -1,0 +1,46 @@
+.post
+  .post__image
+    = link_to user_path(@post.user) do
+      = image_tag @post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+  .post__content
+    .post__contentName
+      = @post.user.name
+    .post__contentText
+      = @post.content
+    .post__imageContnet
+      - @post.images.each do |image|
+        = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
+
+.post
+  .post__image
+    = link_to user_path(current_user) do
+      = image_tag current_user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+  .post__content
+    = form_with model: [@post, @comment], url: post_comments_path(@post), method: :post, local: true do |f|
+      .post__form[data-controller="previews"]
+        = f.text_area :comment_content, class: "post__textarea"
+        div[data-previews-target="preview"]
+        .post__formButton
+          = f.label :comment_images, class: "post__formImage" do
+            svg.bi.bi-image-fill[xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"]
+              path[d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"]
+            = f.file_field :comment_images, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }, multiple: true
+          = f.submit "post", class: "post__button"
+
+= turbo_frame_tag "pagenations" do
+  - @comments.each do |comment|
+    .post
+      .post__image
+        = link_to user_path(comment.user) do
+          = image_tag comment.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+      .post__content
+        .post__contentName
+          = comment.user.name
+          .post__contentText
+            = comment.comment_content
+          .post__imageContnet
+            - comment.comment_images.each do |image|
+              = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
+
+
+  = paginate @comments, :param_name => 'page', remote: true

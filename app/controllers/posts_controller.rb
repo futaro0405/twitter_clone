@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  def show
+    @post = Post.find_by(id: params[:id])
+    @comments = @post.comments.includes(:user).order(created_at: :desc).page(params[:page]).per(3)
+    @comment = current_user.comments.new
+  end
+
   def edit
     @post = Post.find(params[:id])
   end
