@@ -41,6 +41,4 @@
           .post__imageContnet
             - comment.comment_images.each do |image|
               = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
-
-
-  = paginate @comments, :param_name => 'page', remote: true
+  = paginate @comments, :param_name => 'page_comment',remote: true

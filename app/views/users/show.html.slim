@@ -2,30 +2,65 @@
   .profile__image
     = image_tag @user.image_avatar.variant(resize_to_fill: [100, 100], gravity: :Center), class: "profile__icon"
     = image_tag @user.image_cover.variant(resize_to_fill: [1000, 300], gravity: :Center), class: "profile__cover"
-  .profile__button
-    - if current_user.eql?(@user)
-      = link_to '編集', edit_user_registration_path(@user)
-    - else
-      - if current_user.following?(@user)
-        = link_to "フォロー解除", user_relationships_path(@user), data: { turbo_method: :delete }
-      - else
-        = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }
   .profile__content
-    .profile__name
-      = @user.name
-    .profile__text
-      = @user.profile
-    .profile__birthdate
-      = l @user.birth_date, format: :long
-    .profile__location
-      = @user.location
-    .profile__website
-      = @user.website
-    .profile__button
-      = link_to followings_user_path(@user) do
-        | フォロー：
-        = @user.followings.count
-    .profile__button
-      = link_to followers_user_path(@user) do
-        | フォロワー：
-        = @user.followers.count
+    .profile__header
+      .profile__name
+        = @user.name
+      .profile__button
+        - if current_user.eql?(@user)
+          = link_to '編集', edit_user_registration_path(@user)
+        - else
+          - if current_user.following?(@user)
+            = link_to "フォロー解除", user_relationships_path(@user), data: { turbo_method: :delete }
+          - else
+            = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }
+    .profile__body
+      .profile__text
+        = Rinku.auto_link(safe_join(@user.profile.split("\n"),tag(:br)), :all, 'target="_blank"').html_safe
+      .profile__details
+        .profile__birthdate
+          | birthday:
+          = l @user.birth_date, format: :long
+        .profile__location
+          | location:
+          = @user.location
+        .profile__website
+          | website:
+          = Rinku.auto_link(@user.website, :all, 'target="_blank"').html_safe
+    .profile__footer
+        = link_to followings_user_path(@user) do
+          | フォロー：
+          = @user.followings.count
+        = link_to followers_user_path(@user) do
+          | フォロワー：
+          = @user.followers.count
+  ul.nav.nav-tabs#myTab[role="tablist"]
+    li.nav-item[role="presentation"]
+      button.nav-link.active#post-tab[data-bs-toggle="tab" type="button" role="tab" data-bs-target="#post-tab-pane" aria-controls="post-tab-pane" aria-selected="true"]
+        | ツイート
+    li.nav-item[role="presentation"]
+      button.nav-link#favorite-tab[data-bs-toggle="tab" data-bs-target="#favorite-tab-pane" type="button" role="tab" aria-controls="favorite-tab-pane" aria-selected="false"]
+        | いいね
+    li.nav-item[role="presentation"]
+      button.nav-link#repost-tab[data-bs-toggle="tab" data-bs-target="#repost-tab-pane" type="button" role="tab" aria-controls="repost-tab-pane" aria-selected="false"]
+        | リポスト
+    li.nav-item[role="presentation"]
+      button.nav-link#comment-tab[data-bs-toggle="tab" data-bs-target="#comment-tab-pane" type="button" role="tab" aria-controls="comment-tab-pane" aria-selected="false"]
+        | コメント
+  .tab-content#myTabContent
+    .tab-pane.active.show.fade#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
+      = turbo_frame_tag "pagenations3" do
+        = render partial: "shared/post_list", collection: @my_posts, as: :post
+        = paginate @my_posts, :param_name => 'page_my', remote: true
+    .tab-pane.fade#favorite-tab-pane[role="tabpanel" aria-labelledby="favorite-tab" tabindex="0"]
+      = turbo_frame_tag "pagenations4" do
+        = render partial: "shared/post_list", collection: @posts_favorite, as: :post
+        = paginate @posts_favorite, :param_name => 'page_favorite', remote: true
+    .tab-pane.fade#repost-tab-pane[role="tabpanel" aria-labelledby="repost-tab" tabindex="0"]
+      = turbo_frame_tag "pagenations5" do
+        = render partial: "shared/post_list", collection: @posts_repost, as: :post
+        = paginate @posts_repost, :param_name => 'page_repost', remote: true
+    .tab-pane.fade#comment-tab-pane[role="tabpanel" aria-labelledby="comment-tab" tabindex="0"]
+      = turbo_frame_tag "pagenations6" do
+        = render partial: "shared/post_list", collection: @posts_comment, as: :post
+        = paginate @posts_comment, :param_name => 'page_comment', remote: true

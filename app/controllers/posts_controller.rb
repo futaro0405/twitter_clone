@@ -3,7 +3,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find_by(id: params[:id])
-    @comments = @post.comments.includes(:user).order(created_at: :desc).page(params[:page]).per(3)
+    @comments = @post.comments.includes(:user).order(created_at: :desc).page(params[:page_comment]).per(3)
     @comment = current_user.comments.new
   end
 
