@@ -50,5 +50,8 @@ User.all.each do |user|
     Favorite.find_or_create_by!(user_id: target_user.id) do |favorite|
       favorite.post_id = 0
     end
+    Repost.find_or_create_by!(user_id: target_user.id) do |repost|
+      repost.post_id = 0
+    end
   end
 end
