@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :followings, :followers]
+  before_action :authenticate_user!, only: %i[show followings followers]
   before_action :set_user
 
   def show
