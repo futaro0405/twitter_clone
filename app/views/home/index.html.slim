@@ -1,20 +1,39 @@
 .home
   .home__inner
-  - if user_signed_in?
-    .home__nav
-      = render "shared/nav"
-    .home__content
+    - if user_signed_in?
+      .home__nav
+        = render "shared/nav"
+      .home__content
+        ul.nav.nav-tabs#myTab[role="tablist"]
+          li.nav-item[role="presentation"]
+            button.nav-link.active#post-tab[data-bs-toggle="tab" type="button" role="tab" data-bs-target="#post-tab-pane" aria-controls="post-tab-pane" aria-selected="true"]
+              | おすすめ
+          li.nav-item[role="presentation"]
+            button.nav-link#followers-tab[data-bs-toggle="tab" data-bs-target="#followers-tab-pane" type="button" role="tab" aria-controls="followers-tab-pane" aria-selected="false"]
+              | フォロー中
         .post
-          .post__head
-            .post__name
-              = current_user.name
-            .post__submit
-              .button__layout
-                button.button
-                  | post
-  - else
-    .home__nav
-    .home__content
-      .post
-        p
-          | サインインしてください
+          .post__image
+            = link_to user_path(current_user) do
+              = image_tag current_user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+          .post__content
+            = form_with model: @post, url: posts_path, local: true do |f|
+              .post__form[data-controller="previews"]
+                = f.text_area :content, class: "post__textarea"
+                div[data-previews-target="preview"]
+                .post__formButton
+                  = f.label :images, class: "post__formImage" do
+                    svg.bi.bi-image-fill[xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"]
+                      path[d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"]
+                    = f.file_field :images, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }, multiple: true
+                  = f.submit "post", class: "post__button"
+        .tab-content#myTabContent
+          .tab-pane.active.show.fade#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
+            = turbo_frame_tag "pagenations1" do
+              = render partial: "shared/post_list", collection: @posts_all, as: :post
+              = paginate @posts_all, :param_name => 'page_all', remote: true
+          .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="followers-tab" tabindex="0"]
+            = turbo_frame_tag "pagenations2" do
+              = render partial: "shared/post_list", collection: @posts_followers, as: :post
+              = paginate @posts_followers, :param_name => 'page_follow', remote: true
+    - else
+      | サインインしてください

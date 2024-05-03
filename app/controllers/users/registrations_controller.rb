@@ -21,9 +21,12 @@ module Users
     # end
 
     # PUT /resource
-    # def update
-    #   super
-    # end
+    def update
+      super
+      return if account_update_params[:image_avatar].blank?
+
+      resource.image_avatar.attach(account_update_params[:image_avatar])
+    end
 
     # DELETE /resource
     # def destroy
@@ -48,17 +51,18 @@ module Users
 
     def update_resource(resource, params)
       return super if params['password'].present?
+
       resource.update_without_password(params.except('current_password'))
     end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: %i[telephone birth_date])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
     end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: %i[telephone birth_date])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
     end
 
     # The path used after sign up.

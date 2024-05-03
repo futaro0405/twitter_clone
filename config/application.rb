@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'boot'
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -13,6 +12,9 @@ module Myapp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
+    config.active_storage.variant_processor = :mini_magick
+    config.time_zone = 'Asia/Tokyo'
+    config.i18n.default_locale = :ja
 
     # Configuration for the application, engines, and railties goes here.
     #
