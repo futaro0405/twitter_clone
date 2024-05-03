@@ -46,12 +46,16 @@ target_user = User.find_by(name: 'username00')
 end
 
 User.all.each do |user|
-  if !user.equal?(target_user)
+  unless user.equal?(target_user)
     Favorite.find_or_create_by!(user_id: user.id) do |favorite|
       favorite.post_id = 1
     end
     Repost.find_or_create_by!(user_id: user.id) do |repost|
       repost.post_id = 1
     end
+  end
+  Comment.find_or_create_by!(user_id: user.id) do |comment|
+    comment.post_id = 1
+    comment.comment_content = 'comment_text comment_text comment_text'
   end
 end
