@@ -46,12 +46,12 @@ target_user = User.find_by(name: 'username00')
 end
 
 User.all.each do |user|
-  unless user.equal?.target_user
-    Favorite.find_or_create_by!(user_id: target_user.id) do |favorite|
-      favorite.post_id = 0
+  if !user.equal?(target_user)
+    Favorite.find_or_create_by!(user_id: user.id) do |favorite|
+      favorite.post_id = 1
     end
-    Repost.find_or_create_by!(user_id: target_user.id) do |repost|
-      repost.post_id = 0
+    Repost.find_or_create_by!(user_id: user.id) do |repost|
+      repost.post_id = 1
     end
   end
 end
