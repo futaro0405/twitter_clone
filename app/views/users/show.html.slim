@@ -54,13 +54,25 @@
         = paginate @my_posts, :param_name => 'page_my', remote: true
     .tab-pane.fade#favorite-tab-pane[role="tabpanel" aria-labelledby="favorite-tab" tabindex="0"]
       = turbo_frame_tag "pagenations4" do
-        = render partial: "shared/post_list", collection: @posts_favorite, as: :post
-        = paginate @posts_favorite, :param_name => 'page_favorite', remote: true
+        = render partial: "shared/post_list", collection: @favorite_post, as: :post
+        = paginate @favorite_post, :param_name => 'page_favorite', remote: true
     .tab-pane.fade#repost-tab-pane[role="tabpanel" aria-labelledby="repost-tab" tabindex="0"]
       = turbo_frame_tag "pagenations5" do
-        = render partial: "shared/post_list", collection: @posts_repost, as: :post
-        = paginate @posts_repost, :param_name => 'page_repost', remote: true
+        = render partial: "shared/post_list", collection: @repost_post, as: :post
+        = paginate @repost_post, :param_name => 'page_repost', remote: true
     .tab-pane.fade#comment-tab-pane[role="tabpanel" aria-labelledby="comment-tab" tabindex="0"]
       = turbo_frame_tag "pagenations6" do
-        = render partial: "shared/post_list", collection: @posts_comment, as: :post
-        = paginate @posts_comment, :param_name => 'page_comment', remote: true
+        - @comment_post.each do |comment|
+          .post
+            .post__image
+              = link_to user_path(comment.user) do
+                = image_tag comment.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
+            .post__content
+              .post__contentName
+                = comment.user.name
+                .post__contentText
+                  = comment.comment_content
+                .post__imageContnet
+                  - comment.comment_images.each do |image|
+                    = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
+        = paginate @comment_post, :param_name => 'page_comment',remote: true

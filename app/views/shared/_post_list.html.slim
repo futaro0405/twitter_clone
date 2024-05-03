@@ -3,6 +3,12 @@
     = link_to user_path(post.user) do
       = image_tag post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
   .post__content
+    - if post.has_attribute?(:repost_user_id)
+      - if post.repost_user_id.present?
+        .post-repost
+          i.fas.fa-retweet
+          = link_to post.repost_user_name, "/users/#{post.repost_user_id}", "data-turbolinks": false
+          | さんがリポスト
     = link_to post_path(post)
       .post__contentName
         = post.user.name
@@ -11,3 +17,23 @@
       .post__imageContnet
         - post.images.each do |image|
           = image_tag image.variant(resize_to_fill: [300, 300], gravity: :Center)
+
+    - unless post.user.id == current_user.id
+      .post__menu
+        - if post.favorited_by?(current_user)
+          = link_to post_favorites_path(post), method: :delete, data: { turbo_method: :delete} do
+            i.bi.bi-heart-fill[style="color: red;"]
+            = post.favorites.count
+        - else
+          = link_to post_favorites_path(post), data: { turbo_method: :post } do
+            i.bi.bi-heart-fill
+            = post.favorites.count
+
+        - if post.reposted_by?(current_user)
+          = link_to post_reposts_path(post), method: :delete, data: { turbo_method: :delete} do
+            i.bi.bi-repeat[style="color: green;"]
+            = post.reposts.count
+        - else
+          = link_to post_reposts_path(post), data: { turbo_method: :post } do
+            i.bi.bi-repeat
+            = post.reposts.count

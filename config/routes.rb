@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments, only: %i[create]
+    resource :reposts, only: %i[create destroy]
+    resource :favorites, only: %i[create destroy]
   end
 
   root to: 'home#index'
