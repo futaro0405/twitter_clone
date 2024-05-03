@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepostsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
