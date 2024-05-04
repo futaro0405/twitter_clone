@@ -5,25 +5,25 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
-    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
-    reposts = Repost.where(user_id: @user.id).pluck(:post_id)
-    comments = Comment.where(user_id: @user.id)
+    posts = @user.posts
+    favorites = @user.favorites
+    reposts = @user.reposts
+    comments = @user.comments
 
-    @my_posts = Post.where(user_id: @user)
-                    .order('created_at DESC')
-                    .page(params[:page_my])
-                    .per(5)
+    @my_posts = posts.order('created_at DESC')
+                  .page(params[:page_my])
+                  .per(5)
     @favorite_post = Post.where(id: favorites)
-                         .order('created_at DESC')
-                         .page(params[:page_repost])
-                         .per(5)
+                      .order('created_at DESC')
+                      .page(params[:page_repost])
+                      .per(5)
     @repost_post = Post.where(id: reposts)
-                       .order('created_at DESC')
-                       .page(params[:page_repost])
-                       .per(5)
+                    .order('created_at DESC')
+                    .page(params[:page_repost])
+                    .per(5)
     @comment_post = comments.order('created_at DESC')
-                            .page(params[:page_comment])
-                            .per(5)
+                      .page(params[:page_comment])
+                      .per(5)
   end
 
   def followings
