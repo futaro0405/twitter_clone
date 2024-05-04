@@ -1,42 +1,75 @@
-h2
-  | Edit 
-  = resource_name.to_s.humanize
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = render "users/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-  br
-  = f.email_field :email, autofocus: true, autocomplete: "email"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    div
-      | Currently waiting confirmation for: 
-      = resource.unconfirmed_email
-  .field
-    = f.label :password
-  i
-    | (leave blank if you don't want to change it)
-  br
-  = f.password_field :password, autocomplete: "new-password"
-  - if @minimum_password_length
-    br
-    em
-      = @minimum_password_length
-      |  characters minimum
-  .field
-    = f.label :password_confirmation
-  br
-  = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :current_password
-  i
-    | (we need your current password to confirm your changes)
-  br
-  = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Update"
-h3
-  | Cancel my account
-div
-  | Unhappy? 
-  = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+.home
+  .home__inner
+    - if user_signed_in?
+      .home__nav
+        = render "shared/nav"
+      .home__content
+        .profile
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            = render "users/shared/error_messages", resource: resource
+            .profile__form[data-controller="previews"]
+              = f.label :image_avatar, "icon画像"
+              = f.label :image_avatar, class: "post__formImage" do
+                svg.bi.bi-image-fill[xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"]
+                  path[d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"]
+                = f.file_field :image_avatar, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }
+              div[data-previews-target="preview"]
+            .profile__form[data-controller="previews"]
+              = f.label :image_cover, "cover画像"
+              = f.label :image_cover, class: "post__formImage" do
+                svg.bi.bi-image-fill[xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"]
+                  path[d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"]
+                = f.file_field :image_cover, accept: "image/*", direct_upload: true, data: {previews_target: "input", action: "change->previews#preview" }
+              div[data-previews-target="preview"]
+            .profile__form
+              = f.label :email
+              = f.email_field :email, autofocus: true, autocomplete: "email"
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              div
+                | 現在確認待ちです: 
+                = resource.unconfirmed_email
+            .profile__form
+              .profile__label
+                = f.label :password
+                br
+                i
+                  | (変更しない場合は空白のままにしてください。)
+                br
+                - if @minimum_password_length
+                  em
+                    = @minimum_password_length
+                    |  characters minimum
+              = f.password_field :password, autocomplete: "new-password"
+            .profile__form
+              = f.label :password_confirmation
+              = f.password_field :password_confirmation, autocomplete: "new-password"
+            .profile__form
+              = f.label :name
+              = f.text_field :name
+            .profile__form
+              = f.label :telephone
+              = f.text_field :telephone
+            .profile__form
+              = f.label :profile
+              = f.text_area :profile
+            .profile__form
+              = f.label :location
+              = f.text_field :location
+            .profile__form
+              = f.label :website
+              = f.text_field :website
+            .profile__form
+              .profile__label
+                = f.label :current_password
+                br
+                i
+                  | (変更を確認するために、現在のパスワードが必要です。)
+              = f.password_field :current_password, autocomplete: "current-password"
+            .actions
+              = f.submit "Update", class: "post__button"
+          h3
+            | Cancel my account
+          div
+            | Unhappy? 
+            = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "post__button"
+          = link_to "Back", :back, class: "post__button"

@@ -76,6 +76,20 @@
     font-weight: bold;
     font-size: func.px-to-rem(24);
   }
+  &__edit {
+    padding: 8px;
+  }
+  .edit_user {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    padding: 8px;
+  }
+  &__form {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
 }
 
 // Wide Viewport
