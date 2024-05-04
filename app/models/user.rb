@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_one_attached :image_avatar
   has_one_attached :image_cover
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :reposts, dependent: :destroy
 
   has_many :active_relationships,   class_name: 'Relationship', foreign_key: :follower_id,  dependent: :destroy,
                                     inverse_of: :follower

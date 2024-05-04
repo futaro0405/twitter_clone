@@ -15,7 +15,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts
+  resources :posts do
+    resources :comments, only: %i[create]
+    resource :reposts, only: %i[create destroy]
+    resource :favorites, only: %i[create destroy]
+  end
+
   root to: 'home#index'
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
