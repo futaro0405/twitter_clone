@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  def show
+    @post = Post.find_by(id: params[:id])
+    @comments = @post.comments.includes(:user).order(created_at: :desc).page(params[:page_comment]).per(3)
+    @comment = current_user.comments.new
+  end
+
   def edit
     @post = Post.find(params[:id])
   end
@@ -12,7 +18,7 @@ class PostsController < ApplicationController
       redirect_to root_path, success: 'Postしました。', status: :see_other
     else
       flash.now[:danger] = '失敗'
-      render root_path, status: :unprocessable_entity
+      render 'home/index', status: :unprocessable_entity
     end
   end
 

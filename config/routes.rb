@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'relationships/followings'
-  get 'relationships/followers'
-
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
@@ -11,13 +8,19 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  resources :users do
-    resource :relationship, only: %i[create destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
+  resources :users, only: %i[show] do
+    resource :relationships, only: %i[create destroy]
+    member do
+      get :followings, :followers
+    end
   end
 
-  resources :posts
+  resources :posts do
+    resources :comments, only: %i[create]
+    resource :reposts, only: %i[create destroy]
+    resource :favorites, only: %i[create destroy]
+  end
+
   root to: 'home#index'
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

@@ -58,6 +58,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'pry-rails'
   gem 'rspec-rails'
 end
 
@@ -73,6 +74,7 @@ group :development do
 
   gem 'html2slim'
   gem 'letter_opener_web', '~> 2.0'
+  gem 'rails-i18n'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -98,4 +100,5 @@ gem 'kaminari'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
+gem 'rinku'
 gem 'slim-rails'

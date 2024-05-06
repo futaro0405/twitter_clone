@@ -21,16 +21,17 @@ class User < ApplicationRecord
   has_one_attached :image_avatar
   has_one_attached :image_cover
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :reposts, dependent: :destroy
 
-  # フォローをした、されたの関係
-  has_many :relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy,
-                           inverse_of: 'follow_id'
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy,
-                                      inverse_of: 'followed_id'
+  has_many :active_relationships,   class_name: 'Relationship', foreign_key: :follower_id,  dependent: :destroy,
+                                    inverse_of: :follower
+  has_many :passive_relationships,  class_name: 'Relationship', foreign_key: :followee_id,  dependent: :destroy,
+                                    inverse_of: :followee
 
-  # 一覧画面で使う
-  has_many :followings, through: :relationships, source: :follow
-  has_many :followers, through: :reverse_of_relationships, source: :followed
+  has_many :followings, through: :active_relationships,  source: :followee
+  has_many :followers,  through: :passive_relationships, source: :follower
 
   def self.create_unique_string
     SecureRandom.uuid
@@ -42,7 +43,7 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.name = auth.info.name
       user.telephone = '00000000000'
-      user.birth_date = '1990-01-01'
+      user.birth_date = '1000-01-01'
 
       if user.persisted? || auth.provider == 'github'
         user.skip_confirmation! if auth.provider == 'github'
@@ -53,17 +54,18 @@ class User < ApplicationRecord
 
   # フォロー処理
   def follow(user_id)
-    relationships.create(followed_id: user_id)
+    active_relationships.find_or_create_by!(followee_id: user_id)
   end
 
   # フォローを外す処理
   def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy
+    relationships = active_relationships.find_by(followee_id: user_id)
+    relationships&.destroy!
   end
 
-  # フォロー判定
+  # フォローしているか判定
   def following?(user)
-    followings.include?(user)
+    active_relationships.where(followee_id: user.id).exists?
   end
 
   private

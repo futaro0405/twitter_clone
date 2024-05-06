@@ -9,8 +9,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 7.times do |n|
-  User.find_or_create_by!(id: n) do |user|
-    user.name = "username0#{n}"
+  User.find_or_create_by!(name: "username0#{n}") do |user|
     user.email = "username0#{n}@example.com"
     user.password = 'password'
     user.telephone = "0801234567#{n}"
@@ -29,20 +28,34 @@
   end
 end
 
-6.times do |m|
-  Post.find_or_create_by!(user_id: m) do |post|
-    post.content = "user_id: #{m} test_content test_content test_content test_content test_content"
-    
-    post.images = ActiveStorage::Blob.create_and_upload!(
-      io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
+User.all.each do |user|
+  3.times do |m|
+    Post.create!(
+      user_id: user.id,
+      content: "No. #{m} test content",
+      images: ActiveStorage::Blob.create_and_upload!(
+        io: File.open(Rails.root.join('app/assets/images/dummy.jpg').to_s), filename: 'dummy.jpg'
+      )
     )
   end
 end
 
-Relationship.find_or_create_by(follow_id: 1) do |user|
-  user.followed_id = 2
+target_user = User.find_by(name: 'username00')
+(3..6).each do |num|
+  target_user.follow(num)
 end
 
-Relationship.find_or_create_by(follow_id: 1) do |user|
-  user.followed_id = 3
+User.all.each do |user|
+  unless user.equal?(target_user)
+    Favorite.find_or_create_by!(user_id: user.id) do |favorite|
+      favorite.post_id = 1
+    end
+    Repost.find_or_create_by!(user_id: user.id) do |repost|
+      repost.post_id = 1
+    end
+  end
+  Comment.find_or_create_by!(user_id: user.id) do |comment|
+    comment.post_id = 1
+    comment.comment_content = 'comment_text comment_text comment_text'
+  end
 end

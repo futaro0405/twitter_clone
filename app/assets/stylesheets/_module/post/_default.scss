@@ -17,12 +17,19 @@
   border-bottom: 1px solid var.$BORDER_COLOR;
   &__image {
     flex: 0 0 auto;
+    > a {
+      display: block;
+    }
     img {
       border-radius: 100px;
     }
   }
   &__content {
     flex: 1 1 auto;
+    > a {
+      text-decoration: none;
+      display: block;
+    }
   }
   &__form {
     display: flex;
@@ -67,6 +74,7 @@
   &__contentText {
     font-size: func.px-to-rem(18);
     padding: 8px;
+    word-break: break-word;
   }
   &__imageContnet {
     display: grid;
