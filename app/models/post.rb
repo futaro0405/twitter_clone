@@ -8,6 +8,8 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many_attached :images
 
+  validates :content, length: { maximum: 140 }
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
