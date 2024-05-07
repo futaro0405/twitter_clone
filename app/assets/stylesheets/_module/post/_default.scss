@@ -15,6 +15,11 @@
   padding: 8px;
   gap: 8px;
   border-bottom: 1px solid var.$BORDER_COLOR;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   &__image {
     flex: 0 0 auto;
     > a {
@@ -66,6 +71,10 @@
     color: var.$COLOR_CHIP_WHITE;
     padding: 8px 16px;
     font-size: func.px-to-rem(18);
+    > a {
+      color: var.$COLOR_CHIP_WHITE;
+      text-decoration: none;
+    }
   }
   &__contentName {
     font-size: func.px-to-rem(20);

@@ -3,6 +3,15 @@
     = link_to user_path(@post.user) do
       = image_tag @post.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center)
   .post__content
+    .post__header
+      .post__contentName
+        = @post.user.name
+      .post__button
+        - unless current_user.eql?(@post.user)
+          - if current_user.following?(@post.user)
+            = link_to "フォロー解除", user_relationships_path(@post.user), data: { turbo_method: :delete }
+          - else
+            = link_to "フォロー", user_relationships_path(@post.user), data: { turbo_method: :post }
     .post__contentName
       = @post.user.name
     .post__contentText
