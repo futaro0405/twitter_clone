@@ -37,3 +37,10 @@
           = link_to post_reposts_path(post), data: { turbo_method: :post } do
             i.bi.bi-repeat
             = post.reposts.count
+
+        - if post.bookmark_by?(current_user)
+          = link_to post_bookmarks_path(post), method: :delete, data: { turbo_method: :delete} do
+            i.bi.bi-bookmarks-fill[style="color: blue;"]
+        - else
+          = link_to post_bookmarks_path(post), data: { turbo_method: :post } do
+            i.bi.bi-bookmarks-fill

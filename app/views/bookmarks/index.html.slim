@@ -1,0 +1,8 @@
+.home
+  .home__inner
+    .home__nav
+      = render "shared/nav"
+    .home__content
+      = turbo_frame_tag "pagenations_bookmarks" do
+        = render partial: "shared/post_list", collection: @bookmark_post, as: :post
+        = paginate @bookmark_post, :param_name => 'page_bookmarks', remote: true
