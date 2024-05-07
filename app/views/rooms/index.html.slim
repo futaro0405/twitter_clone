@@ -7,12 +7,9 @@
             .chat-avatar
               object
                 = link_to user_path(entry.user) do
-                  = image_tag entry.user.icon, class: "message_icon_img me-3"
+                  = image_tag entry.user.image_avatar, class: "message_icon_img me-3"
             .chat-user-name
               span.fw-bold.me-2
                 = entry.user.name
-              span.username
-                | @
-                = entry.user.username
               .chat-text
                 = entry.room.messages.last&.message
