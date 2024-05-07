@@ -1,0 +1,15 @@
+- if @users.exists?
+  - @users.each do |user|
+    table
+      thead
+        tr
+          th
+            | name
+      tbody
+        tr
+          td
+            = user.name
+- else
+  p
+    | ユーザーはいません
+
