@@ -20,6 +20,16 @@
                     = link_to "フォロー解除", user_relationships_path(@user), data: { turbo_method: :delete }
                   - else
                     = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }
+              .profile__button
+                - unless @user.id == current_user.id
+                  - if @is_room == true
+                    = link_to room_path(@room_id) do
+                      i.fa-regular.fa-envelope.message
+                  - else
+                    = form_for @room do |f|
+                      = fields_for @entry do |e|
+                        = e.number_field :user_id, value: @user.id, hidden: true
+                      = f.submit "メッセージを送る", class: "message_link"
             .profile__body
               .profile__text
                 = Rinku.auto_link(safe_join(@user.profile.split("\n"),tag(:br)), :all, 'target="_blank"').html_safe
