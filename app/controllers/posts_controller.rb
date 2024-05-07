@@ -18,7 +18,7 @@ class PostsController < ApplicationController
       redirect_to root_path, success: 'Postしました。', status: :see_other
     else
       flash.now[:danger] = '失敗'
-      render root_path, status: :unprocessable_entity
+      render 'home/index', status: :unprocessable_entity
     end
   end
 

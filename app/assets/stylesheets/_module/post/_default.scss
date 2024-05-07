@@ -74,6 +74,7 @@
   &__contentText {
     font-size: func.px-to-rem(18);
     padding: 8px;
+    word-break: break-word;
   }
   &__imageContnet {
     display: grid;

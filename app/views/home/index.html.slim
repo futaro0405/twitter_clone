@@ -18,7 +18,7 @@
           .post__content
             = form_with model: @post, url: posts_path, local: true do |f|
               .post__form[data-controller="previews"]
-                = f.text_area :content, class: "post__textarea"
+                = f.text_area :content, maxlength: 140, placeholder: 'つぶやき', class: "post__textarea"
                 div[data-previews-target="preview"]
                 .post__formButton
                   = f.label :images, class: "post__formImage" do
@@ -29,11 +29,11 @@
         .tab-content#myTabContent
           .tab-pane.active.show.fade#post-tab-pane[role="tabpanel" aria-labelledby="post-tab" tabindex="0"]
             = turbo_frame_tag "pagenations1" do
-              = render partial: "shared/post_list", collection: @posts_all, as: :post
-              = paginate @posts_all, :param_name => 'page_all', remote: true
+              = render partial: "shared/post_list", collection: @pages_all, as: :post
+              = paginate @pages_all, :param_name => 'page_all', remote: true
           .tab-pane.fade#followers-tab-pane[role="tabpanel" aria-labelledby="followers-tab" tabindex="0"]
             = turbo_frame_tag "pagenations2" do
-              = render partial: "shared/post_list", collection: @posts_followers, as: :post
-              = paginate @posts_followers, :param_name => 'page_follow', remote: true
+              = render partial: "shared/post_list", collection: @pages_followers, as: :post
+              = paginate @pages_followers, :param_name => 'page_follow', remote: true
     - else
       | サインインしてください
