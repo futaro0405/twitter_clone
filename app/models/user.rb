@@ -28,6 +28,9 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
 
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+
   has_many :active_relationships,   class_name: 'Relationship', foreign_key: :follower_id,  dependent: :destroy,
                                     inverse_of: :follower
   has_many :passive_relationships,  class_name: 'Relationship', foreign_key: :followee_id,  dependent: :destroy,
