@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: %i[index]
   resources :messages, only: [:create]
-  resources :rooms, only: [:create, :index, :show]
+  resources :rooms, only: %i[create index show]
   resources :notifications, only: :index
 
 

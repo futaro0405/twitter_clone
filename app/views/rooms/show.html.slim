@@ -1,3 +1,29 @@
+/ .home
+/   .home__inner
+/     - if user_signed_in?
+/       .home__nav
+/         = render "shared/nav"
+/       .home__content
+/         - @entries.each do |e|
+/           - if @myUserId != e.user.id
+/             h2
+/               = e.user.name
+/               | さんとのトークルーム
+/         = link_to "ユーザー一覧に戻る", user_path(e.user_id)
+/         - if @messages.present?
+/           - @messages.each do |m|
+/             - @myUserId == m.user.id
+/               p
+/                 = m.user.name
+/               p
+/                 = m.message
+
+/         = form_for @message do |f|
+/           = f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 50, class:"form-text-field"
+/             = f.hidden_field :room_id, value: @room.id
+/               = f.submit "投稿",class: 'form-submit'
+
+
 .col-md-12.border_right.border_left.d-flex.flex-column.justify-content-between.vh-100
   .d-flex.align-items-center.py-2
     = link_to root_path, class: "text-dark" do
@@ -17,7 +43,7 @@
         .d-flex.justify-content-start.mb-3
           .fukidasi.d-flex
             .faceicon
-              = image_tag m.user.icon, class: "message_icon_img mr-2"
+              = image_tag m.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center), class: "message_icon_img mr-2"
             .chatting.p-2.rounded.bg-light.d-inline-block
               .says
                 = m.message

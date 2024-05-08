@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RoomsController < ApplicationController
   before_action :authenticate_user!
 
@@ -6,7 +8,7 @@ class RoomsController < ApplicationController
     @another_entries = Entry.where(room_id: my_room_id)
                             .where.not(user_id: current_user.id)
                             .preload(room: :messages)
-                            .preload(user: { icon_attachment: :blob })
+                            .preload(user: { image_avatar_attachment: :blob })
   end
 
   def show
@@ -22,9 +24,15 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.create
+    @room = Room.create(user_id: current_user.id)
     @current_entry = @room.entries.create(user_id: current_user.id)
-    @another_entry = @room.entries.create(user_id: params[:entry][:user_id])
-    redirect_to room_path(@room)
+    @another_entry = @room.entries.create(entry_params)
+    redirect_to room_path(@room.id)
+  end
+
+  private
+
+  def entry_params
+    params.require(:entry).permit(:user_id, :room_id).merge(room_id: @room.id)
   end
 end

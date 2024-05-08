@@ -1,9 +1,10 @@
-class CreateMessages < ActiveRecord::Migration[7.0]
+# frozen_string_literal: true
+
+class CreateEntries < ActiveRecord::Migration[7.0]
   def change
-    create_table :messages do |t|
+    create_table :entries do |t|
       t.references :user, null: false, foreign_key: true
       t.references :room, null: false, foreign_key: true
-      t.text :message
 
       t.timestamps
     end
