@@ -43,7 +43,7 @@
         .d-flex.justify-content-start.mb-3
           .fukidasi.d-flex
             .faceicon
-              = image_tag m.user.icon, class: "message_icon_img mr-2"
+              = image_tag m.user.image_avatar.variant(resize_to_fill: [50, 50], gravity: :Center), class: "message_icon_img mr-2"
             .chatting.p-2.rounded.bg-light.d-inline-block
               .says
                 = m.message
