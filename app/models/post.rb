@@ -25,7 +25,8 @@ class Post < ApplicationRecord
   end
 
   def create_notification_like!(current_user)
-    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id,user_id, id, 'like'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id,
+                               user_id, id, 'like'])
     return if temp.present?
 
     notification = current_user.active_notifications.new(
@@ -38,7 +39,8 @@ class Post < ApplicationRecord
   end
 
   def create_notification_repost!(current_user)
-    temp_1 = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id, user_id, id, 'repost'])
+    temp_1 = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id,
+                                 user_id, id, 'repost'])
     return if temp_1.present?
 
     notification = current_user.active_notifications.new(
@@ -51,11 +53,11 @@ class Post < ApplicationRecord
   end
 
   def create_notification_comment!(current_user, comment_id)
-      temp_ids = Comment.select(:user_id).where(post_id: id).where.not(user_id: current_user.id).distinct
-      temp_ids.each do |temp_id|
-        save_notification_comment!(current_user, comment_id, temp_id['user_id'])
-      end
-      save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
+    temp_ids = Comment.select(:user_id).where(post_id: id).where.not(user_id: current_user.id).distinct
+    temp_ids.each do |temp_id|
+      save_notification_comment!(current_user, comment_id, temp_id['user_id'])
+    end
+    save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
   end
 
   def save_notification_comment!(current_user, comment_id, visited_id)
