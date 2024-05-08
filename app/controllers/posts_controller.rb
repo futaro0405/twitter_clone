@@ -5,6 +5,25 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @comments = @post.comments.includes(:user).order(created_at: :desc).page(params[:page_comment]).per(3)
     @comment = current_user.comments.new
+
+    @current_entry = Entry.where(user_id: current_user.id)
+    @another_entry = Entry.where(user_id: @post.user.id)
+
+    return if @post.user.id == current_user.id
+
+    @current_entry.each do |current|
+      @another_entry.each do |another|
+        if current.room_id == another.room_id
+          @is_room = true
+          @room_id = current.room_id
+        end
+      end
+    end
+
+    return if @is_room
+
+    @room = Room.new
+    @entry = Entry.new
   end
 
   def edit

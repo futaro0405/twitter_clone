@@ -6,14 +6,25 @@
     .post__header
       .post__contentName
         = @post.user.name
-      .post__button
-        - unless current_user.eql?(@post.user)
-          - if current_user.following?(@post.user)
-            = link_to "フォロー解除", user_relationships_path(@post.user), data: { turbo_method: :delete }
-          - else
-            = link_to "フォロー", user_relationships_path(@post.user), data: { turbo_method: :post }
-    .post__contentName
-      = @post.user.name
+      .dropdown
+        button.btn.btn-secondary.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
+          | menu
+        ul.dropdown-menu
+          - unless current_user.eql?(@post.user)
+            li
+              - if current_user.following?(@post.user)
+                = link_to "フォロー解除", user_relationships_path(@post.user), data: { turbo_method: :delete }, class: "dropdown-item"
+              - else
+                = link_to "フォロー", user_relationships_path(@post.user), data: { turbo_method: :post }, class: "dropdown-item"
+          - unless @post.user.id == current_user.id
+            li
+              - if @is_room == true
+                = link_to 'chat room', room_path(@room_id), class: "dropdown-item"
+              - else
+                = form_for @room do |f|
+                  = fields_for @entry do |e|
+                    = e.number_field :user_id, value: @post.user.id, hidden: true
+                  = f.submit "start chat", class: "dropdown-item"
     .post__contentText
       = @post.content
     .post__imageContnet

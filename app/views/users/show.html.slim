@@ -12,14 +12,27 @@
             .profile__header
               .profile__name
                 = @user.name
-              .profile__button
-                - if current_user.eql?(@user)
-                  = link_to '編集', edit_user_registration_path(@user)
-                - else
-                  - if current_user.following?(@user)
-                    = link_to "フォロー解除", user_relationships_path(@user), data: { turbo_method: :delete }
-                  - else
-                    = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }
+              .dropdown
+                button.btn.btn-secondary.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
+                  | menu
+                ul.dropdown-menu
+                  li
+                    - if current_user.eql?(@user)
+                      = link_to '編集', edit_user_registration_path(@user), class: "dropdown-item"
+                    - else
+                      - if current_user.following?(@user)
+                        = link_to "フォロー解除", user_relationships_path(@user), data: { turbo_method: :delete }, class: "dropdown-item"
+                      - else
+                        = link_to "フォロー", user_relationships_path(@user), data: { turbo_method: :post }, class: "dropdown-item"
+                  li
+                    - unless @user.id == current_user.id
+                      - if @is_room == true
+                        = link_to 'chat room', room_path(@room_id), class: "dropdown-item"
+                      - else
+                        = form_for @room do |f|
+                          = fields_for @entry do |e|
+                            = e.number_field :user_id, value: @user.id, hidden: true
+                          = f.submit "start chat", class: "dropdown-item"
             .profile__body
               .profile__text
                 = Rinku.auto_link(safe_join(@user.profile.split("\n"),tag(:br)), :all, 'target="_blank"').html_safe

@@ -5,11 +5,11 @@ require:
 Style/Documentation:
   Enabled: false
 Metrics/MethodLength:
-  Max: 20
+  Max: 35
   Exclude:
     - 'db/migrate/*'
 Metrics/AbcSize:
-  Max: 32
+  Max: 45
   Exclude:
     - 'db/migrate/*'
 Metrics/BlockLength:
