@@ -1,36 +1,56 @@
-.home
-  .home__inner
-    - if user_signed_in?
-      .home__nav
-        = render "shared/nav"
-      .home__content
-        .col-md-12.border_right.border_left.d-flex.flex-column.justify-content-between.vh-100
-          .d-flex.align-items-center.py-2
-            = link_to root_path, class: "text-dark" do
-              i.fa-solid.fa-arrow-left.arrow-left
-            .profile_top_name
-              h3
-                = @another_entry.user.name
-                | さんとのメッセージ
+/ .home
+/   .home__inner
+/     - if user_signed_in?
+/       .home__nav
+/         = render "shared/nav"
+/       .home__content
+/         - @entries.each do |e|
+/           - if @myUserId != e.user.id
+/             h2
+/               = e.user.name
+/               | さんとのトークルーム
+/         = link_to "ユーザー一覧に戻る", user_path(e.user_id)
+/         - if @messages.present?
+/           - @messages.each do |m|
+/             - @myUserId == m.user.id
+/               p
+/                 = m.user.name
+/               p
+/                 = m.message
 
-          .chat-body.p-3.flex-grow-1.overflow-auto
-            - @messages.each do |m|
-              - if m.user_id == current_user.id
-                .d-flex.justify-content-end.mb-3
-                  .mycomment.p-2.rounded.d-inline-block
-                    = m.message
-              - else
-                .d-flex.justify-content-start.mb-3
-                  .fukidasi.d-flex
-                    .faceicon
-                      = image_tag m.user.icon, class: "message_icon_img mr-2"
-                    .chatting.p-2.rounded.bg-light.d-inline-block
-                      .says
-                        = m.message
+/         = form_for @message do |f|
+/           = f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 50, class:"form-text-field"
+/             = f.hidden_field :room_id, value: @room.id
+/               = f.submit "投稿",class: 'form-submit'
 
-          .chat-form-box.p-3
-            = form_for @message do |f|
-              .chat-form-group.d-flex
-                = f.text_field :message, class: "form-control mr-2 flex-grow-1"
-                = f.number_field :room_id, value: @room.id, hidden: true
-                = f.submit "送信", class: "btn message_submit"
+
+.col-md-12.border_right.border_left.d-flex.flex-column.justify-content-between.vh-100
+  .d-flex.align-items-center.py-2
+    = link_to root_path, class: "text-dark" do
+      i.fa-solid.fa-arrow-left.arrow-left
+    .profile_top_name
+      h3
+        = @another_entry.user.name
+        | さんとのメッセージ
+
+  .chat-body.p-3.flex-grow-1.overflow-auto
+    - @messages.each do |m|
+      - if m.user_id == current_user.id
+        .d-flex.justify-content-end.mb-3
+          .mycomment.p-2.rounded.d-inline-block
+            = m.message
+      - else
+        .d-flex.justify-content-start.mb-3
+          .fukidasi.d-flex
+            .faceicon
+              = image_tag m.user.icon, class: "message_icon_img mr-2"
+            .chatting.p-2.rounded.bg-light.d-inline-block
+              .says
+                = m.message
+
+  .chat-form-box.p-3
+    = form_for @message do |f|
+      .chat-form-group.d-flex
+        = f.text_field :message, class: "form-control mr-2 flex-grow-1"
+        = f.number_field :room_id, value: @room.id, hidden: true
+        = f.submit "送信", class: "btn message_submit"

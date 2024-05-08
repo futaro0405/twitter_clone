@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MessagesController < ApplicationController
   before_action :authenticate_user!
 
@@ -16,4 +18,3 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:message, :room_id)
   end
 end
-

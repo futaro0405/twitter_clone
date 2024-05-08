@@ -27,12 +27,12 @@
                   li
                     - unless @user.id == current_user.id
                       - if @is_room == true
-                        = link_to 'message', room_path(@room_id), class: "dropdown-item"
+                        = link_to 'chat room', room_path(@room_id), class: "dropdown-item"
                       - else
                         = form_for @room do |f|
                           = fields_for @entry do |e|
                             = e.number_field :user_id, value: @user.id, hidden: true
-                          = f.submit "メッセージを送る", class: "dropdown-item"
+                          = f.submit "start chat", class: "dropdown-item"
             .profile__body
               .profile__text
                 = Rinku.auto_link(safe_join(@user.profile.split("\n"),tag(:br)), :all, 'target="_blank"').html_safe
