@@ -132,10 +132,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_08_065203) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -190,5 +188,4 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_08_065203) do
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "reposts", "posts"
   add_foreign_key "reposts", "users"
-  add_foreign_key "rooms", "users"
 end
