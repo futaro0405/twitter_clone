@@ -27,16 +27,17 @@ class UsersController < ApplicationController
 
     @current_entry = Entry.where(user_id: current_user.id).pluck(:room_id)
     @another_entry = Entry.where(user_id: @user.id).pluck(:room_id)
+    room_entry = @current_entry & @another_entry
 
     return if @user.id == current_user.id
 
-    @is_room = true
-    @room_id = @current_entry & @another_entry
-
-    return if @is_room
-
-    @room = Room.new
-    @entry = Entry.new
+    if room_entry.empty?
+      @room = Room.new
+      @entry = Entry.new
+    else
+      @is_room = true
+      @room_id = room_entry.first
+    end
   end
 
   def followings
