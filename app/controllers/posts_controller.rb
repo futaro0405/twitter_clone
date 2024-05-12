@@ -5,6 +5,20 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @comments = @post.comments.includes(:user).order(created_at: :desc).page(params[:page_comment]).per(3)
     @comment = current_user.comments.new
+
+    @current_entry = Entry.where(user_id: current_user.id).pluck(:room_id)
+    @another_entry = Entry.where(user_id: @post.user.id).pluck(:room_id)
+    room_entry = @current_entry & @another_entry
+
+    return if @post.user.id == current_user.id
+
+    if room_entry.empty?
+      @room = Room.new
+      @entry = Entry.new
+    else
+      @is_room = true
+      @room_id = room_entry.first
+    end
   end
 
   def edit
