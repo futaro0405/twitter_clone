@@ -15,6 +15,9 @@
       - when 'like' then
         = link_to 'あなたの投稿', notification.post, style: "font-weight: bold;"
         = "にいいねしました"
+      - when 'repost' then
+        = link_to 'あなたの投稿', notification.post, style: "font-weight: bold;"
+        = "をリポストしました"
       - when 'comment' then
         - if notification.post.user_id == visited.id
           = link_to "あなたの投稿", notification.post, style: "font-weight: bold;"
