@@ -29,7 +29,7 @@
                 = notification.post.user.name + 'さんの投稿'
         = "にコメントしました"
         p.text-muted.mb-0
-          = Comment.find_by(id: notification.comment_id)&.comment
+          = Comment.find_by(id: notification.comment_id)&.comment_content
 
   .small.text-muted.text-right
     = time_ago_in_words(notification.created_at).upcase
