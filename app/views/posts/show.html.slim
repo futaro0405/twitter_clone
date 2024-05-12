@@ -18,7 +18,7 @@
                 = link_to "フォロー", user_relationships_path(@post.user), data: { turbo_method: :post }, class: "dropdown-item"
           - unless @post.user.id == current_user.id
             li
-              - if @is_room == true
+              - if @is_room
                 = link_to 'chat room', room_path(@room_id), class: "dropdown-item"
               - else
                 = form_for @room do |f|
