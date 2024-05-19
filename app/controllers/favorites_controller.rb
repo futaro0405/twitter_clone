@@ -6,7 +6,6 @@ class FavoritesController < ApplicationController
     @favorite = current_user.favorites.new(post_id: @post.id)
 
     if @favorite.save
-      @favorite.create_notification_like!(current_user, @post)
       redirect_to request.referer, status: :see_other
     else
       flash.now[:danger] = '失敗'

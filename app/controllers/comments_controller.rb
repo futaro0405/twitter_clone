@@ -7,7 +7,6 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      @comment.create_notification_comment!(current_user, @post)
       redirect_to request.referer, success: 'commentしました。', status: :see_other
     else
       flash.now[:danger] = '失敗'

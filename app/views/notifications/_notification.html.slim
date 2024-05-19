@@ -12,13 +12,13 @@
       - case notification.action
       - when 'follow' then
         = "あなたをフォローしました"
-      - when 'like' then
+      - when 'Favorite' then
         = link_to 'あなたの投稿', notification.post, style: "font-weight: bold;"
         = "にいいねしました"
-      - when 'repost' then
+      - when 'Repost' then
         = link_to 'あなたの投稿', notification.post, style: "font-weight: bold;"
         = "をリポストしました"
-      - when 'comment' then
+      - when 'Comment' then
         - if notification.post.user_id == visited.id
           = link_to "あなたの投稿", notification.post, style: "font-weight: bold;"
         - else

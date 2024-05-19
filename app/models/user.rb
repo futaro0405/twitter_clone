@@ -40,6 +40,14 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships,  source: :followee
   has_many :followers,  through: :passive_relationships, source: :follower
 
+  def self.current_user=(user)
+    Thread.current[:user] = user
+  end
+
+  def self.current_user
+    Thread.current[:user]
+  end
+
   def self.create_unique_string
     SecureRandom.uuid
   end
