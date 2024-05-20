@@ -25,7 +25,11 @@ class Post < ApplicationRecord
   end
 
   def create_notification_follow!(current_user)
-    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ? ', current_user.id, user_id, 'follow'])
+    temp = Notification.where(
+            visitor_id: current_user.id,
+            visited_id: user_id,
+            action: 'follow'
+           )
     return if temp.present?
 
     notification = current_user.active_notifications.new(
