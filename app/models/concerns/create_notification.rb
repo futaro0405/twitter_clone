@@ -9,21 +9,17 @@ module CreateNotification
 
   def create_notification
     if instance_of?(::Comment)
-      temp_ids = Comment.select(:user_id)
-                        .where(post_id: post.id)
-                        .where.not(user_id: User.current_user.id)
-                        .distinct
+      temp_ids = post.comments.where(post_id: post.id).where.not(user_id: User.current_user.id).distinct.pluck(:user_id)
       temp_ids.each do |temp_id|
         save_notification(temp_id['user_id'])
       end
       save_notification(post.user_id) if temp_ids.blank?
     else
       temp = Notification.where(
-        ['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ',
-         User.current_user.id,
-         post.user_id,
-         post_id,
-         self.class.name]
+        visitor_id: User.current_user.id,
+        visited_id: post.user_id,
+        post_id:,
+        action: self.class.name
       )
       return if temp.present?
 
