@@ -16,11 +16,11 @@ module CreateNotification
       save_notification(post.user_id) if temp_ids.blank?
     else
       temp = Notification.where(
-               visitor_id: User.current_user.id,
-               visited_id: post.user_id,
-               post_id: post_id,
-               action: self.class.name
-             )
+        visitor_id: User.current_user.id,
+        visited_id: post.user_id,
+        post_id:,
+        action: self.class.name
+      )
       return if temp.present?
 
       save_notification(post.user_id)
