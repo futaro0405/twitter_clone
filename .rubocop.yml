@@ -26,9 +26,18 @@ Hc/RailsSpecificActionName:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - app/controllers/users/*.rb
+Rails/SkipsModelValidations:
+  Exclude:
+    - app/controllers/**/*.rb
 Rails/BulkChangeTable:
   Exclude:
     - db/**/*
 Rails/UniqueValidationWithoutIndex:
+  Exclude:
+    - app/models/**/*
+Naming/VariableNumber:
+  Exclude:
+    - app/models/**/*
+Rails/InverseOf:
   Exclude:
     - app/models/**/*
